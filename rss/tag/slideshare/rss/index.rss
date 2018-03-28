@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>slideshare - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>slideshare - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:34 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/slideshare/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때</title><description>키노트에서 만든 pdf 파일을 슬라이드셰어에 올리면 글자가 나타나지 않는 현상이 있어서, 해법을 알아보았습니다. 불완전한 해법 + a</description><link>http://raccoonyy.github.io/do-not-displayed-character-of-pdf-on-slideshare/</link><guid isPermaLink="false">59815cfcdd47a80001bb9eee</guid><category>slideshare</category><category>keynote</category><category>슬라이드셰어</category><category>키노트</category><category>pdf</category><category>글자 안 보임</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 16 Aug 2016 23:16:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-08-17-45.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-08-17-45.png" alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"&gt;&lt;p&gt;2017년 4월 20일 업데이트!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="https://item4.github.io/2016-10-31/Way-to-Use-Homeland-Fonts-on-SlideShare/"&gt;item4님이 해결 방법을 공개&lt;/a&gt;하셨고, 이를 활용한 &lt;a href="http://blog.softdevstory.net/%EA%B0%9C%EB%B0%9C/2016/10/31/pdf_for_slideshare/"&gt;OSX용 프린트 플러그인&lt;/a&gt;도 softdevstory님이 공개하셨습니다. 참고하세요~ ^^&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=""&gt;문제&lt;/h2&gt;
+&lt;p&gt;언젠가부터 키노트의 &lt;code&gt;Export To &amp;gt; PDF&lt;/code&gt; 기능으로 만든 pdf 파일을 슬라이드셰어에서 제대로 인식하지 못하는 듯 하다.&lt;/p&gt;
+&lt;p&gt;다음과 같이 만든 pdf는&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-16-17-01-47.png" alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"&gt;&lt;/p&gt;
+&lt;p&gt;이렇게 글자가 안 보이는 현상이 나타난다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-16-17-05-56.png" alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"&gt;&lt;/p&gt;
+&lt;p&gt;그래서 궁여지책으로 &lt;a href="http://speakerdeck.com"&gt;speackerdeck&lt;/a&gt;을 사용해왔는데, 얘들은 간혹 한국 ip를 차단하는 건지 파일 업로드 후 처리 과정에서 막히는 경우가 종종 발생했다.&lt;/p&gt;
+&lt;h2 id=""&gt;어떤 해법&lt;/h2&gt;
+&lt;p&gt;한글 폰트에 열받은 율무님은 이런 슬라이드를 만들기도 했고...&lt;/p&gt;
+&lt;iframe src="//www.slideshare.net/slideshow/embed_code/key/hE0dRYXKs0Oi9h" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="//www.slideshare.net/jayjin0427/ss-62972276" title="슬라이드쉐어 한글폰트 지원여부 폰트별로 알아보기" target="_blank"&gt;슬라이드쉐어 한글폰트 지원여부 폰트별로 알아보기&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a target="_blank" href="//www.slideshare.net/jayjin0427"&gt;Jay Jin&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;h2 id=""&gt;검색&lt;/h2&gt;
+&lt;p&gt;나도 고통을 받다가 혹시나 해서 검색을 해보니, slideshare에서 &lt;a href="http://qiita.com/yasulab/items/49511c27179be454d568#%E7%94%9F%E6%88%90%E7%B5%90%E6%9E%9C%E3%81%AE%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB"&gt;비슷한 문제를 겪은 일본 프로그래머&lt;/a&gt;가 있었다.&lt;/p&gt;
+&lt;h2 id=""&gt;따라하기&lt;/h2&gt;
+&lt;p&gt;우회 방법(해법이라고 하지 않은 이유는 나중에 설명)은 바로 &lt;code&gt;Print&lt;/code&gt; 기능을 사용하는 것.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-26-18.png" alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"&gt;&lt;/p&gt;
+&lt;p&gt;그런데 미리보기 창에 나타나듯 화면 양 옆에 여백이 생긴다. &lt;code&gt;Print&lt;/code&gt; 기능은 말 그대로 출력물이기 때문에... 그러니 종이 크기를 4:3 사이즈로 바꾸자.&lt;/p&gt;
+&lt;p&gt;오른쪽 중간 쯤의 &lt;code&gt;Keynote&lt;/code&gt;가 선택되어 있는 SelectBox를 눌러 &lt;code&gt;Page Attribute&lt;/code&gt;를 선택한다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-30-09.png" alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"&gt;&lt;/p&gt;
+&lt;p&gt;그리고 &lt;code&gt;A4&lt;/code&gt;가 선택되어 있는 SelectBox를 눌러 제일 아래에 있는 &lt;code&gt;Manage Custom Sizes...&lt;/code&gt;를 선택한다.&lt;/p&gt;
+&lt;p&gt;팝업 창에서 더하기 버튼(+)을 누르고 다음과 같이 입력하고 &lt;code&gt;OK&lt;/code&gt;를 누른다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-31-18.png" alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"&gt;&lt;/p&gt;
+&lt;p&gt;여백이 사라졌다. 짠!&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-32-40.png" alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"&gt;&lt;/p&gt;
+&lt;p&gt;이제 왼쪽 아래 부분의 &lt;code&gt;PDF&lt;/code&gt;가 선택되어 있는 SelectBox를 눌러 &lt;code&gt;Save as Adobe PDF&lt;/code&gt;를 선택해주면 된다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-33-37.png" alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"&gt;&lt;/p&gt;
+&lt;p&gt;이렇게 만든 pdf 파일을 슬라이드셰어에 올려보면 글자가 잘 보인다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-35-02.png" alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"&gt;&lt;/p&gt;
+&lt;h2 id=""&gt;단점&lt;/h2&gt;
+&lt;p&gt;앞에서 '우회 방법'이라고 말한 이유를 이제 설명해보자면, 이렇게 만들어 올린 파일에서는 &lt;strong&gt;링크가 눌러지지 않는다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;그래도 글자가  안 보이는 것보다는 낫지 않나 해서...&lt;/p&gt;
+&lt;h2 id=""&gt;추가&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://qiita.com/yasulab/items/49511c27179be454d568#%E7%94%9F%E6%88%90%E7%B5%90%E6%9E%9C%E3%81%AE%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB"&gt;내가 따라한 글&lt;/a&gt;의 윗 부분에 이상한 명령어를 적어두었기에 자세히 살펴보니, 궁극의 해법이라는 듯 했다. 명령어의 출처는 &lt;a href="http://d.hatena.ne.jp/a_bicky/20160516/1463337063"&gt;하테나 블로그 글&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;이 글에서는 문자 코드와 CMap 같은 어려운 이야기들을 늘어놓으면서, 슬라이드셰어가 어떤 문제를 제대로 처리하지 못한다고 지적한다. 해당 문제를 슬라이드셰어 쪽에 신고했는데, 문제를 알려줘서 고맙지만 언제까지 고칠 수 있을지 장담은 못한다는 답을 받았다고 한다. (보통 이런 경우 '우린 그 문제를 다룰 여력이 없다'는 식으로 해석하면 되던데...)&lt;/p&gt;
+&lt;p&gt;그러고나서 어떤 사람이 pdf 파일에 어떤 정보를 집어 넣는 명령어를 제시하고, 이렇게 해서 모든 문제를 해결했다는 듯.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ LANG=C LC_ALL=C sed -i '' s'|/Registry (Adobe) /Ordering (Japan1) /Supplement [0-9]|/Registry(Adobe) /Ordering(Identity) /Supplement 0|g' /path/to/pdf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이걸 보고 나도 중간의 &lt;code&gt;Japan1&lt;/code&gt;만 &lt;code&gt;Korean1&lt;/code&gt;로 바꿔서 시도해봤지만 안 됨... oTL...&lt;/p&gt;
+&lt;p&gt;나는 문자 코드나 CMap 등을 잘 몰라서 더이상 어떻게 해야할지 모르겠다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

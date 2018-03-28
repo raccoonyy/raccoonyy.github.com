@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>제너레이터 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>제너레이터 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:38 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/jeneoreiteo/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(9월 둘째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 PyCon AU 2016 참가 후기 #2 파이썬 제너레이터에 대해 #3 자바나 C++ 개발자가 범하기 쉬운 파이썬의 함정</description><link>http://raccoonyy.github.io/python-news-for-korean-2nd-week-sep/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ef0</guid><category>파이썬 소식</category><category>python-news</category><category>pycon-au</category><category>제너레이터</category><category>함정</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 13 Sep 2016 01:55:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(9월 둘째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="pyconau2016byharuair"&gt;&lt;a href="http://haruair.com/blog/3717"&gt;PyCon AU 2016 참가 후기&lt;/a&gt; by Haruair님&lt;/h3&gt;
+&lt;p&gt;Haruair님이 호주 파이콘에 참석한 후기를 올려주었습니다.&lt;/p&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://schoolofweb.net/blog/posts/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0-generator/"&gt;파이썬 - 제너레이터&lt;/a&gt; by 이상희 님&lt;/h3&gt;
+&lt;p&gt;파이썬의 제너레이터에 대해 이상희 님이 정리하였습니다.&lt;/p&gt;
+&lt;h3 id="1by"&gt;&lt;a href="http://hamait.tistory.com/634"&gt;파이썬의 함정 1&lt;/a&gt; by 이승현 님&lt;/h3&gt;
+&lt;p&gt;자바나 C++로 개발하다가 파이썬으로 넘어온 분들이 범하기 쉬운 실수들을 이승현 님이 정리하였습니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ECS - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>ECS - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:22 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/ecs/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>(컴파일 없이) nginx에서 환경 변수 불러오기</title><description>nginx에서 환경 변수를 읽어들이는 방법을 찾아보니 perl 모듈이나 lua 모듈을 사용하라는데, 그러기 싫어서 셸 스크립트를 활용해 보았다.</description><link>http://raccoonyy.github.io/using_env_variables_in_nginx_conf_without_lua_or_perl_module/</link><guid isPermaLink="false">59815cfcdd47a80001bb9eeb</guid><category>nginx</category><category>shell script</category><category>environment variable</category><category>ECS</category><category>docker</category><category>elb</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 04 Aug 2016 09:56:51 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/08/without-any-module.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;h1 id=""&gt;요약&lt;/h1&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/08/without-any-module.jpg" alt="(컴파일 없이) nginx에서 환경 변수 불러오기"&gt;&lt;p&gt;lua 모듈 쓰면 겁나 편하지만, 사정상 사용할 수 없다면 셸 스크립트 방식도 고려해보자.&lt;/p&gt;
+&lt;h1 id=""&gt;상황&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;nginx에서 특정 url에 대해 ip를 제한해야 하는데, ip 설정을 동적으로 하고 싶었다. (하지만 &lt;strong&gt;db 설정 없이&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;nginx에서 환경 변수를 읽어들이는 방법을 찾아보니 perl 모듈이나 lua 모듈을 사용하라는데, nginx를 직접 컴파일해야 한다는 점이 걸렸다. (&lt;strong&gt;컴파일 공포증&lt;/strong&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;아무것도 컴파일하지 않고, 추가로 설치하는 일도 없이 할 수는 없을까?를 고민하다가 최근 재미 들린 셸 스크립트를 활용해보기로 했다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;서비스는 docker 이미지로 만들어져, aws의 ECS에 올라가 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="1ipurl"&gt;1. ip로 url 접근 제한하기&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;/admin/&lt;/code&gt; url에 대해서 특정 ip만 접근하도록 해보자.&lt;/p&gt;
+&lt;p&gt;먼저 &lt;code&gt;nginx.conf&lt;/code&gt;의 /admin 부분에 주석문(&lt;code&gt;# admin_ip_whitelist&lt;/code&gt;)을 하나 추가했다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-nginx"&gt;# nginx.conf
+...
+# 로드 밸런서를 사용하는 경우 이 부분들이 필요하다.
+set_real_ip_from   172.17.0.0/16;  # 로드 밸런서의 ip 대역을 넣어준다.
+real_ip_header     X-Forwarded-For;
+...
+# 로드 밸런서가 없다면 아래 부분만 있어도 된다.
+location /admin {
+    uwsgi_pass unix:///var/run/default-uwsgi.sock;
+    include uwsgi_params;
+    # admin_ip_whitelist
+}
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;그 다음 docker 이미지의 CMD 부분에 셸 스크립트를 넣는다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-docker"&gt;# Dockerfile
+...
+ADD    ./run.sh /
+CMD    /run.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이제 &lt;code&gt;run.sh&lt;/code&gt; 파일을 작성한다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-bash"&gt;#!/bin/bash
+
+if [ -n &amp;quot;$IP_WHITELIST_FOR_ADMIN&amp;quot; ]; then
+    IP_WHITELIST=&amp;quot;allow ${IP_WHITELIST_FOR_ADMIN};\n&amp;quot;
+    IP_WHITELIST+=&amp;quot;deny all;&amp;quot;
+
+    sed -i &amp;quot;s@# admin_ip_whitelist@${IP_WHITELIST}@g&amp;quot; /etc/nginx/nginx.conf
+fi
+
+supervisord -n  # 이건 원래 Dockerfile의 CMD 부분에서 실행하던 명령어
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이제 ECS의 Task Definition에서 &lt;code&gt;IP_WHITE_LIST_FOR_ADMIN&lt;/code&gt; 환경변수를 추가하면 해당 IP만 &lt;code&gt;/admin&lt;/code&gt;에 접근할 수 있다.&lt;/p&gt;
+&lt;h3 id="2elbvpcurl"&gt;2. ELB의 vpc 대역으로 특정 url 접근 제한하기&lt;/h3&gt;
+&lt;p&gt;이번에는 &lt;code&gt;/api/special&lt;/code&gt;에 대해 같은 vpc 내부의 요청만 허용해보자. (1번 작업을 해두었다고 가정한다.)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nginx.conf&lt;/code&gt;의 /api/special 부분에 주석문(&lt;code&gt;# vpc_ip_range&lt;/code&gt;)을 추가한다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-nginx"&gt;location /api/special {
+    uwsgi_pass unix:///var/run/default-uwsgi.sock;
+    include uwsgi_params;
+    # vpc_ip_range
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;그리고 &lt;code&gt;run.sh&lt;/code&gt;에 다음 내용을 추가한다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-bash"&gt;# run.sh
+...
+if [ -n &amp;quot;WRITE_API_ACCESS_ONLY_VPC&amp;quot; ]; then
+    # 서버의 IP 네트워크 내역을 검출하는 방법.
+    # 주의! 네트워크가 여럿인 경우엔 결과 값도 여러 개로 나오므로, 이를 배열에 저장하여 사용해야 함
+    VPC_SUBNET_MASK=`ip -o -f inet addr show | awk '/scope global/ {print $4}'`
+
+    VPC_IP_RANGE=&amp;quot;allow ${VPC_SUBNET_MASK};\n&amp;quot;
+    VPC_IP_RANGE=&amp;quot;deny all;&amp;quot;
+
+    sed -i &amp;quot;s@# vpc_ip_range@${VPC_IP_RANGE}@g&amp;quot; /etc/nginx/nginx.conf
+fi
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이제 ECS의 Task Definition에서 &lt;code&gt;WRITE_API_ACCESS_ONLY_VPC&lt;/code&gt; 값을 설정하면(어떤 값으로든), &lt;code&gt;/api/special&lt;/code&gt;이라는 경로는 VPC 내부에서만 접근할 수 있게 된다.&lt;/p&gt;
+&lt;h1 id=""&gt;배운 점&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;shell script를 좀더 제대로 배워보고 싶어졌다. 알면 알수록 활용성이 올라갈 듯.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sed 같은 유닉스 기본 명령도 많이 알아보자.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;docker와 환경 변수 독립이라는 개념이 유닉스나 시스템 엔지니어링에 익숙하지 않은 사람(=나)에게 큰 도움이 되는 듯.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content:encoded></item><item><title>[RFDP] django-environ</title><description>컨테이너 환경을 사용한 배포시 환경변수 관리의 불편함을 덜어주는 플러그인입니다.</description><link>http://raccoonyy.github.io/django-environ/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ee2</guid><category>Django</category><category>django-environ</category><category>환경변수</category><category>ECS</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 16 Jun 2016 23:11:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/06/raccoonys_favorite_django_plugins.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/06/raccoonys_favorite_django_plugins.jpg" alt="[RFDP] django-environ"&gt;&lt;p&gt;RFDP : Raccoony's Favorite Django Plugins&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;플러그인 이름 : django-environ&lt;/p&gt;
+&lt;p&gt;저장소 : &lt;a href="https://github.com/joke2k/django-environ"&gt;https://github.com/joke2k/django-environ&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;공식 문서 : &lt;a href="http://django-environ.readthedocs.org/"&gt;http://django-environ.readthedocs.org/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=""&gt;쓰임새&lt;/h2&gt;
+&lt;p&gt;배포 과정에서 Docker 등의 컨테이너 환경을 도입했다면 환경변수를 통해 각종 설정값을 관리할 텐데요. 데이터베이스 하나 설정하는 데만도 대여섯 개의 값이 필요한 상황이 불편하기도 하고, 환경변수마다 매번 &lt;code&gt;os.environ.get&lt;/code&gt;을 입력하기도 귀찮고, 또 개발 환경을 설정하기 위해 &lt;code&gt;export&lt;/code&gt;를 해줘야 하는 상황도 귀찮죠.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;django-environ&lt;/strong&gt; 패키지는 이러한 불편함을 덜어 줍니다.&lt;/p&gt;
+&lt;h2 id=""&gt;설치&lt;/h2&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;pip install django-environ
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;적용하기&lt;/h2&gt;
+&lt;h4 id="1settingspyenv"&gt;1. 먼저 &lt;code&gt;settings.py&lt;/code&gt;에서 빼내고 싶은 환경변수들을 &lt;code&gt;.env&lt;/code&gt; 파일에 모아두세요.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;# .env
+DEBUG=on
+DATABASE_URL=mysql://db_user_id:db_user_password@db_host_address:db_host_port/db_name
+SECRET_KEY=...
+
+MY_ENV_VALUE=...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="2settingspy"&gt;2. 그 다음에 &lt;code&gt;settings.py&lt;/code&gt; 파일을 수정합니다.&lt;/h4&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# settings.py
+
+import environ
+root = environ.Path(__file__) - 3 # three folder back (/a/b/c/ - 3 = /)
+env = environ.Env(DEBUG=(bool, False),) # 기본 값
+environ.Env.read_env() # .env 파일이 있으면 읽음
+
+SITE_ROOT = root()
+
+DEBUG = env('DEBUG') # 환경변수에 DEBUG값이 없으면 False로 설정됨
+TEMPLATE_DEBUG = DEBUG
+
+DATABASES = {
+    'default': env.db(), # DATABASE_URL이 환경변수에 없으면 ImproperlyConfigured 예외 던짐
+}
+
+public_root = root.path('public/')
+
+MEDIA_ROOT = public_root('media')
+MEDIA_URL = 'media/'
+STATIC_ROOT = public_root('static')
+STATIC_URL = 'static/'
+
+SECRET_KEY = env('SECRET_KEY') # SECRET_KEY가 환경변수에 없으면 ImproperlyConfigured 예외 던짐
+
+MY_ENV_VALUE = env('MY_ENV_VALUE', default='test_value') # MY_ENV_VALUE가 환경변수에 없으면 test_value로 설정됨
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="3"&gt;3. 마지막으로 배포 환경용 설정값을 컨테이너에 주입합니다.&lt;/h4&gt;
+&lt;p&gt;저는 AWS의 ECS 서비스를 사용하고 있으므로 Task Definition에 넣어주었습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/06/aws_task_definition.jpg" alt="[RFDP] django-environ"&gt;&lt;/p&gt;
+&lt;p&gt;자세한 사항은 &lt;a href="http://django-environ.readthedocs.org/"&gt;공식 문서&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

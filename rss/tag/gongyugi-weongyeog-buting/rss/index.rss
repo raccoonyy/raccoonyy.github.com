@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>공유기 원격 부팅 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>공유기 원격 부팅 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:24 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/gongyugi-weongyeog-buting/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(9월 셋째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 지진 지도 #2 setup.py와 requirements.txt의 차이점과 사용법 #3 나노 서버에 파이썬/장고 설치 #4 howdoi 소스 분석 #5 공유기 원격 부팅 스크립트 #5 ESP8266을 활용한 IoT 실습 세션</description><link>http://raccoonyy.github.io/python-news-for-korean-3rd-week-sep/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ef4</guid><category>파이썬 소식</category><category>python-news</category><category>지진 지도</category><category>setup.py</category><category>requirements.txt</category><category>Windows 나노 서버</category><category>howdoi</category><category>공유기 원격 부팅</category><category>ESP8266</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 20 Sep 2016 00:55:06 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(9월 셋째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://sams.epaiai.com/220796447102"&gt;지진 지역 지도에 표시하기&lt;/a&gt; by 옥수별님&lt;/h3&gt;
+&lt;p&gt;Matplotlib과 Basemap을 활용하여 지진 데이터를 지도에 표시하는 과정을 옥수별님이 알려줍니다.&lt;/p&gt;
+&lt;h3 id="setuppyrequirementstxtbyharuair"&gt;&lt;a href="http://haruair.com/blog/3719"&gt;setup.py와 requirements.txt의 차이점과 사용 방법&lt;/a&gt; by haruair님&lt;/h3&gt;
+&lt;p&gt;파이썬에서 의존성 관리나 패키지 관리에 사용하는 &lt;code&gt;setup.py&lt;/code&gt; 파일과 &lt;code&gt;requirements.txt&lt;/code&gt; 파일에 대해 정리한 글을 haruair님이 번역하였습니다.&lt;/p&gt;
+&lt;h3 id="byyourima"&gt;&lt;a href="https://blogs.technet.microsoft.com/krdcvteam/2016/09/15/%EB%82%98%EB%85%B8-%EC%84%9C%EB%B2%84%EC%97%90-%ED%8C%8C%EC%9D%B4%EC%8D%AC%EA%B3%BC-%EC%9E%A5%EA%B3%A0-%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0/"&gt;나노 서버에 파이썬과 장고 실행하기&lt;/a&gt; by yourima님&lt;/h3&gt;
+&lt;p&gt;Windows 나노 서버에서 파이썬과 장고를 설치하는 방법을 yourima님이 정리하였습니다.&lt;/p&gt;
+&lt;h3 id="howdoibyjinni"&gt;&lt;a href="http://www.jinniahn.com/2016/09/howdoi.html"&gt;howdoi 분석&lt;/a&gt; by Jinni님&lt;/h3&gt;
+&lt;p&gt;키워드에 기반하여 코드 사용법을 알려주는 howdoi라는 유틸리티를 Jinni님이 분석해봅니다.&lt;/p&gt;
+&lt;h1 id=""&gt;프로젝트&lt;/h1&gt;
+&lt;h3 id="dlinkwolbyrajephon"&gt;&lt;a href="https://github.com/rajephon/WakeOnLan_for_D-Link_router"&gt;D-Link 공유기 원격 부팅(WOL) 스크립트&lt;/a&gt; by rajephon님&lt;/h3&gt;
+&lt;p&gt;D-Link 공유기의 원격 부팅 기능에 접근할 수 있는 파이썬 스크립트를 rajephon님이 공개하였습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;행사&lt;/h1&gt;
+&lt;h3 id="micropythononesp8266byibmbluemix"&gt;&lt;a href="http://www.meetup.com/Bluemix-Seoul-PaaS-and-Cloud-Computing-Meetup/events/233979499/"&gt;MicroPython on ESP8266&lt;/a&gt; by IBM Bluemix&lt;/h3&gt;
+&lt;p&gt;ESP8266을 활용한 IoT 실습 세션을 IBM Bluemix Meetup에서 준비하였습니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Django 1.10 릴리스 노트 요약</title>
+
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=1bdc66a1a4">
+
+	<meta name="description" content="Django 1.10 릴리스 노트를 요약하였습니다. #1 PostgreSQL에서 Full Text 검색 지원 #2 미들웨어 스타일 변경 #3 사용자 username에 유니코드 지원 등">
+    <link rel="shortcut icon" href="../favicon.png" type="image/png">
+    <link rel="canonical" href="http://raccoonyy.github.io/django-1-10-release-note-korean/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="raccoony's cave">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Django 1.10 릴리스 노트 요약">
+    <meta property="og:description" content="Django 1.10 릴리스 노트를 요약하였습니다. #1 PostgreSQL에서 Full Text 검색 지원 #2 미들웨어 스타일 변경 #3 사용자 username에 유니코드 지원 등">
+    <meta property="og:url" content="http://raccoonyy.github.io/django-1-10-release-note-korean/">
+    <meta property="og:image" content="http://raccoonyy.github.io/content/images/2016/08/django_1-10_released.png">
+    <meta property="article:published_time" content="2016-08-02T04:00:00.000Z">
+    <meta property="article:modified_time" content="2017-08-03T10:28:54.000Z">
+    <meta property="article:tag" content="Django">
+    <meta property="article:tag" content="1.10">
+    <meta property="article:tag" content="릴리스 노트">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Django 1.10 릴리스 노트 요약">
+    <meta name="twitter:description" content="Django 1.10 릴리스 노트를 요약하였습니다. #1 PostgreSQL에서 Full Text 검색 지원 #2 미들웨어 스타일 변경 #3 사용자 username에 유니코드 지원 등">
+    <meta name="twitter:url" content="http://raccoonyy.github.io/django-1-10-release-note-korean/">
+    <meta name="twitter:image" content="http://raccoonyy.github.io/content/images/2016/08/django_1-10_released.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="raccoony">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Django, 1.10, 릴리스 노트">
+    <meta name="twitter:site" content="@raccoonyy">
+    <meta name="twitter:creator" content="@raccoonyy">
+    <meta property="og:image:width" content="1486">
+    <meta property="og:image:height" content="1350">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://raccoonyy.github.io/favicon.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "raccoony",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://raccoonyy.github.io/author/raccoony/",
+        "sameAs": [
+            "https://twitter.com/raccoonyy"
+        ]
+    },
+    "headline": "Django 1.10 릴리스 노트 요약",
+    "url": "http://raccoonyy.github.io/django-1-10-release-note-korean/",
+    "datePublished": "2016-08-02T04:00:00.000Z",
+    "dateModified": "2017-08-03T10:28:54.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://raccoonyy.github.io/content/images/2016/08/django_1-10_released.png",
+        "width": 1486,
+        "height": 1350
+    },
+    "keywords": "Django, 1.10, 릴리스 노트",
+    "description": "Django 1.10 릴리스 노트를 요약하였습니다. #1 PostgreSQL에서 Full Text 검색 지원 #2 미들웨어 스타일 변경 #3 사용자 username에 유니코드 지원 등",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 1.21">
+    <link rel="alternate" type="application/rss+xml" title="raccoony's cave" href="http://raccoonyy.github.io/rss/">
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg">
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2370280605121686",
+    enable_page_level_ads: true
+  });
+</script>
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+    body {
+        font-family: 'KoPub Batang', serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: sans-serif;
+    }
+    .post-content a {
+        border-bottom: 0px;
+        background: linear-gradient(#f26a3d, #f26a3d) no-repeat;
+        background-size: 100% 1px;
+        background-position: 0 1em;
+        font-weight: 700;
+        text-shadow: .05em 0 white, -.05em 0 white;
+    }
+    code, tt {
+        background: none;
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+        font-weight: 700;
+    }
+</style>
+</head>
+
+<body class="post-template tag-django tag-1-10 tag-rilriseu-noteu">
+
+	<nav id="menu">
+	<a class="close-button">Close</a>
+	<div class="nav-wrapper">
+		<p class="nav-label">Menu</p>
+		<ul>
+			<li class="nav-home" role="presentation"><a href="http://raccoonyy.github.io/">Home</a></li>
+			<li class="nav-about-me" role="presentation"><a href="http://raccoonyy.github.io/about-me/">About Me</a></li>
+			<li class="nav-django" role="presentation"><a href="http://raccoonyy.github.io/tag/django/">Django</a></li>
+			<li class="nav-python" role="presentation"><a href="http://raccoonyy.github.io/tag/python/">Python</a></li>
+			<li class="nav-twitter"><a href="https://twitter.com/raccoonyy" title="@raccoonyy"><i class="ic ic-twitter"></i> Twitter</a></li>
+			<li class="nav-facebook"><a href="https://www.facebook.com/raccoonyy" title="raccoonyy"><i class="ic ic-facebook"></i> Facebook</a></li>
+			<li class="nav-rss"><a href="http://raccoonyy.github.io/rss/"><i class="ic ic-rss"></i> Subscribe</a></li>
+		</ul>
+	</div>
+</nav>
+
+	<section id="wrapper">
+		<a class="hidden-close"></a>
+		
+
+<div class="progress-container">
+	<span class="progress-bar"></span>
+</div>
+
+<header id="post-header" class="has-cover">
+	<div class="inner">
+		<nav id="navigation">
+			<span id="home-button" class="nav-button">
+				<a class="home-button" href="http://raccoonyy.github.io" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+			</span>
+			<span id="menu-button" class="nav-button">
+				<a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+			</span>
+		</nav>
+		<h1 class="post-title">Django 1.10 릴리스 노트 요약</h1>
+		<span class="post-meta"><a href="../author/raccoony/index.html">raccoony</a> | <time datetime="2016-08-02">02 Aug 2016</time></span>
+		<div class="post-cover cover" style="background-image: url('../content/images/2016/08/django_1-10_released.png');"></div>
+	</div>
+</header>
+
+<main class="content" role="main">
+	<article class="post tag-django tag-1-10 tag-rilriseu-noteu">
+		<div class="inner">
+
+			<section class="post-content">
+				<div class="kg-card-markdown"><p><a href="https://docs.djangoproject.com/en/1.10/releases/1.10/">Django 1.10 릴리스 노트</a>를 요약해 보았습니다.</p>
+<p>(제 주관이 많이 들어간 요약이므로, 원문도 꼭 챙겨보길 권합니다.)</p>
+<h2 id="">파이썬 호환성</h2>
+<p>Django 1.9와 마찬가지로, 파이썬 2.7, 3.4, 3.5를 지원합니다.</p>
+<h2 id="">새 기능</h2>
+<h4 id="postgresqlfulltext"><a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#full-text-search-for-postgresql">PostgreSQL에서 Full Text 검색을 지원</a></h4>
+<pre><code class="language-python">&gt;&gt;&gt; Entry.objects.filter(body_text__search='Cheese')
+[&lt;Entry: Cheese on Toast recipes&gt;, &lt;Entry: Pizza Recipes&gt;]
+</code></pre>
+<p>기본 Full Text 검색 외에도 <a href="https://docs.djangoproject.com/en/1.10/ref/contrib/postgres/search/#postgresql-fts-weighting-queries">가중치를 부여한 검색</a> 등도 지원하니, PostgreSQL로 넘어갈 이유가 점점 많아지고 있네요.</p>
+<h4 id="middleware_classesmiddleware"><a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-MIDDLEWARE">MIDDLEWARE_CLASSES 대신 MIDDLEWARE</a></h4>
+<p><a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#new-style-middleware">업그레이드 가이드</a>를 참고하세요.</p>
+<h4 id="username"><a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#official-support-for-unicode-usernames">유니코드 username 지원</a></h4>
+<p>파이썬 3에서는 <code>username_validator</code>가 기본으로 유니코드를 지원하게 됩니다.</p>
+<h2 id="">중단 예정인 기능</h2>
+<h4 id="commaseparatedintegerfield"><a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#commaseparatedintegerfield-model-field">CommaSeparatedIntegerField</a></h4>
+<p>대신, <a href="https://docs.djangoproject.com/en/1.10/ref/validators/#django.core.validators.validate_comma_separated_integer_list"><code>validate_comma_separated_integer_list</code></a>를 사용하라고 하네요.</p>
+<h2 id="">삭제된 기능</h2>
+<ul>
+<li><code>django.conf.urls.patterns()</code>가 사라졌어요.</li>
+<li>별도로 설정 가능하던 템플릿 관련 설정들이 사라졌습니다. <code>TEMPLATES</code> 설정 안에 넣어야 합니다.</li>
+<li>migrate 명령 실행시 <code>--list</code> 옵션이 사라집니다. (migrate 명령 대신 showmigrations 명령을 사용하면 됩니다.)</li>
+</ul>
+</div>
+				<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- raccoony's cave -->
+				<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2370280605121686" data-ad-slot="2918896685" data-ad-format="auto"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</section>
+
+			<section class="post-info">
+
+				<div class="post-share">
+					<a class="twitter" href="https://twitter.com/share?text=Django%201.10%20%EB%A6%B4%EB%A6%AC%EC%8A%A4%20%EB%85%B8%ED%8A%B8%20%EC%9A%94%EC%95%BD&amp;url=http://raccoonyy.github.io/django-1-10-release-note-korean/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+						<i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+					</a>
+					<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://raccoonyy.github.io/django-1-10-release-note-korean/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+					</a>
+					<a class="googleplus" href="https://plus.google.com/share?url=http://raccoonyy.github.io/django-1-10-release-note-korean/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+					</a>
+					<div class="clear"></div>
+				</div>
+
+				<aside class="post-tags">
+					<a href="../tag/django/index.html">Django</a> <a href="../tag/1-10/index.html">1.10</a> <a href="../tag/rilriseu-noteu/index.html">릴리스 노트</a>
+				</aside>
+
+				<div class="clear"></div>
+
+				<aside class="post-author">
+						<figure class="post-author-avatar">
+							<img src="http://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony">
+						</figure>
+					<div class="post-author-bio">
+						<h4 class="post-author-name"><a href="../author/raccoony/index.html">raccoony</a></h4>
+							<span class="post-author-twitter"><i class="ic ic-twitter"></i> <a target="_blank" href="https://twitter.com/@raccoonyy">Twitter</a></span>
+					</div>
+					<div class="clear"></div>
+				</aside>
+
+			</section>
+
+
+			<section class="post-comments">
+				<a id="show-disqus" class="post-comments-activate">Show Comments</a>
+			    <div id="disqus_thread"></div>
+			</section>
+
+
+			<aside class="post-nav">
+					<a class="post-nav-next" href="../using_env_variables_in_nginx_conf_without_lua_or_perl_module/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-left"></i>
+							<h2 class="post-nav-title">(컴파일 없이) nginx에서 환경 변수 불러오기</h2>
+							<p class="post-nav-excerpt">요약 lua 모듈 쓰면 겁나 편하지만, 사정상 사용할 수 없다면 셸 스크립트…</p>
+						</section>
+					</a>
+					<a class="post-nav-prev" href="../python-news-for-korean-1st-week-aug/index.html">
+						<section class="post-nav-teaser">
+							<i class="ic ic-arrow-right"></i>
+							<h2 class="post-nav-title">한국의 파이썬 소식(8월 첫 주)</h2>
+							<p class="post-nav-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다. 프로젝트 한국어 원형복원 코드 by lynn-hong님…</p>
+						</section>
+					</a>
+				<div class="clear"></div>
+			</aside>
+
+
+		</div>
+	</article>
+</main>
+
+
+		<div id="body-class" style="display: none;" class="post-template tag-django tag-1-10 tag-rilriseu-noteu"></div>
+
+		<footer id="footer">
+			<div class="inner">
+				<section class="credits">
+					<span class="credits-theme">Theme <a href="https://github.com/zutrinken/attila">Attila</a> by <a href="http://zutrinken.com" rel="nofollow">zutrinken</a></span>
+					<span class="credits-software">Published with <a href="http://ghost.org">Ghost</a></span>
+				</section>
+			</div>
+		</footer>
+	</section>
+
+	<script type="text/javascript" src="../assets/js/script.js?v=1bdc66a1a4"></script>
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/dockerfile.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/yaml.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/django.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-35614951-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

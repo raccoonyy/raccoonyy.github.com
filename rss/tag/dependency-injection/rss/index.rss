@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>Dependency Injection - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>Dependency Injection - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:42 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/dependency-injection/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(2017년 4월 넷째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 파이썬 2중 리스트 풀어내기 #2 파이썬용 Vim ctags 설정 팁 #3 파이썬용 DI 라이브러리 Autowire #4 제4회 파이썬 격월 세미나 발표자 모집 #5 (신간) 나의 첫 파이썬</description><link>http://raccoonyy.github.io/python-news-for-korean-2017-4th-week-apr/</link><guid isPermaLink="false">59815cfcdd47a80001bb9f1e</guid><category>파이썬 소식</category><category>python-news</category><category>2중 리스트</category><category>ctags</category><category>Dependency Injection</category><category>제4회 파이썬 격월 세미나</category><category>나의 첫 파이썬</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 25 Apr 2017 03:10:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2017/01/python-news-for-korean-cover-2017.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2017/01/python-news-for-korean-cover-2017.jpg" alt="한국의 파이썬 소식(2017년 4월 넷째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="2flattenby"&gt;&lt;a href="https://winterj.me/list_of_lists_to_flatten/"&gt;파이썬에서 2중 리스트를 flatten하기&lt;/a&gt; by 정겨울 님&lt;/h3&gt;
+&lt;p&gt;2중 리스트를 풀어서 일반 리스트로 만드는 다양한 방법과 각 방법별 성능을 비교한 결과를 정겨울 님이 정리하였습니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Numpy와 itertools의 차이는 약 100배, Numpy와 sum()의 차이는 1000배 이상&lt;/code&gt;이라고 하네요.&lt;/p&gt;
+&lt;h3 id="pythonctagsby"&gt;&lt;a href="https://rampart81.github.io/2017/python-ctags/"&gt;Python을 위한 ctags 세팅&lt;/a&gt; by 송은우 님&lt;/h3&gt;
+&lt;p&gt;Vim에서 파이썬 개발용 ctags 설정 팁을 송은우 님이 공유하였습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;프로젝트&lt;/h1&gt;
+&lt;h3 id="diautowirebyhardtack"&gt;&lt;a href="https://github.com/Hardtack/Autowire"&gt;파이썬용 DI 라이브러리 Autowire&lt;/a&gt; by Hardtack님&lt;/h3&gt;
+&lt;p&gt;파이썬용 Dependency Injection 라이브러리를 Hardtack님이 공개하였습니다. &lt;code&gt;마음에 드는 도구가 없어 간단한 POC 프로젝트를 만들어 보았다&lt;/code&gt;라고 하시네요.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.facebook.com/groups/pythonkorea/permalink/1337229193026905/"&gt;파이썬 같은 동적 언어에서 DI가 필요한지&lt;/a&gt;에 대해서도 파이썬 코리아 페이스북에서 토론이 이어지고 있으니 참고하세요&lt;/p&gt;
+&lt;h1 id=""&gt;행사&lt;/h1&gt;
+&lt;h3 id="4"&gt;&lt;a href="https://docs.google.com/forms/d/e/1FAIpQLSeggBb3ORZTvq5eb7ZL-HJb_mYq_Q7zBv39wa_107MWnMyKKw/viewform?c=0&amp;amp;w=1&amp;amp;usp=send_form"&gt;제4회 파이썬 격월 세미나&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src="https://lh5.googleusercontent.com/PN12NZG_mbPPWQFSOdsy-39dS4N0vWQV9bJWVhj8EF-KXEtt6Cd_XSRMM0dRXkO0QApIY1QBLQ=w740" alt="한국의 파이썬 소식(2017년 4월 넷째 주)"&gt;&lt;/p&gt;
+&lt;p&gt;제4회 파이썬 격월 세미나에서 발표자를 모집합니다. 이번 세미나의 주제는 '성장'이어서, 중,고등,대학생 들의 지원을 기다리고 있답니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;일시 : 2017년 5월 27일(토요일) 오후 2시&lt;/li&gt;
+&lt;li&gt;장소 : 쿠팡&lt;/li&gt;
+&lt;li&gt;발표자 모집 마감 : 2017년 5월 6일 오후 11시 59분 59초&lt;/li&gt;
+&lt;li&gt;발표자 선정 안내 : 2017년 5월 8일&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=""&gt;신간&lt;/h1&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=108198885"&gt;나의 첫 파이썬&lt;/a&gt; by 한빛미디어&lt;/h3&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2017/04/my_first_python.jpg" alt="한국의 파이썬 소식(2017년 4월 넷째 주)"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;에릭 마테스 지음&lt;/li&gt;
+&lt;li&gt;한선용 옮김&lt;/li&gt;
+&lt;li&gt;30,000원&lt;/li&gt;
+&lt;li&gt;664쪽(1793g)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

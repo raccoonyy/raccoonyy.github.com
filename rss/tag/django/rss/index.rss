@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>Django - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>Django - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:29 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/django/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Django 2.0 릴리스와 주요 변경 사항</title><description>새 intro 페이지, 모바일 대응 관리자 화면과 함께 멋지게 등장한 Django 2.0! 어떤 기능이 추가되었을지 기대되지 않으세요? 이 글에서 확인해보세요. :)</description><link>http://raccoonyy.github.io/django-2-0-release-note-summary/</link><guid isPermaLink="false">5a13fc8178a6660001c96580</guid><category>Django</category><category>django 2.0</category><category>릴리스 노트</category><dc:creator>raccoony</dc:creator><pubDate>Sat, 02 Dec 2017 19:58:04 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2017/11/django-2.0.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2017/11/django-2.0.png" alt="Django 2.0 릴리스와 주요 변경 사항"&gt;&lt;p&gt;사진 출처: &lt;a href="https://www.flickr.com/photos/28744631@N06/8593971219/"&gt;Pinkie Pie by Daniel Chang&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Django 2.0이 드디어 출시되었습니다. 첫 2.x 버전인데요. 이 글에서는 Django 2.0에 추가된 기능과 바뀐점을 간략하게 알아보려 합니다. &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/"&gt;Django 공식 릴리스 노트&lt;/a&gt;를 참고하였습니다. &lt;strong&gt;주의! 릴리스 노트를 모두 번역하지는 않았습니다. 대신, 언뜻 이해가 되지 않은 부분엔 제 나름의 설명도 추가하였습니다.&lt;/strong&gt;&lt;br&gt;
+하위 버전들의 보안 업데이트도 함께 올라왔습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2018-01-10 updated.&lt;br&gt;
+url 라우팅 문법에서 예시 코드에 오류가 있었습니다. 2.0에서 추가된 새 문법을 사용하려면, &lt;code&gt;url()&lt;/code&gt; 메서드가 아닌 &lt;code&gt;path()&lt;/code&gt; 메서드를 사용해야 합니다. 임동현 님 고맙습니다. ^^&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2017-12-03 updated.&lt;br&gt;
+&lt;code&gt;User.is_authenticated()&lt;/code&gt; 메서드와 &lt;code&gt;User.is_anonymous()&lt;/code&gt; 메서드에 대해 잘못 번역한 내용을 수정하였습니다. 김남홍 님 고맙습니다. ^^&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=""&gt;파이썬 호환성&lt;/h2&gt;
+&lt;p&gt;Django 2.0은 파이썬 3.4, 3.5, 3.6에서 작동합니다. 각 버전별 마지막 릴리스를 사용하기를 추천합니다.&lt;br&gt;
+Django 1.11.x는 파이썬 2.7을 지원하는 마지막 버전입니다.&lt;br&gt;
+Django 2.0은 파이썬 3.4를 지원하는 마지막 버전입니다. Django 2.0의 수명 주기는 2019년 4월이므로, 이후에도 파이썬 3.4를 사용해야 한다면 수명주기가 2020년 4월까지인 Django 1.11 LTS를 사용하세요. (참고로 파이썬 3.4의 수명주기는 2019년 4월까지입니다.)&lt;/p&gt;
+&lt;h2 id="django"&gt;서드파티 라이브러리의 Django 하위 호환성에 대해&lt;/h2&gt;
+&lt;p&gt;Django 2.0에 맞춰 서드파티 라이브러리를 개발하고 있다면, Django 1.11 이전의 모든 버전에 대한 지원을 중단할 것을 제안합니다.&lt;/p&gt;
+&lt;h2 id=""&gt;새 기능&lt;/h2&gt;
+&lt;h4 id="url"&gt;URL 라우팅 문법 간소화&lt;/h4&gt;
+&lt;p&gt;추가된 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/urls/#django.urls.path"&gt;&lt;code&gt;django.urls.path()&lt;/code&gt;&lt;/a&gt; 함수를 사용하면, 이렇게 조금 복잡했던 URL 라우팅 문법을&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;url(r'^book/(?P&amp;lt;pk&amp;gt;/d+)/$', views.book_detail),
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이렇게 읽기 좋게 바꿀 수 있습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;path(r'^book/&amp;lt;int:pk&amp;gt;/', views.book_detail),
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;새 문법에서는 URL 파라미터의 타입을 강제합니다.&lt;br&gt;
+&lt;code&gt;django.conf.urls.url()&lt;/code&gt; 함수는 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/urls/#django.urls.re_path"&gt;&lt;code&gt;django.urls.re_path()&lt;/code&gt; 함수&lt;/a&gt;로 바뀌었습니다. &lt;code&gt;django.conf.urls.include()&lt;/code&gt;  함수는 &lt;code&gt;django.urls.include()&lt;/code&gt;로 옮겨졌습니다.&lt;br&gt;
+새 URL 디스패처에 대해서는 &lt;a href="https://docs.djangoproject.com/en/2.0/topics/http/urls/"&gt;URL dispatcher 문서&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;h4 id=""&gt;모바일 친화적인 관리자 화면&lt;/h4&gt;
+&lt;p&gt;관리자 화면이 반응형 레이아웃으로 바뀌며, 대다수 모바일 디바이스를 지원합니다.&lt;br&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2017/11/django-admin.png" alt="Django 2.0 릴리스와 주요 변경 사항"&gt;&lt;/p&gt;
+&lt;h4 id="window"&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/expressions/#window-functions"&gt;&lt;code&gt;Window&lt;/code&gt; 데이터베이스 함수&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;쿼리셋에 &lt;code&gt;OVER&lt;/code&gt; 절을 추가할 수 있는 &lt;code&gt;Window&lt;/code&gt; 표현식이 추가되었습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CumeDist(*expressions, **extra)&lt;/code&gt; 클래스는 &lt;a href="https://ko.wikipedia.org/wiki/%EB%88%84%EC%A0%81_%EB%B6%84%ED%8F%AC_%ED%95%A8%EC%88%98"&gt;누적 분포&lt;/a&gt;를 계산합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FirstValue(*expressions, **extra)&lt;/code&gt; 클래스는 해당 윈도우의 첫 행을 반환합니다. (없으면 &lt;code&gt;None&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Lag(expression, offset=1, default=None, **extra&lt;/code&gt; 클래스는 &lt;code&gt;offset&lt;/code&gt; 만큼 앞에 있는 값을 구합니다. &lt;code&gt;offset&lt;/code&gt;에 해당하는 값이 없으면 &lt;code&gt;default&lt;/code&gt; 값을 반환합니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;예)&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;년도&lt;/th&gt;
+&lt;th&gt;판매액&lt;/th&gt;
+&lt;th&gt;Lag(offset=1, default=0)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;2015&lt;/td&gt;
+&lt;td&gt;13,000&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2016&lt;/td&gt;
+&lt;td&gt;15,000&lt;/td&gt;
+&lt;td&gt;13,000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2017&lt;/td&gt;
+&lt;td&gt;20,000&lt;/td&gt;
+&lt;td&gt;15,000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;LastValue(*expressions, **extra)&lt;/code&gt; 클래스는 해당 윈도우의 마지막 행을 반환합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Lead(expression, offset=1, default=None, **extra)&lt;/code&gt; 클래스는 &lt;code&gt;offset&lt;/code&gt;만큼 뒤에 있는 값을 구합니다. &lt;code&gt;offset&lt;/code&gt;에 해당하는 값이 없으면 &lt;code&gt;default&lt;/code&gt; 값을 반환합니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;예)&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;년도&lt;/th&gt;
+&lt;th&gt;판매액&lt;/th&gt;
+&lt;th&gt;Laed(offset=1, default=0)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;2015&lt;/td&gt;
+&lt;td&gt;13,000&lt;/td&gt;
+&lt;td&gt;15,000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2016&lt;/td&gt;
+&lt;td&gt;15,000&lt;/td&gt;
+&lt;td&gt;20,000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2017&lt;/td&gt;
+&lt;td&gt;20,000&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;NthValue(expression, nth=1, **extra)&lt;/code&gt; 클래스는 해당 윈도우의 &lt;code&gt;nth&lt;/code&gt;번째(항상 자연수) 행을 반환합니다. (값이 존재하지 않을 경우, 데이터베이스에 따라 다르게 작동합니다.)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Ntile(num_buckets=1, **extra)&lt;/code&gt; 클래스는 해당 윈도우를 &lt;code&gt;num_buckets&lt;/code&gt;만큼 분할한 결과를 반환합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RowNumber(*expressions, **extra)&lt;/code&gt; 클래스는 해당 윈도우의 정렬 방식에 따라 행 번호를 계산합니다.&lt;/li&gt;
+&lt;li&gt;이후에 등장하는 Rank 관련 클래스의 결과는 다음 표와 같습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;예)&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;행&lt;/th&gt;
+&lt;th&gt;값&lt;/th&gt;
+&lt;th&gt;Rank&lt;/th&gt;
+&lt;th&gt;계산 결과&lt;/th&gt;
+&lt;th&gt;PercentRank&lt;/th&gt;
+&lt;th&gt;DenseRank&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;15&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;(1 - 1) / (7 - 1)&lt;/td&gt;
+&lt;td&gt;0.0000&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;(2 - 1) / (7 - 1)&lt;/td&gt;
+&lt;td&gt;0.1666&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;(2 - 1) / (7 - 1)&lt;/td&gt;
+&lt;td&gt;0.1666&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;(2 - 1) / (7 - 1)&lt;/td&gt;
+&lt;td&gt;0.1666&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;(5 - 1) / (7 - 1)&lt;/td&gt;
+&lt;td&gt;0.6666&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;(5 - 1) / (7 - 1)&lt;/td&gt;
+&lt;td&gt;0.6666&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;(7 - 1) / (7 - 1)&lt;/td&gt;
+&lt;td&gt;1.0000&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Rank(*expressions, **extra)&lt;/code&gt; 클래스는 해당 윈도우에서 순위를 계산합니다. (공동 순위인 경우 다음 순위가 밀립니다.)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PercentRank(*expressions, **extra)&lt;/code&gt; 클래스는 해당 윈도우에서 백분위(&lt;code&gt;(rank - 1) / (total rows - 1)&lt;/code&gt;)를 계산합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DenseRank(*expressions, **extra)&lt;/code&gt; 클래스는 &lt;code&gt;Rank&lt;/code&gt; 함수와 같지만 공동 순위를 하나로 취급합니다.&lt;/li&gt;
+&lt;li&gt;자세한 내용은 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/database-functions/#window-functions"&gt;window 함수 문서&lt;/a&gt;와 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#aggregation-functions"&gt;aggregation 함수 문서&lt;/a&gt;를 참고하세요.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=""&gt;사소한 변경&lt;/h2&gt;
+&lt;h4 id="djangocontribadmin"&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#module-django.contrib.admin"&gt;&lt;code&gt;django.contrib.admin&lt;/code&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.autocomplete_fields"&gt;&lt;code&gt;ModelAdmin.autocomplete_fields&lt;/code&gt;&lt;/a&gt; 속성과 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.get_autocomplete_fields"&gt;&lt;code&gt;ModelAdmin.get_autocomplete_fields()&lt;/code&gt;&lt;/a&gt; 메서드를 사용하면 ForeignKey나 ManyToManyField에 대해 &lt;a href="https://select2.org/"&gt;Select2&lt;/a&gt; 위짓을 적용할 수 있습니다.&lt;/p&gt;
+&lt;h4 id="djangocontribauth"&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/topics/auth/#module-django.contrib.auth"&gt;&lt;code&gt;django.contrib.auth&lt;/code&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;PBKDF2 비밀번호 해셔의 기본 이터레이션 횟수가 3만 6천 회에서 10만 회로 늘었습니다.&lt;/p&gt;
+&lt;h4 id="djangocontribgis"&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/contrib/gis/#module-django.contrib.gis"&gt;&lt;code&gt;django.contrib.gis&lt;/code&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;MySQL을 위해 &lt;code&gt;AsGeoJSON&lt;/code&gt; 함수와 &lt;code&gt;GeoHash&lt;/code&gt; 함수, &lt;code&gt;IsValid&lt;/code&gt; 함수, &lt;code&gt;isvalid&lt;/code&gt; 룩업, &lt;code&gt;distance&lt;/code&gt; 룩업을 추가하였습니다.&lt;/li&gt;
+&lt;li&gt;PostGIS와 SpatialLite를 위해 &lt;code&gt;Azimuth&lt;/code&gt; 함수와 &lt;code&gt;LineLocatePoint&lt;/code&gt; 함수가 추가되었습니다.&lt;/li&gt;
+&lt;li&gt;이 외의 변경 사항은 &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#django-contrib-gis"&gt;Django 2.0 릴리스 노트의 django.contrib.gis 항목&lt;/a&gt;을 참고하세요.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="djangocontribpostgres"&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/contrib/postgres/#module-django.contrib.postgres"&gt;&lt;code&gt;django.contrib.postgres&lt;/code&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/contrib/postgres/aggregates/#django.contrib.postgres.aggregates.ArrayAgg"&gt;&lt;code&gt;ArrayAgg&lt;/code&gt;&lt;/a&gt; 함수에 &lt;code&gt;distinct&lt;/code&gt; 인자를 사용하여, 중복 값을 없앨 수 있습니다.&lt;/li&gt;
+&lt;li&gt;UUID 버전 4를 리턴하는 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/contrib/postgres/functions/#django.contrib.postgres.functions.RandomUUID"&gt;&lt;code&gt;RondomUUID&lt;/code&gt;&lt;/a&gt; 함수가 추가되었습니다.&lt;/li&gt;
+&lt;li&gt;이 외의 변경 사항은 &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#django-contrib-postgres"&gt;Django 2.0 릴리스 노트의 django.contrib.postgres 항목&lt;/a&gt;을 참고하세요.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=""&gt;캐시&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/topics/cache/#basic-usage"&gt;&lt;code&gt;cache.set_many()&lt;/code&gt;&lt;/a&gt; 함수가 캐시에 추가하다가 실패한 키의 목록을 리턴합니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=""&gt;폼&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/forms/widgets/#django.forms.SplitDateTimeWidget"&gt;&lt;code&gt;SplitDateTimeWidget&lt;/code&gt;&lt;/a&gt;과 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/forms/widgets/#django.forms.SplitHiddenDateTimeWidget"&gt;&lt;code&gt;SplitHiddenDateTimeWidget&lt;/code&gt;&lt;/a&gt;에 &lt;code&gt;date_attrs&lt;/code&gt;와  &lt;code&gt;time_attrs&lt;/code&gt; 인자가 추가되었습니다. 이 인자들을 사용하면, &lt;code&gt;DateInput&lt;/code&gt; 위짓과 &lt;code&gt;TimeInput&lt;/code&gt; 위짓의 속성을 나누어 가져올 수 있습니다.&lt;/li&gt;
+&lt;li&gt;폼 에러를 JSON 형태로 반환하는 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/forms/api/#django.forms.Form.errors.get_json_data"&gt;&lt;code&gt;Form.errors.get_json_data()&lt;/code&gt;&lt;/a&gt; 메서드가 추가되었습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=""&gt;관리용 커맨드&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-loaddata"&gt;&lt;code&gt;loaddata&lt;/code&gt;&lt;/a&gt; 명령에서 표준 입력을 받습니다.&lt;/li&gt;
+&lt;li&gt;이 외의 변경사항은 &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#management-commands"&gt;Django 2.0 릴리스 노트의 관리용 커맨드 항목&lt;/a&gt;을 참고하세요.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=""&gt;마이그레이션&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/django-admin/#squashmigrations"&gt;&lt;code&gt;squashmigrations&lt;/code&gt;&lt;/a&gt; 명령에, 합쳐진 마이그레이션 파일의 이름을 지정할 수 있는 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/django-admin/#cmdoption-squashmigrations-squashed-name"&gt;&lt;code&gt;--squashed-name&lt;/code&gt;&lt;/a&gt; 옵션이 추가되었습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=""&gt;모델&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;문자열 안에서 특정 문자열의 위치를 알아낼 수 있는, &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/database-functions/#django.db.models.functions.StrIndex"&gt;StrIndex&lt;/a&gt; 데이터베이스 함수가 추가되었습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;from django.db.models import Value as V
+from django.db.models functions import StrIndex
+Book.objects.create(title=&amp;quot;The Hitchhiker's Guide to Python&amp;quot;)
+Book.objects.annotate(
+    python_index=StrIndex('title', V('Python'))
+).get().python_index  # 26
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.earliest"&gt;&lt;code&gt;QuerySet.earliest()&lt;/code&gt;&lt;/a&gt; 메서드와 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.latest"&gt;&lt;code&gt;QuerySet.latest()&lt;/code&gt;&lt;/a&gt; 메서드, &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/options/#django.db.models.Options.get_latest_by"&gt;&lt;code&gt;Meta.get_latest_by&lt;/code&gt;&lt;/a&gt; 옵션에서 여러 필드 정렬을 지원합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DateField&lt;/code&gt;나 &lt;code&gt;DateTimeField&lt;/code&gt;에서 분기 정보를 알아내는 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/database-functions/#django.db.models.functions.ExtractQuarter"&gt;&lt;code&gt;ExtractQuarter&lt;/code&gt;&lt;/a&gt; 함수와 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#std:fieldlookup-quarter"&gt;&lt;code&gt;quearter&lt;/code&gt;&lt;/a&gt; 룩업이 추가되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DateField&lt;/code&gt;나 &lt;code&gt;DateTimeField&lt;/code&gt;에서 분기의 첫 날까지만 잘라내는 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/database-functions/#django.db.models.functions.TruncQuarter"&gt;&lt;code&gt;TrauncQuarter&lt;/code&gt;&lt;/a&gt; 함수가 추가되었습니다.&lt;/li&gt;
+&lt;li&gt;PostgresSQL과 Oracle 환경이라면, &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.select_for_update"&gt;&lt;code&gt;QuerySet.select_for_update()&lt;/code&gt;&lt;/a&gt; 메서드를 사용할 때 &lt;code&gt;select_related()&lt;/code&gt;로 연결된 모든 테이블을 잠그는 대신, 새로 추가된 &lt;code&gt;of&lt;/code&gt; 인자를 사용하여 특정 테이블의 해당 행만 잠글 수 있습니다.&lt;/li&gt;
+&lt;li&gt;새로 추가된 &lt;code&gt;filter&lt;/code&gt; 인자를 사용하면 여러 Aggregation에서 한 필드에 대한 조건을 추가할 수 있습니다.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.values_list"&gt;&lt;code&gt;QuerySet.values_list&lt;/code&gt;&lt;/a&gt; 메서드에 새로 추가된 &lt;code&gt;named&lt;/code&gt; 인자를 사용하여, 결과 값을 네임드 튜플로 변환할 수 있습니다.&lt;/li&gt;
+&lt;li&gt;쿼리셋에 &lt;code&gt;ON&lt;/code&gt; 절을 추가할 수 있는 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.FilteredRelation"&gt;&lt;code&gt;FilteredRelation&lt;/code&gt;&lt;/a&gt; 클래스가 추가되었습니다.&lt;/li&gt;
+&lt;li&gt;이 외의 변경사항은 &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#models"&gt;Django 2.0 릴리스 노트의 Models 항목&lt;/a&gt;을 참고하세요.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=""&gt;페이지네이션&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;새로 추가된 &lt;a href="https://docs.djangoproject.com/en/2.0/topics/pagination/#django.core.paginator.Paginator.get_page"&gt;&lt;code&gt;Paginator.get_path&lt;/code&gt;&lt;/a&gt; 메서드는 잘못된 페이지 번호를 적절히 제어합니다. (숫자가 아닌 경우엔 첫 페이지를 리턴하고, 음수나 마지막 페이지보다 큰 숫자인 경우엔 마지막 페이지를 리턴합니다.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=""&gt;요청과 응답&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-runserver"&gt;&lt;code&gt;runserver&lt;/code&gt;&lt;/a&gt;로 실행되는 웹 서버가 HTTP 1.1을 지원합니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=""&gt;하위 호환이 중단된 기능&lt;/h2&gt;
+&lt;h4 id=""&gt;바이트스트링 지원 삭제&lt;/h4&gt;
+&lt;p&gt;파이썬 2를 지원하지 않음에 따라 바이트스트링은 오직 입출력에서만 사용합니다.&lt;/p&gt;
+&lt;h4 id="api"&gt;데이터베이스 백엔드 API&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;자세한 변경 사항은 &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#database-backend-api"&gt;Django 2.0 릴리스 노트의 데이터베이스 백엔드 API 항목&lt;/a&gt;을 참고하세요.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="oracle112"&gt;Oracle 11.2 지원 중단&lt;/h4&gt;
+&lt;p&gt;Oracle 11.2의 공식 지원이 2020년 12월에 끝나며, Django 1.11의 공식 지원이 2020년 4월에 끝나니 시점이 비슷합니다. 따라서 Django 2.0은 Oracle 12.1 이상만 지원합니다.&lt;/p&gt;
+&lt;h4 id="mysqlisolationlevelreadcommitted"&gt;MySQL 격리 수준(isolation level)의 기본값이 &lt;code&gt;read committed&lt;/code&gt;로 변경&lt;/h4&gt;
+&lt;p&gt;MySQL의 기본 값인 &lt;code&gt;repeatable read&lt;/code&gt;가 Django에서 데이터 손실을 발생시키는 문제가 있었나 봅니다. 다른 값을 사용하고 싶다면 &lt;a href="https://docs.djangoproject.com/en/2.0/ref/databases/#mysql-isolation-level"&gt;Django 공식 문서의 Databases 페이지에서 Isolation level 항목&lt;/a&gt;을 참고하세요.&lt;/p&gt;
+&lt;h4 id="abstractuserlast_namemax_length150"&gt;&lt;a href="https://docs.djangoproject.com/en/2.0/ref/contrib/auth/#django.contrib.auth.models.User.last_name"&gt;&lt;code&gt;AbstractUser.last_name&lt;/code&gt;&lt;/a&gt;의 &lt;code&gt;max_length&lt;/code&gt;가 150으로 감소&lt;/h4&gt;
+&lt;p&gt;자세한 내용은 lqez님이 작성하신 &lt;a href="https://lqez.github.io/blog/the-length-of-django-username.html"&gt;The length of Django username 블로그 글(우리말)&lt;/a&gt;을 참고하세요.&lt;/p&gt;
+&lt;h4 id="slicingquerysetreverselast"&gt;슬라이싱(slicing) 이후 &lt;code&gt;QuerySet.reverse()&lt;/code&gt; 메서드와 &lt;code&gt;last()&lt;/code&gt; 메서드 금지&lt;/h4&gt;
+&lt;p&gt;쿼리셋에 슬라이싱을 적용한 이후에는 &lt;code&gt;reverse()&lt;/code&gt; 메서드와 &lt;code&gt;last()&lt;/code&gt; 메서드를 사용할 수 없습니다.&lt;/p&gt;
+&lt;h4 id="sqliteforeignkey"&gt;SQLite에서 참조키(Foreign Key) 강제를 지원&lt;/h4&gt;
+&lt;p&gt;SQLite에 쌓인 기존 데이터를 사용하려면 &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#foreign-key-constraints-are-now-enabled-on-sqlite"&gt;Django 2.0 릴리스 노트의 SQLite 참조키 관련 항목&lt;/a&gt;을 참고하세요.&lt;/p&gt;
+&lt;h4 id="django20"&gt;이 외의 변경사항은 &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#backwards-incompatible-changes-in-2-0"&gt;Django 2.0 릴리스 노트의 하위 호환이 중단된 기능 항목&lt;/a&gt;을 참고하세요.&lt;/h4&gt;
+&lt;h2 id=""&gt;중단 예정인 기능&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Field.from_db_value()&lt;/code&gt;와 &lt;code&gt;Expression.conver_value()&lt;/code&gt;의 &lt;code&gt;context&lt;/code&gt; 인자가 (Django 3.0 이후) 사라질 예정입니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=""&gt;사소한 수정&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;django.db.backends.postgresql_psycopg2&lt;/code&gt; 대신 Django 1.9에서 추가된 &lt;code&gt;django.db.backends.postgresql&lt;/code&gt;을 사용하세요.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;django.shortcuts.render_to_response()&lt;/code&gt; 대신 &lt;a href="https://docs.djangoproject.com/en/2.0/topics/http/shortcuts/#django.shortcuts.render"&gt;&lt;code&gt;django.shortcuts.render()&lt;/code&gt;&lt;/a&gt;를 사용하세요.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;QuerySet.earliest()&lt;/code&gt; 메서드와 &lt;code&gt;QuerySet.latest()&lt;/code&gt; 메서드에서 사용하던 &lt;code&gt;field_name&lt;/code&gt; 인자가 중단될 예정입니다. &lt;code&gt;.earliest(field_name='title')&lt;/code&gt; 대신 &lt;code&gt;.earliest('title')&lt;/code&gt;처럼 사용하세요.&lt;/li&gt;
+&lt;li&gt;이 외의 변경사항은 &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#id1"&gt;Django 2.0 릴리스 노트의 사소한 수정 항목&lt;/a&gt;을 참고하세요.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=""&gt;삭제된 기능&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;django.dispatch.signals.Signal.disconnect()&lt;/code&gt;에서 사용하던  &lt;code&gt;weak&lt;/code&gt; 인자가 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;django.db.backends.base.BaseDatabaseOperations.check_aggregate_support()&lt;/code&gt;가 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;django.forms.extras&lt;/code&gt; 패키지가 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;assignment_tag&lt;/code&gt; 헬퍼가 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ForeignKey&lt;/code&gt; 필드와 &lt;code&gt;OneToOneField&lt;/code&gt; 필드의 &lt;code&gt;on_delete&lt;/code&gt; 인자에 대해서도 마이그레이션이 필요합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;django.db.models.fields.add_lazy_relation()&lt;/code&gt;이 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;include()&lt;/code&gt; 메서드에 사용하던 &lt;code&gt;app_name&lt;/code&gt; 인자가 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;makemigrations&lt;/code&gt; 명령에서 사용하던 &lt;code&gt;--exit&lt;/code&gt; 옵션이 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;shell&lt;/code&gt; 명령에서 사용하던 &lt;code&gt;--play&lt;/code&gt; 옵션이 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CommaSeparatedIntegerField&lt;/code&gt; 필드가 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;django.core.urlresolvers&lt;/code&gt;  모듈은 &lt;code&gt;django.urls&lt;/code&gt; 모듈로 옮겨갑니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Context.has_key()&lt;/code&gt; 메서드가 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;MySQL의 &lt;code&gt;__search&lt;/code&gt; 룩업이 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;User.is_authenticated()&lt;/code&gt; 메서드와 &lt;code&gt;User.is_anonymous()&lt;/code&gt; 메서드가 사라집니다. 해당 속성을 사용하세요.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FileField&lt;/code&gt; 필드의 &lt;code&gt;get_directory_name()&lt;/code&gt; 메서드와 &lt;code&gt;get_filename()&lt;/code&gt; 메서드가 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;옛날 방식의 미들웨어 설정인 &lt;code&gt;settings.MIDDLEWARE_CLASSES&lt;/code&gt;가 삭제되었습니다.&lt;/li&gt;
+&lt;li&gt;이 외의 삭제된 기능들은 &lt;a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#features-removed-in-2-0"&gt;Django 2.0 릴리스 노트의 삭제된 기능 항목&lt;/a&gt;을 참고하세요.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="onemorething"&gt;One More Thing!&lt;/h2&gt;
+&lt;p&gt;Django 2.0 릴리스 노트에 언급되지는 않았지만, Django를 처음 실행했을 때 보여주는 화면이 예뻐졌습니다. :)&lt;br&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2017/12/django-intro.png" alt="Django 2.0 릴리스와 주요 변경 사항"&gt;&lt;/p&gt;
+&lt;p&gt;재미 없는 &lt;code&gt;It Works!&lt;/code&gt; 문구 대신 예쁜 로켓을 보여주네요. 그럼, Django 2.0과 함께 즐거운 프로그래밍이 되시길 바랍니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item><item><title>Django 1.11 릴리스와 주요 변경 사항</title><description>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;사진 출처: &lt;a href="https://www.flickr.com/photos/28744631@N06/8593971219/"&gt;Pinkie Pie by Daniel Chang&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Django 1.11이 드디어 출시되었습니다. 1.x에서는 마지막 버전인데요. 이 글에서는 Django 1.11에 추가된 기능과 바뀐점을 간략하게 알아보려 합니다. &lt;a href="https://docs.djangoproject.com/en/stable/releases/1.11/"&gt;Django 공식 릴리스 노트&lt;/a&gt;를 참고하였습니다. &lt;strong&gt;주의! 릴리스 노트를 모두 번역하지는 않았습니다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;하위 버전들의 보안 업데이트도 함께 올라왔습니다. &lt;a href="https://docs.djangoproject.com/en/dev/releases/1.10.7/"&gt;1.10.7&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/dev/releases/1.9.13/"&gt;1.9.&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/django-1-11-release-note-summary-korean/</link><guid isPermaLink="false">59815cfcdd47a80001bb9f0e</guid><category>Django</category><category>1.11</category><category>Django 1.11</category><category>릴리스 노트</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 04 Apr 2017 23:20:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2017/04/django-1.11-pony.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2017/04/django-1.11-pony.png" alt="Django 1.11 릴리스와 주요 변경 사항"&gt;&lt;p&gt;사진 출처: &lt;a href="https://www.flickr.com/photos/28744631@N06/8593971219/"&gt;Pinkie Pie by Daniel Chang&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Django 1.11이 드디어 출시되었습니다. 1.x에서는 마지막 버전인데요. 이 글에서는 Django 1.11에 추가된 기능과 바뀐점을 간략하게 알아보려 합니다. &lt;a href="https://docs.djangoproject.com/en/stable/releases/1.11/"&gt;Django 공식 릴리스 노트&lt;/a&gt;를 참고하였습니다. &lt;strong&gt;주의! 릴리스 노트를 모두 번역하지는 않았습니다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;하위 버전들의 보안 업데이트도 함께 올라왔습니다. &lt;a href="https://docs.djangoproject.com/en/dev/releases/1.10.7/"&gt;1.10.7&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/dev/releases/1.9.13/"&gt;1.9.13&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/dev/releases/1.8.18/"&gt;1.8.18&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;2017-05-11 수정 내역&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="https://github.com/raccoonyy/raccoonyy.github.com/issues/1"&gt;shlee322 님의 제보&lt;/a&gt;로 include 태그와 관련된 내용을 수정하였습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h1 id=""&gt;파이썬 호환성&lt;/h1&gt;
+&lt;p&gt;Django 1.11은 파이썬 &lt;strong&gt;2.7, 3.4, 3.5, 3.6에서 작동&lt;/strong&gt;합니다. 3.6을 지원하는 첫 Django 버전입니다. 각 버전별 마지막 릴리스를 사용하기를 추천합니다.&lt;/p&gt;
+&lt;p&gt;Django 1.11.x는 파이썬 2를 지원하는 마지막 버전입니다. 다음 번 메이저 릴리스인 &lt;strong&gt;Django 2.0부터는 파이썬 3.5 이상만 지원&lt;/strong&gt;할 예정입니다.&lt;/p&gt;
+&lt;h1 id=""&gt;새 기능&lt;/h1&gt;
+&lt;h3 id="index"&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/indexes/#module-django.db.models.indexes"&gt;Index 클래스&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/topics/db/models/#meta-options"&gt;Meta 클래스&lt;/a&gt;의 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/options/#django.db.models.Options.indexes"&gt;indexes 항목에서 인덱스할 필드를 지정&lt;/a&gt;할 수 있고, 이를 위한 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/indexes/"&gt;Index 클래스&lt;/a&gt;도 추가되었습니다.&lt;/p&gt;
+&lt;h3 id=""&gt;템플릿 기반의 폼 위젯 렌더링&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/ref/forms/renderers/"&gt;폼 렌더링 API가 추가&lt;/a&gt;되었고, 이를 활용하여 특정 폼 위젯을 커스터마이징할 수 있습니다.&lt;/p&gt;
+&lt;h3 id=""&gt;하위 쿼리 표현식&lt;/h3&gt;
+&lt;p&gt;쿼리 결과를 다른 쿼리에서 참조할 수 있는 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/expressions/#subquery-expressions"&gt;Subquery 표현식&lt;/a&gt;과 쿼리 결과가 존재할 때만 실행할 수 있는 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/expressions/#django.db.models.Exists"&gt;Exists 표현식&lt;/a&gt;이 추가되었습니다.&lt;/p&gt;
+&lt;h3 id=""&gt;자잘하게 추가된 기능&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-CSRF_USE_SESSIONS"&gt;&lt;code&gt;CSRF_USE_SESSIONS&lt;/code&gt;을 설정&lt;/a&gt;하여 CSRF 토큰을 쿠키가 아닌 세션에 저장할 수 있습니다(기본 값은 False).&lt;/li&gt;
+&lt;li&gt;PostgreSQL 하에서 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.iterator"&gt;&lt;code&gt;QuerySet.iterator()&lt;/code&gt; 메서드&lt;/a&gt;가 &lt;a href="http://initd.org/psycopg/docs/usage.html#server-side-cursors"&gt;서버 측 커서&lt;/a&gt;를 사용하여 서버의 메모리 부담을 데이터베이스 메모리로 돌릴 수 있습니다.&lt;/li&gt;
+&lt;li&gt;Form에서 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/forms/api/#django.forms.Form.get_initial_for_field"&gt;&lt;code&gt;get_initial_for_field()&lt;/code&gt; 메서드&lt;/a&gt;를 사용하여, 필드의 초기 값을 지정할 수 있습니다.&lt;/li&gt;
+&lt;li&gt;loaddata 명령에 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/django-admin/#cmdoption-loaddata-exclude"&gt;--exclude 옵션이 추가&lt;/a&gt;되었습니다. 특정 모델이나 앱을 제외하고 픽스처 데이터를 불러올 수 있습니다.&lt;/li&gt;
+&lt;li&gt;showmigrations 명령에서 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/django-admin/#cmdoption-showmigrations-plan"&gt;--plan 옵션&lt;/a&gt;을 사용할 때도 app_label을 지정할 수 있습니다.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.get_or_create"&gt;&lt;code&gt;get_or_create()&lt;/code&gt; 메서드&lt;/a&gt;와 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.update_or_create"&gt;&lt;code&gt;update_or_create()&lt;/code&gt; 메서드&lt;/a&gt;에서 &lt;code&gt;defaults&lt;/code&gt;의 값으로 함수 값(callable value)을 지정할 수 있습니다.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/database-functions/#django.db.models.functions.datetime.Trunc"&gt;DateTime이나 TimeField에 대해 Trunc 클래스를 적용&lt;/a&gt;하면, 특정 부분 이하를 자를 수 있습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;# 월 단위
+2017-02-28 20:11:24.021458+09:00 =&amp;gt; 2017-01-01 00:00:00.000000+09:00
+
+# 일 단위
+2017-02-28 20:11:24.021458+09:00 =&amp;gt; 2017-02-01 00:00:00.000000+09:00
+
+# 시 단위
+2017-02-28 20:11:24.021458+09:00 =&amp;gt; 2017-02-28 00:00:00.000000+09:00
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;쿼리셋의 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.values"&gt;&lt;code&gt;values()&lt;/code&gt; 메서드&lt;/a&gt;와 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.values_list"&gt;&lt;code&gt;values_list()&lt;/code&gt; 메서드&lt;/a&gt;에서도 표현식을 사용할 수 있습니다.&lt;/li&gt;
+&lt;li&gt;쿼리 표현식에서 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/expressions/#django.db.models.Expression.asc"&gt;정렬시 null 값을 앞에 오거나 뒤에 오도록 지정&lt;/a&gt;할 수 있습니다.&lt;/li&gt;
+&lt;li&gt;두 쿼리셋의 교집합과 합집합, 차집합을 만들 수 있는 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.union"&gt;&lt;code&gt;union()&lt;/code&gt; 메서드&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.intersection"&gt;&lt;code&gt;intersection()&lt;/code&gt; 메서드&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.difference"&gt;&lt;code&gt;difference()&lt;/code&gt; 메서드&lt;/a&gt;가 추가되었습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=""&gt;바뀐 점&lt;/h1&gt;
+&lt;h3 id="collectstatic"&gt;collectstatic 실행시 파일 간 순환 참조가 존재하면 오류 발생&lt;/h3&gt;
+&lt;p&gt;해시 값이 붙은 정적 파일 저장소를 사용하고 있을 때,&lt;br&gt;
+&lt;code&gt;a.css&lt;/code&gt;에서 &lt;code&gt;b.css&lt;/code&gt;를 참조하고 &lt;code&gt;b.css&lt;/code&gt;에서도 &lt;code&gt;a.css&lt;/code&gt;를 참조한다면 collectstatic 명령이 실패합니다.&lt;/p&gt;
+&lt;h3 id="datetimefield"&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField"&gt;DateTimeField&lt;/a&gt;에 대해 상세 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#date"&gt;룩업&lt;/a&gt; 지원&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateField"&gt;DateField&lt;/a&gt;에 대해 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#week"&gt;week&lt;/a&gt; 룩업을 지원합니다.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField"&gt;DateTimeField&lt;/a&gt;에 대해 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#time"&gt;time&lt;/a&gt; 룩업을 지원합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;USE_TZ&lt;/code&gt; 옵션이 &lt;code&gt;True&lt;/code&gt;라면 필드의 값이 현지 시각으로 바뀌어 리턴됩니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="postgresql92postgis20"&gt;PostgreSQL 9.2와 PostGIS 2.0 지원 중단&lt;/h3&gt;
+&lt;p&gt;PostgreSQL 9.2의 지원이 2017년 9월에 끝남에 따라, Django 1.11에서는 &lt;strong&gt;PostgreSQL 9.3을 최소 지원 버전으로 지정&lt;/strong&gt;하였습니다.&lt;/p&gt;
+&lt;h3 id="liveservertestcase0"&gt;LiveServerTestCase가 포트 0에 바인드&lt;/h3&gt;
+&lt;p&gt;아울러 &lt;code&gt;DJANGO_LIVE_TEST_SERVER_ADDRESS&lt;/code&gt; 옵션이 사라지고, &lt;code&gt;manage.py test&lt;/code&gt; 명령에 &lt;code&gt;--liveserver&lt;/code&gt; 옵션도 삭제되었습니다.&lt;/p&gt;
+&lt;h3 id="get_or_createupdate_or_create"&gt;&lt;code&gt;get_or_create()&lt;/code&gt;와 &lt;code&gt;update_or_create()&lt;/code&gt;에서 변수명 검사&lt;/h3&gt;
+&lt;p&gt;모델에 없는 필드를 지정할 경우 오류가 발생합니다. (이전에는 그냥 무시했기 때문에, 타이핑 실수를 찾기가 어려웠죠.)&lt;/p&gt;
+&lt;h3 id="pytztime_zonenone"&gt;pytz 패키지 의존성이 추가되었고, &lt;code&gt;TIME_ZONE = None&lt;/code&gt; 옵션이 사라집니다.&lt;/h3&gt;
+&lt;p&gt;자동으로 타임존을 설정할 때는 settings 파일에 &lt;code&gt;TIME_ZONE = None&lt;/code&gt; 대신 다음처럼 하세요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from tzlocal import get_localzone
+
+TIME_ZONE = get_localzone().zone
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=""&gt;사소한 변경&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;테스트를 실행할 때도 &lt;code&gt;ALLOWED_HOSTS&lt;/code&gt;를 검사합니다. 테스트용 호스트 이름을 사용하고 있다면 이 이름을 &lt;code&gt;ALLOWED_HOSTS&lt;/code&gt;에도 넣어야 합니다.&lt;/li&gt;
+&lt;li&gt;모델 폼에서 CharField가 null=True인 경우, 빈 문자열 대신 NULL을 저장합니다.&lt;/li&gt;
+&lt;li&gt;체크박스와 셀렉트박스 폼을 렌더링할 때 &lt;code&gt;checked='checked'&lt;/code&gt;, &lt;code&gt;selected='selected'&lt;/code&gt; 대신 &lt;code&gt;checked&lt;/code&gt;, &lt;code&gt;selected&lt;/code&gt;만 넣습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=""&gt;삭제된 기능&lt;/h1&gt;
+&lt;h3 id="modelspermalink"&gt;models.permalink 데코레이터&lt;/h3&gt;
+&lt;p&gt;대신 &lt;a href="https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#django.urls.reverse"&gt;&lt;code&gt;django.urls.reverse()&lt;/code&gt;&lt;/a&gt;를 사용해야 합니다.&lt;/p&gt;
+&lt;h3 id="contribauth"&gt;contrib.auth의 각종 함수 기반 뷰&lt;/h3&gt;
+&lt;p&gt;인증과 관련된 함수 기반 뷰들이 클래스 기반 뷰로 바뀌었습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;login()&lt;/code&gt; -&amp;gt; &lt;a href="https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.LoginView"&gt;LoginView&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;logout()&lt;/code&gt; -&amp;gt; &lt;a href="https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.LogoutView"&gt;LogoutView&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password_change()&lt;/code&gt; -&amp;gt; &lt;a href="https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.PasswordChangeView"&gt;PasswordChangeView&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password_change_done()&lt;/code&gt; -&amp;gt; &lt;a href="https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.PasswordChangeDoneView"&gt;PasswordChangeDoneView&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password_reset()&lt;/code&gt; -&amp;gt; &lt;a href="https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.PasswordResetView"&gt;PasswordResetView&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password_reset_done()&lt;/code&gt; -&amp;gt; &lt;a href="https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.PasswordResetDoneView"&gt;PasswordResetDoneView&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password_reset_confirm()&lt;/code&gt; -&amp;gt; &lt;a href="https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView"&gt;PasswordResetConfirmView&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password_reset_complete()&lt;/code&gt; -&amp;gt; &lt;a href="https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.PasswordResetCompleteView"&gt;PasswordResetCompleteView&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="include"&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.PasswordResetCompleteView"&gt;&lt;code&gt;{% include %}&lt;/code&gt; 탬플릿 태그&lt;/a&gt; 렌더링시 예외를 발생시키지 않았던 부분&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-include"&gt;include&lt;/a&gt; 태그를 렌더링하는 동안 예외가 발생하면 조용히 넘어갔는데, 이것이 꽤나 혼란을 주었나 봅니다. Django 2.1부터는 include 태그를 사용했을 때 예외가 발생합니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item><item><title>2017 Django 소프트웨어 재단 이사회 선출 소식</title><description>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;p&gt;2017 Django 소프트웨어 재단의 이사회가 선출되었습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;파이썬을 사용하시는 분들께는 &lt;a href="https://www.python.org/psf/"&gt;파이썬 소프트웨어 재단&lt;/a&gt;이 잘 알려져 있을 텐데요. 작년 6월에는 한국인으로는 최초로 김영근 님이 파이썬 소프트웨어 재단의 이사회 멤버로 선출되면서 더 많이 알려진 듯 합니다. (&lt;a href="https://www.bloter.net/archives/260971"&gt;관련 소식과 인터뷰 기사&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;Django에도 &lt;a href="https://www.djangoproject.com/foundation/"&gt;Django 소프트웨어 재단&lt;/a&gt;이 존재하는데요.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2017/01/django-software-foundation.png" alt="이미지 출처: https://www.djangoproject.com/foundation/"&gt;&lt;/p&gt;
+&lt;p&gt;2017년을 맞아 새 이사회가 구성되었습니다.&lt;/p&gt;
+&lt;p&gt;2016년에&lt;/p&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/2017-django-dsf-election-result/</link><guid isPermaLink="false">59815cfcdd47a80001bb9f0b</guid><category>Django</category><category>Django Software Foundation</category><category>이사회</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 10 Jan 2017 23:25:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2017/01/dsf-election-results.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2017/01/dsf-election-results.png" alt="2017 Django 소프트웨어 재단 이사회 선출 소식"&gt;&lt;p&gt;2017 Django 소프트웨어 재단의 이사회가 선출되었습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;파이썬을 사용하시는 분들께는 &lt;a href="https://www.python.org/psf/"&gt;파이썬 소프트웨어 재단&lt;/a&gt;이 잘 알려져 있을 텐데요. 작년 6월에는 한국인으로는 최초로 김영근 님이 파이썬 소프트웨어 재단의 이사회 멤버로 선출되면서 더 많이 알려진 듯 합니다. (&lt;a href="https://www.bloter.net/archives/260971"&gt;관련 소식과 인터뷰 기사&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;Django에도 &lt;a href="https://www.djangoproject.com/foundation/"&gt;Django 소프트웨어 재단&lt;/a&gt;이 존재하는데요.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2017/01/django-software-foundation.png" alt="2017 Django 소프트웨어 재단 이사회 선출 소식"&gt;&lt;/p&gt;
+&lt;p&gt;2017년을 맞아 새 이사회가 구성되었습니다.&lt;/p&gt;
+&lt;p&gt;2016년에 이어 2017년에도 이사회 멤버가 된 사람들은 다음과 같습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.frankwiles.com/"&gt;Frank Wiles&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/evildmp"&gt;Daniele Procida&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.b-list.org/"&gt;James Bennett&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2017년에 새롭게 이사회에 들어간 사람들은 다음과 같습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/rlconley"&gt;Rebecca Conley&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://gigantuan.net/"&gt;Kenneth Love&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kenwalger.com/"&gt;Ken W. Alger&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2016년에 수고해 준 분들은 다음과 같습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://thebuild.com/blog/"&gt;Christophe Pettus&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/kmtracey"&gt;Karen Tracey&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2017/01/dsf-election-results.png" alt="2017 Django 소프트웨어 재단 이사회 선출 소식"&gt;&lt;/p&gt;
+&lt;p&gt;이사회가 뭘 하는지 궁금하실 텐데요. Django 소프트웨어 재단의 목적을 잘 이행하기 위해 정기/비정기적으로 회의를 하고 예산을 집행한다고 합니다.&lt;/p&gt;
+&lt;p&gt;Django 소프트웨어 재단의 목적은 다음과 같습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;스프린트, 밋업, 모임, 커뮤니티 행사 등을 후원함으로써 Django 개발을 지원합니다.&lt;/li&gt;
+&lt;li&gt;전 세계 웹 개발 커뮤니티에 Django 사용자를 확산시킵니다.&lt;/li&gt;
+&lt;li&gt;지적 재산권과 프레임워크의 장기적 지속 가능성(long-term viability)을 보호합니다.&lt;/li&gt;
+&lt;li&gt;웹 개발의 기술 수준을 높입니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;공개된 회의록은 Django 공식 홈페이지에서 보실 수 있습니다. &lt;a href="https://www.djangoproject.com/foundation/records/"&gt;https://www.djangoproject.com/foundation/records/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item><item><title>Django 1.10 릴리스 노트 요약</title><description>Django 1.10 릴리스 노트를 요약하였습니다. #1 PostgreSQL에서 Full Text 검색 지원 #2 미들웨어 스타일 변경 #3 사용자 username에 유니코드 지원 등</description><link>http://raccoonyy.github.io/django-1-10-release-note-korean/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ede</guid><category>Django</category><category>1.10</category><category>릴리스 노트</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 02 Aug 2016 04:00:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/08/django_1-10_released.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/django_1-10_released.png" alt="Django 1.10 릴리스 노트 요약"&gt;&lt;p&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/"&gt;Django 1.10 릴리스 노트&lt;/a&gt;를 요약해 보았습니다.&lt;/p&gt;
+&lt;p&gt;(제 주관이 많이 들어간 요약이므로, 원문도 꼭 챙겨보길 권합니다.)&lt;/p&gt;
+&lt;h2 id=""&gt;파이썬 호환성&lt;/h2&gt;
+&lt;p&gt;Django 1.9와 마찬가지로, 파이썬 2.7, 3.4, 3.5를 지원합니다.&lt;/p&gt;
+&lt;h2 id=""&gt;새 기능&lt;/h2&gt;
+&lt;h4 id="postgresqlfulltext"&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#full-text-search-for-postgresql"&gt;PostgreSQL에서 Full Text 검색을 지원&lt;/a&gt;&lt;/h4&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; Entry.objects.filter(body_text__search='Cheese')
+[&amp;lt;Entry: Cheese on Toast recipes&amp;gt;, &amp;lt;Entry: Pizza Recipes&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;기본 Full Text 검색 외에도 &lt;a href="https://docs.djangoproject.com/en/1.10/ref/contrib/postgres/search/#postgresql-fts-weighting-queries"&gt;가중치를 부여한 검색&lt;/a&gt; 등도 지원하니, PostgreSQL로 넘어갈 이유가 점점 많아지고 있네요.&lt;/p&gt;
+&lt;h4 id="middleware_classesmiddleware"&gt;&lt;a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-MIDDLEWARE"&gt;MIDDLEWARE_CLASSES 대신 MIDDLEWARE&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#new-style-middleware"&gt;업그레이드 가이드&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;h4 id="username"&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#official-support-for-unicode-usernames"&gt;유니코드 username 지원&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;파이썬 3에서는 &lt;code&gt;username_validator&lt;/code&gt;가 기본으로 유니코드를 지원하게 됩니다.&lt;/p&gt;
+&lt;h2 id=""&gt;중단 예정인 기능&lt;/h2&gt;
+&lt;h4 id="commaseparatedintegerfield"&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#commaseparatedintegerfield-model-field"&gt;CommaSeparatedIntegerField&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;대신, &lt;a href="https://docs.djangoproject.com/en/1.10/ref/validators/#django.core.validators.validate_comma_separated_integer_list"&gt;&lt;code&gt;validate_comma_separated_integer_list&lt;/code&gt;&lt;/a&gt;를 사용하라고 하네요.&lt;/p&gt;
+&lt;h2 id=""&gt;삭제된 기능&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;django.conf.urls.patterns()&lt;/code&gt;가 사라졌어요.&lt;/li&gt;
+&lt;li&gt;별도로 설정 가능하던 템플릿 관련 설정들이 사라졌습니다. &lt;code&gt;TEMPLATES&lt;/code&gt; 설정 안에 넣어야 합니다.&lt;/li&gt;
+&lt;li&gt;migrate 명령 실행시 &lt;code&gt;--list&lt;/code&gt; 옵션이 사라집니다. (migrate 명령 대신 showmigrations 명령을 사용하면 됩니다.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</content:encoded></item><item><title>[RFDP] django-environ</title><description>컨테이너 환경을 사용한 배포시 환경변수 관리의 불편함을 덜어주는 플러그인입니다.</description><link>http://raccoonyy.github.io/django-environ/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ee2</guid><category>Django</category><category>django-environ</category><category>환경변수</category><category>ECS</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 16 Jun 2016 23:11:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/06/raccoonys_favorite_django_plugins.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/06/raccoonys_favorite_django_plugins.jpg" alt="[RFDP] django-environ"&gt;&lt;p&gt;RFDP : Raccoony's Favorite Django Plugins&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;플러그인 이름 : django-environ&lt;/p&gt;
+&lt;p&gt;저장소 : &lt;a href="https://github.com/joke2k/django-environ"&gt;https://github.com/joke2k/django-environ&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;공식 문서 : &lt;a href="http://django-environ.readthedocs.org/"&gt;http://django-environ.readthedocs.org/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=""&gt;쓰임새&lt;/h2&gt;
+&lt;p&gt;배포 과정에서 Docker 등의 컨테이너 환경을 도입했다면 환경변수를 통해 각종 설정값을 관리할 텐데요. 데이터베이스 하나 설정하는 데만도 대여섯 개의 값이 필요한 상황이 불편하기도 하고, 환경변수마다 매번 &lt;code&gt;os.environ.get&lt;/code&gt;을 입력하기도 귀찮고, 또 개발 환경을 설정하기 위해 &lt;code&gt;export&lt;/code&gt;를 해줘야 하는 상황도 귀찮죠.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;django-environ&lt;/strong&gt; 패키지는 이러한 불편함을 덜어 줍니다.&lt;/p&gt;
+&lt;h2 id=""&gt;설치&lt;/h2&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;pip install django-environ
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;적용하기&lt;/h2&gt;
+&lt;h4 id="1settingspyenv"&gt;1. 먼저 &lt;code&gt;settings.py&lt;/code&gt;에서 빼내고 싶은 환경변수들을 &lt;code&gt;.env&lt;/code&gt; 파일에 모아두세요.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;# .env
+DEBUG=on
+DATABASE_URL=mysql://db_user_id:db_user_password@db_host_address:db_host_port/db_name
+SECRET_KEY=...
+
+MY_ENV_VALUE=...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="2settingspy"&gt;2. 그 다음에 &lt;code&gt;settings.py&lt;/code&gt; 파일을 수정합니다.&lt;/h4&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# settings.py
+
+import environ
+root = environ.Path(__file__) - 3 # three folder back (/a/b/c/ - 3 = /)
+env = environ.Env(DEBUG=(bool, False),) # 기본 값
+environ.Env.read_env() # .env 파일이 있으면 읽음
+
+SITE_ROOT = root()
+
+DEBUG = env('DEBUG') # 환경변수에 DEBUG값이 없으면 False로 설정됨
+TEMPLATE_DEBUG = DEBUG
+
+DATABASES = {
+    'default': env.db(), # DATABASE_URL이 환경변수에 없으면 ImproperlyConfigured 예외 던짐
+}
+
+public_root = root.path('public/')
+
+MEDIA_ROOT = public_root('media')
+MEDIA_URL = 'media/'
+STATIC_ROOT = public_root('static')
+STATIC_URL = 'static/'
+
+SECRET_KEY = env('SECRET_KEY') # SECRET_KEY가 환경변수에 없으면 ImproperlyConfigured 예외 던짐
+
+MY_ENV_VALUE = env('MY_ENV_VALUE', default='test_value') # MY_ENV_VALUE가 환경변수에 없으면 test_value로 설정됨
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="3"&gt;3. 마지막으로 배포 환경용 설정값을 컨테이너에 주입합니다.&lt;/h4&gt;
+&lt;p&gt;저는 AWS의 ECS 서비스를 사용하고 있으므로 Task Definition에 넣어주었습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/06/aws_task_definition.jpg" alt="[RFDP] django-environ"&gt;&lt;/p&gt;
+&lt;p&gt;자세한 사항은 &lt;a href="http://django-environ.readthedocs.org/"&gt;공식 문서&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item><item><title>(엑셀만큼 쉬운) Django Annotation/Aggregation</title><description>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;Django ORM을 강력하게 만들어주는 기능 중 하나는 바로 애너테이션(&lt;code&gt;annotate&lt;/code&gt;)과 애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;)입니다. 이 두 기능이 명쾌하게 와닿지 않아서 사용하지 못하다가, 엑셀에 빗대어 이해해보니 제게는 도움이 되어서 해당 내용을 공유합니다.&lt;/p&gt;
+&lt;h4 id=""&gt;시작하기 전에&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;표기법: &lt;code&gt;이건 Django 메서드 이름&lt;/code&gt;, &lt;em&gt;이건 필드나 값&lt;/em&gt; 을 나타냅니다.&lt;/li&gt;
+&lt;li&gt;메서드의 링크는 Django 공식 문서로 연결됩니다&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=""&gt;모델&lt;/h2&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/</link><guid isPermaLink="false">59815cfcdd47a80001bb9edb</guid><category>Django</category><category>annotate</category><category>aggregate</category><category>ORM</category><category>애너테이션</category><category>애그리게이션</category><category>조건적 애너테이션</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 24 May 2016 23:59:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/05/excel.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/excel.jpg" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;p&gt;Django ORM을 강력하게 만들어주는 기능 중 하나는 바로 애너테이션(&lt;code&gt;annotate&lt;/code&gt;)과 애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;)입니다. 이 두 기능이 명쾌하게 와닿지 않아서 사용하지 못하다가, 엑셀에 빗대어 이해해보니 제게는 도움이 되어서 해당 내용을 공유합니다.&lt;/p&gt;
+&lt;h4 id=""&gt;시작하기 전에&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;표기법: &lt;code&gt;이건 Django 메서드 이름&lt;/code&gt;, &lt;em&gt;이건 필드나 값&lt;/em&gt; 을 나타냅니다.&lt;/li&gt;
+&lt;li&gt;메서드의 링크는 Django 공식 문서로 연결됩니다&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=""&gt;모델 구성&lt;/h2&gt;
+&lt;p&gt;다음과 같은 제품을 판매하는 온라인 쇼핑몰을 만든다고 합시다. (원래는 제품별 id도 있겠지만, 설명을 간단히 하기 위해 생략하겠습니다.)&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-19-09-21-34-1.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;p&gt;이를 Django 모델로 구현해보면 다음과 같을 겁니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class Product(models.Model):
+    name = models.CharField('이름', max_length=150, unique=True)
+    price = models.IntegerField('가격')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이제, 이 제품들이 팔린 내역이 다음과 같다고 해보죠.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-21-13-15-45.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;p&gt;이러한 판매 내역을 모델로 구현하면 다음과 같겠고요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class OrderLog(models.Model):
+    product = models.ForeignKey('Product')
+    created = models.DateTimeField(u'판매일')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;엑셀 화면과 코드를 비교해 보면 엑셀의 컬럼 하나가 Django의 필드 하나와 대응됨을 발견할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;데이터베이스를 구성했으니, &lt;a href="https://gist.github.com/raccoonyy/b1aa0c36bfcf2f207737b72efadcc0a4"&gt;이 코드&lt;/a&gt;를 실행해서 실습용 데이터를 만들어주세요.&lt;/p&gt;
+&lt;h2 id=""&gt;총 판매액 구하기&lt;/h2&gt;
+&lt;p&gt;판매 내역을 보면 물품 이름만 있고 가격이 적혀 있지 않습니다. 엑셀에서 작업할 때라면 &lt;strong&gt;1.&lt;/strong&gt; 제품별 가격을 옆에 적어두고, &lt;strong&gt;2.&lt;/strong&gt; 그 값을 모두 더해서 총 판매액을 알 수 있겠죠. 이 과정을 Django로 따라해 봅시다.&lt;/p&gt;
+&lt;h4 id="1values"&gt;1. 제품별 가격 참조하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#django.db.models.query.QuerySet.values"&gt;values&lt;/a&gt;)&lt;/h4&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서 제품별 가격을 적었다면 다음과 같은 화면이 되겠죠. (실제로는 일일이 찾지 않고 제품 이름으로 참조하여 판매 가격 컬럼을 자동으로 채을 겁니다.)&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-21-13-17-57.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;이를 Django에서 구현하려면 &lt;code&gt;values&lt;/code&gt; 메서드를 사용하면 됩니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;order_qs = OrderLog.objects.values(
+    'created', 'product__name', 'product__price'
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;order_queryset&lt;/code&gt;의 내용을 출력해보면 엑셀과 같음을 알 수 있습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; for order in order_qs:
+...     print(order)
+...
+{'product__price': 9900, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'product__name': 'ABC Activity'}
+{'product__price': 8200, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'product__name': '동물동요'}
+
+# (중략)
+
+{'product__price': 9900, 'created': datetime.datetime(2016, 4, 3, 0, 0), 'product__name': 'ABC Activity'}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;밑줄 두 개가 붙은 모습이 보기에 좋지 않고, 타이핑하기도 귀찮으니까 짧은 이름으로 바꿔주겠습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 앞의 쿼리를 재작성
+order_qs = OrderLog.objects.annotate(
+    name=F('product__name'), 
+    price=F('product__price')
+).values(
+    'created', 'name', 'price'
+)
+
+# 내용을 보면,
+{'price': 9900, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': 'ABC Activity'}
+{'price': 8200, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': '동물동요'}
+{'price': 38400, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': '사운드북 패키지'}
+...
+# (하략)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;이후 등장할 코드에는 Django ORM 메서드가 많이 나오는데요. 필요한 메서드를 미리 불러두시면 좋습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.db.models import F, Sum, Count, Case, When
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;방금 사용한 애너테이션(&lt;code&gt;annotate&lt;/code&gt;)은 필드 하나를 만들고 거기에 '어떤 내용'을 채웁니다. 엑셀에서 컬럼 하나를 만드는 것과 같다고 생각하면 됩니다.&lt;/p&gt;
+&lt;p&gt;'내용'에는 &lt;strong&gt;1.&lt;/strong&gt; (방금 했듯이) 다른 필드의 값을 그대로 복사하거나, &lt;strong&gt;2.&lt;/strong&gt; (이후에 나오겠지만) 다른 필드의 값들을 조합한 값을 넣을 수 있습니다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;annotate의 사전적 의미는 '주석을 달다'인데요. Django에서는 주석 대신 '필드'를 추가한다고 생각하시면 되겠습니다. (엑셀이라면 컬럼을 추가하는 셈이겠고요.)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id="2aggregatesum"&gt;2. 제품 가격 모두 더해서 총 판매액 구하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#aggregate"&gt;aggregate&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#sum"&gt;Sum&lt;/a&gt;)&lt;/h4&gt;
+&lt;p&gt;그럼 이제 &lt;em&gt;price&lt;/em&gt;의 값을 모두 합하여 총 판매액을 구해야겠죠.&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서는 수식을 사용하여 해당 필드 전체를 더해줍니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-21-15-55-55.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;Django에서 쿼리셋의 특정 필드를 모두 더할 때는 애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;) 메서드를 사용합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 앞의 코드에서 이어집니다.
+&amp;gt;&amp;gt;&amp;gt; order_qs.aggregate(total_price=Sum('price'))
+{'total_price': 262200}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;aggregate의 사전적 의미는 '합계', '종합'입니다. Django에서는 필드 전체의 합이나 평균, 개수 등을 계산할 때 사용하면 됩니다. (엑셀에서는 한 컬럼 전체의 합이나 평균, 개수를 계산한다고 보면 되겠고요.)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="valuesannotatesum"&gt;일별 판매액 구하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#django.db.models.query.QuerySet.values"&gt;values&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#annotate"&gt;annotate&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#sum"&gt;Sum&lt;/a&gt;)&lt;/h2&gt;
+&lt;p&gt;총 판매액이 아닌 일별 판매액을 구할 땐 어떻게 할까요?&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀이라면 피벗 테이블을 만들텐데요. 피벗 테이블에 익숙하지 않은 분을 위해 간단히 설명을 하자면, 기준(pivot)을 정하고 이 기준에 따라 값을 묶는 기능이라고 생각하시면 됩니다. (자세한 사용 방법은 &lt;a href="https://support.office.com/ko-kr/article/%ED%94%BC%EB%B2%97-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4-%EC%9B%8C%ED%81%AC%EC%8B%9C%ED%8A%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-a9a84538-bfe9-40a9-a8e9-f99134456576"&gt;엑셀 2013 도움말&lt;/a&gt;을 참고하세요.)&lt;/p&gt;
+&lt;p&gt;예를 들어, 날짜를 행의 기준으로 정하고 가격을 묶으면(=합계), 다음과 같이 일별 판매액을 알 수 있겠죠.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-19-10-11-05.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;Django에서 뭔가를 기준으로 값들을 묶고 싶다면 &lt;code&gt;values&lt;/code&gt;와 &lt;code&gt;annotate&lt;/code&gt;를 사용하면 됩니다. 여기서는 날짜(&lt;em&gt;created&lt;/em&gt;)가 기준이 되고, 날짜별로 묶고 싶은 값은 가격(&lt;em&gt;price&lt;/em&gt;)입니다. 묶은 값들은 모두 더해서 &lt;em&gt;daily_total&lt;/em&gt; 필드에 넣어주었습니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;values&lt;/code&gt; 메서드 이전에 &lt;code&gt;annotate&lt;/code&gt;로 추가했던 필드는, &lt;code&gt;values&lt;/code&gt; 메서드 이후에 나오는 &lt;code&gt;annotate&lt;/code&gt; 메서드에서 참조할 수 없습니다. 아쉽지만 여기서는 &lt;em&gt;product__price&lt;/em&gt;를 그대로 적어주어야 합니다.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;daily_list = order_qs.values(
+    'created'
+).annotate(
+    daily_total=Sum('product__price')
+)
+
+# 내용을 확인해보면,
+&amp;gt;&amp;gt;&amp;gt; for data in daily_data_list:
+...     print(data)
+...
+{'daily_total': 113000, 'created': datetime.datetime(2016, 4, 1, 0, 0)}
+{'daily_total': 84500, 'created': datetime.datetime(2016, 4, 2, 0, 0)} 
+{'daily_total': 64700, 'created': datetime.datetime(2016, 4, 3, 0, 0)}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="valuesannotatecount"&gt;날짜별+제품별 판매 개수 구하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#django.db.models.query.QuerySet.values"&gt;values&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#annotate"&gt;annotate&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#count"&gt;Count&lt;/a&gt;)&lt;/h2&gt;
+&lt;p&gt;조금 더 들어가 봅시다. 이제는 날짜별로 각 제품이 몇 개씩 팔렸는지 알고 싶습니다.&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서는 역시나 피벗 테이블을 사용하겠죠. 아까의 피벗 테이블에서 &lt;strong&gt;1.&lt;/strong&gt; 열 기준으로 행을 추가하고, &lt;strong&gt;2.&lt;/strong&gt; 값으로는 레코드의 개수를 선택하면 아래와 같이 일별/제품별 판매 개수를 알 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-21-13-11-33.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;이를 Django에 옮겨보죠. &lt;code&gt;values&lt;/code&gt;에 넣을 기준 필드는 &lt;em&gt;created&lt;/em&gt;와 &lt;em&gt;name&lt;/em&gt;이 되겠고요. &lt;code&gt;annotate&lt;/code&gt;에서는 레코드 개수를 세기 위해 &lt;code&gt;Count&lt;/code&gt; 메서드를 사용했습니다. &lt;em&gt;count&lt;/em&gt; 필드를 만들어서 일별+제품별 판매 개수를 넣어주었고요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;daily_count = order_qs.values(
+    'created', 'name'
+).annotate(
+    count=Count('name')
+)
+
+# 내용을 확인해보면,
+&amp;gt;&amp;gt;&amp;gt; for data in daily_count:
+...     print(data)
+...
+{'count': 2, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': 'ABC Activity'}
+{'count': 2, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': '동물동요'}
+
+# (중략)
+
+{'count': 1, 'created': datetime.datetime(2016, 4, 3, 0, 0), 'name': '사운드북 패키지'}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="filter"&gt;특정 제품의 날짜별 판매 개수 구하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#filter"&gt;filter&lt;/a&gt;)&lt;/h2&gt;
+&lt;p&gt;전체 제품이 아닌 관심 있는 제품의 날짜별 판매 개수를 알고 싶을 땐 어떻게 할까요?&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서는 피벗 테이블에 필터를 추가하면 됩니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-23-17-36-52.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;Django에서도 필터(&lt;code&gt;filter&lt;/code&gt;)를 추가하면 됩니다. &lt;code&gt;filter&lt;/code&gt; 외의 부분은 바로 앞의 코드와 동일합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;sound_book_daily_count = order_qs.filter(
+    name='ABC Activity'
+).values(
+    'created', 'name'
+).annotate(
+    count=Count('product')
+)
+
+# 내용을 확인해보면,
+{'name': 'ABC Activity', 'count': 2, 'created': datetime.datetime(2016, 4, 1, 0, 0}
+{'name': 'ABC Activity', 'count': 3, 'created': datetime.datetime(2016, 4, 2, 0, 0}
+{'name': 'ABC Activity', 'count': `, 'created': datetime.datetime(2016, 4, 3, 0, 0}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;(심화) 결제 취소 발생!&lt;/h2&gt;
+&lt;p&gt;이제 진짜 애너테이션과 애그리게이션이 유용한 사례를 살펴봅시다. 쇼핑몰에서는 판매 내역이 취소되기도 하죠. 결제가 취소되었을 때는 취소 로그를 남겨야 합니다. 여기서는 최대한 간단히 설명하기 위해 판매 내역에 &lt;em&gt;결제 취소(is_cancel)&lt;/em&gt; 필드를 추가하고, 결제 취소 내역인 경우에는 해당 필드를 &lt;em&gt;True&lt;/em&gt;로 설정하겠습니다.&lt;/p&gt;
+&lt;h4 id=""&gt;엑셀 버전&lt;/h4&gt;
+&lt;p&gt;엑셀에서는 다음과 같은 열이 추가됩니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-19-12-58-10.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h4 id="django"&gt;Django 버전&lt;/h4&gt;
+&lt;p&gt;OrderLog 모델은 다음과 같이 수정하겠습니다. (원래는 취소된 내역 자체도 참조해야 하지만, 여기서는 설명을 간단히 하고자 생략했습니다.)&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# OrderLog 모델 수정
+class OrderLog(models.Model):
+    product = models.ForeignKey('Product')
+    created = models.DateTimeField(u'판매일', auto_now_add=True)
+    is_cancel = models.BooleanField(u'결제 취소인지', default=False)  # 추가된 필드
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;여기서는 설명하지 않겠지만, 모델을 변경했다면 데이터베이스 마이그레이션 과정을 거쳐야만 합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;그리고 결제 취소 내역을 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;abc = Product.objects.get(name='ABC Activity')
+may3 = datetime(2016, 4, 3)
+OrderLog.objects.create(created=may3, product=abc, is_cancel=True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;(결제 취소 버전) 총 판매액 수정&lt;/h2&gt;
+&lt;p&gt;지금 시점에 총 판매액을 다시 계산해보면 맨 마지막에 추가한 결제 취소 내역 때문에 다음과 같이 총 판매액이 잘못 계산됩니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; order_qs.aggregate(total_price=Sum('price'))
+{'total_price': 272100}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;일견, &lt;code&gt;exclude&lt;/code&gt;를 추가해서 결제 취소 내역을 제외시키고 계산을 하려 할지도 모르겠습니다. 그래도 여전히 판매액이 틀립니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;order_qs.exclude(
+    is_cancel=True
+).aggregate(
+    total_price=Sum('price')
+)
+
+# 내용을 확인해보면,
+{'total_price': 262200}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;왜냐하면 &lt;strong&gt;총 판매액 = 순수 판매 금액 - 취소 금액&lt;/strong&gt;이기 때문입니다. 바로 앞의 쿼리는 취소 금액을 계산하지 않습니다. (애초에 결제 취소 내역의 판매 금액을 음수로 저장하는 방법도 있지만, 여기서는 설명을 위해 그렇게 하지 않았습니다.)&lt;/p&gt;
+&lt;p&gt;그럼 이제 판매 금액과 취소 금액, 총 판매액을 계산해보겠습니다.&lt;/p&gt;
+&lt;p&gt;엑셀에서라면 &lt;strong&gt;1.&lt;/strong&gt; 판매 금액 컬럼과 취소 금액 컬럼을 추가하고, 결제 취소 필드의 내용에 따라 각 컬럼에 가격을 넣은 다음, &lt;strong&gt;2.&lt;/strong&gt; 판매 금액의 합에서 취소 금액의 합을 빼주면 됩니다.&lt;/p&gt;
+&lt;h4 id="1"&gt;1. 결제 취소 필드에 따라 판매 금액, 취소 금액 필드 추가하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/conditional-expressions/"&gt;조건적 애너테이션&lt;/a&gt;)&lt;/h4&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서의 모습을 보면 다음과 같습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-19-13-19-10.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;이를 Django에 구현하기는 조금 까다롭습니다. 결제 취소라는 조건이 생긴 탓인데요. Django 1.8에 추가된 조건적 애너테이션을 사용하면 이 문제를 해결할 수 있습니다. 조건적 애너테이션이란, 말 그대로 특정 조건에 따라 애너테이션을 붙일 수 있는 기능입니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;order_list_2 = order_qs.annotate(
+    sales_price=Case(
+        When(
+            is_cancel=False,  # 결제 취소가 아닌 경우
+            then=F('price')
+        ),
+        default=0
+    ),
+    cancel_price=Case(
+        When(
+            is_cancel=True,   # 결제 취소인 경우
+            then=F('price')
+        ),
+        default=0
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이렇게 하면 판매 내역인 경우 &lt;em&gt;sales_price&lt;/em&gt; 필드에 &lt;em&gt;price&lt;/em&gt; 값이 들어가고, 결제 취소 내역인 경우엔 &lt;em&gt;cancel_price&lt;/em&gt; 필드에 &lt;em&gt;price&lt;/em&gt; 값이 들어갑니다. (&lt;code&gt;default=0&lt;/code&gt;이므로 해당하지 않는 필드에는 0이 들어갑니다.)&lt;/p&gt;
+&lt;p&gt;결과를 확인해보죠.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; for data in order_list_2:
+...     print(data)
+...
+{'cancel_price': 0, 'name': 'ABC Activity', 'sales_price': 9900, 'price': 9900, 'created': datetime.datetime(2016, 4, 1, 0, 0)}
+{'cancel_price': 0, 'name': '동물동요', 'sales_price': 8200, 'price': 8200, 'created': datetime.datetime(2016, 4, 1, 0, 0)}
+
+# (중략)
+
+{'cancel_price': 9900, 'name': 'ABC Activity', 'sales_price': 0, 'price': 9900, 'created': datetime.datetime(2016, 4, 3, 0, 0)}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="2"&gt;2. 판매 금액의 합 - 취소 금액의 합 = 총 판매액&lt;/h4&gt;
+&lt;p&gt;이제 판매 금액의 합에서 취소 금액의 합을 빼 봅시다.&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서라면 다음과 같이 소계가 추가될 겁니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-20-14-01-41.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;이를 Django로 옮기면 다음과 같습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 위에서 이어집니다.
+result = order_list_2.aggregate(
+    total_price=Sum('sales_price')-Sum('cancel_price')
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;판매 금액의 합(&lt;code&gt;Sum('sales_price')&lt;/code&gt;)에서 취소 금액의 합(&lt;code&gt;Sum('cancel_price')&lt;/code&gt;)을 빼서, &lt;em&gt;total_price&lt;/em&gt; 필드에 넣었습니다. 특정 필드 전체에 대한 연산이므로 애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;)을 사용했습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 내용을 확인해보면,
+&amp;gt;&amp;gt;&amp;gt; result
+{'total_price': 252300}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;(결제 취소 버전) 특정 제품의 날짜별 판매 개수 계산하기&lt;/h2&gt;
+&lt;p&gt;특정 제품의 날짜별 판매 개수에도 역시 결제 취소 내역이라는 장애물이 생겼습니다. 총 판매액에서처럼 조건적 애너테이션을 사용하면 계산할 수 있겠는데요. 일단 결제 취소 내역이 발생하기 전의 코드를 다시 살펴보죠.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 결제 취소가 생기기 전 버전
+sound_book_daily_count = order_qs.filter(
+    name='사운드북 패키지'
+).values(
+    'created', 'name'
+).annotate(
+    count=Count('product')
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;애너테이션(&lt;code&gt;annotate&lt;/code&gt;) 부분을 수정하면 될 것 같습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;sound_book_daily_count = order_qs.filter(
+    name='ABC Activity'
+).values(
+    'created', 'name'
+).annotate(
+    count=Sum(
+        Case(
+            When(
+                is_cancel=False, then=1, 
+            ),
+            When(
+                is_cancel=True, then=-1
+            ),
+            output_field=IntegerField(),
+            default=0
+        )
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;총 판매액 쿼리와는 살짝 달라진 모습을 알 수 있습니다. 순수 판매 내역인 경우엔(&lt;code&gt;is_cancel=False&lt;/code&gt;) 1을 넣고(&lt;code&gt;then=1&lt;/code&gt;), 결제 취소 내역인 경우엔(&lt;code&gt;is_cancel=True&lt;/code&gt;) -1을 넣습니다(&lt;code&gt;then=-1&lt;/code&gt;). 그리고 이 값들을 모두 합해서 &lt;em&gt;count&lt;/em&gt; 필드에 넣었습니다.&lt;/p&gt;
+&lt;p&gt;결과는 다음과 같습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;{'name': 'ABC Activity', 'count': 2, 'created': datetime.datetime(2016, 4, 1, 0, 0}
+{'name': 'ABC Activity', 'count': 3, 'created': datetime.datetime(2016, 4, 2, 0, 0}
+{'name': 'ABC Activity', 'count': 0, 'created': datetime.datetime(2016, 4, 3, 0, 0}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;4월 3일의 판매 개수에서 결제 취소 내역이 제대로 반영되었음을 알 수 있습니다.&lt;/p&gt;
+&lt;h2 id=""&gt;(부록) 반복되는 애너테이션 구문은 저장해서 사용하기&lt;/h2&gt;
+&lt;p&gt;조건적 애너테이션 구문은 항상 길어지기 마련이라 유지보수하기가 어려워지는 단점이 있는데요. 만약 여러 군데서 같은 구문을 사용한다면 다음과 같이 중복을 없앨 수 있습니다.&lt;/p&gt;
+&lt;p&gt;먼저 조건적 애너테이션 구문을 저장해놓고,&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;REAL_COUNT = Sum(
+    Case(
+        When(
+            is_cancel=False, then=1, 
+        ),
+        When(
+            is_cancel=True, then=-1
+        ),
+        output_field=FloatField(),
+        default=0
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;저장한 애너테이션 구문은 다음과 같이 사용합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;sound_book_daily_count = order_qs.filter(
+    name='ABC Activity'
+).values(
+    'created', 'name'
+).annotate(
+    count=REAL_COUNT
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;요약&lt;/h2&gt;
+&lt;p&gt;지금까지 Django의 애너테이션과 애그리게이션에 대해 알아보았습니다. 요약하면 다음과 같습니다.&lt;/p&gt;
+&lt;ol start="0"&gt;
+&lt;li&gt;Django 모델의 필드는 엑셀의 컬럼에 대입된다고 생각합시다.&lt;/li&gt;
+&lt;li&gt;애너테이션(&lt;code&gt;annotate&lt;/code&gt;)은 엑셀에서 계산용 컬럼을 하나 추가하는 것과 같습니다.&lt;/li&gt;
+&lt;li&gt;애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;)은 엑셀에서 특정 컬럼 전체를 대상으로 계산하는 것과 같습니다. (합, 평균, 개수 등)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;이 정도만 이해하신다면, Django의 annotate와 aggregate 메서드를 좀더 친근하게 사용하실 수 있을 겁니다. :)&lt;/p&gt;
+&lt;h2 id=""&gt;참고할 만한 링크&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.9/topics/db/aggregation/"&gt;Django 공식 문서의 애너테이션 가이드(영문)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/conditional-expressions/"&gt;Django 공식 문서의 조건적 애너테이션 가이드(영문)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://agiliq.com/blog/2009/08/django-aggregation-tutorial/"&gt;Django의 애너테이션과 애그리게이션 튜토리얼(블로그/영문)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://raccoonyy.github.io/conditional-annotate-with-django-query/"&gt;django 쿼리에 조건적 annotate 붙이기(블로그/한글)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://jerrywohlgemuth.com/detail/conditional-aggregations-with-django/"&gt;조건적 애너테이션(블로그/영문)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://splbio.wordpress.com/2013/10/28/some-nitty-gritty-django-orm-queries-multiple-group-by/"&gt;애너테이션 적용시 주의할 점(블로그/영문)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</content:encoded></item><item><title>한국의 파이썬 소식(4월 넷째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 파이콘 2016이 열립니다 #2 Sphinx를 사용한 파이썬 소스코드 문서화 기법 #3 pytest를 이용한 Django 테스트 속도 향상 #4 (신간) 파이썬 라이브러리 레시피 #5 (신간) 고성능 파이썬 프로그래밍</description><link>http://raccoonyy.github.io/python-news-for-korean-week-april/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ed7</guid><category>파이썬</category><category>파이썬 소식</category><category>python</category><category>python-news</category><category>pycon2016</category><category>pycon apac</category><category>Django</category><category>pytest</category><category>파이썬 소스코드 문서화</category><category>Sphinx</category><category>파이썬 라이브러리 레시피</category><category>고성능 파이썬 프로그래밍</category><category>장고 강좌</category><category>파이썬 강좌</category><dc:creator>raccoony</dc:creator><pubDate>Mon, 25 Apr 2016 02:50:23 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(4월 넷째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;행사&lt;/h1&gt;
+&lt;h3 id="pycon2016"&gt;&lt;a href="https://www.pycon.kr/2016apac/"&gt;PyCon 2016&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;2016년에도 파이콘이 열립니다. 이번에는 특별히 아시아태평양 지역 전체를 포괄한다고 하네요. 얼리버드 등록은 눈 깜짝할 새에 지나갔으니, 정규 등록을 기다리셔야 할 듯 합니다.&lt;/p&gt;
+&lt;h1 id=""&gt;오프라인 강좌&lt;/h1&gt;
+&lt;h3 id=""&gt;&lt;a href="https://festi.kr/class/django/"&gt;장고 차근차근 시작하기&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;6월 7일 개강 | 4주 간 36시간 과정(화, 목, 일) | 수강료 60만원&lt;/p&gt;
+&lt;h3 id=""&gt;&lt;a href="https://festi.kr/class/python/"&gt;파이썬 차근차근 시작하기&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;6월 4일 개강 | 2일 간 12시간 과정(토, 일) | 수강료 20만원&lt;/p&gt;
+&lt;h3 id=""&gt;&lt;/h3&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="bykeichoi"&gt;&lt;a href="http://www.hanul93.com/python-sphinx/"&gt;파이썬 소스코드 문서화&lt;/a&gt; by Kei Choi님&lt;/h3&gt;
+&lt;p&gt;sphinx를 이용한 소스코드 문서화 기법을 Kei Choi님이 작성하였습니다.&lt;/p&gt;
+&lt;h3 id="djangotestbyperhapsspy"&gt;&lt;a href="https://gist.github.com/perhapsspy/fc5521376df87036be2d034d1beaf69b"&gt;Django에서 Test 쉽고 빠르게 하기&lt;/a&gt; by Perhapsspy&lt;/h3&gt;
+&lt;p&gt;pytest를 이용하여 Django 테스트 실행 속도를 빠르게 하는 방법을 Perhapsspy님이 작성하였습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;책&lt;/h1&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=81952685"&gt;파이썬 라이브러리 레시피&lt;/a&gt; by 프리렉&lt;/h3&gt;
+&lt;p&gt;&lt;img src="http://image.aladin.co.kr/product/8195/26/letslook/8965401267_f.jpg" alt="한국의 파이썬 소식(4월 넷째 주)"&gt;&lt;/p&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=82059410"&gt;고성능 파이썬 프로그래밍&lt;/a&gt; by 에이콘출판&lt;/h3&gt;
+&lt;p&gt;&lt;img src="http://image.aladin.co.kr/product/8205/94/letslook/8960778532_f.jpg" alt="한국의 파이썬 소식(4월 넷째 주)"&gt;&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item><item><title>괜찮은 Django Rest Framework 강좌를 찾아서 소개합니다</title><description>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;Django Rest Framework를 알려주는 강좌를 하나 발견하여 소개합니다.&lt;/p&gt;
+&lt;p&gt;작성자는 devissue님이시고, PyCharm 설치부터 REST API 구축, 게시판 만들기까지를 자세히 설명해주셨네요.&lt;/p&gt;
+&lt;p&gt;devissue님의 블로그에서 글을 찾기가 살짝 어려운 듯 하여, 순서에 따라 링크를 남겨 봅니다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/02/01/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%9c-%ec%9b%b9-%ec%82%ac%ec%9d%b4%ed%8a%b8-%ea%b5%ac%ec%b6%95%ed%95%98%ea%b8%b0/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용한 웹 사이트 구축하기&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/02/03/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-rest-api-%eb%a7%8c%eb%93%a4%ea%b8%b0/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용하여 REST API 만들기&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/02/15/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-%ea%b0%84%eb%8b%a8%ed%95%9c-%ea%b2%8c%ec%8b%9c%ed%8c%90-%eb%a7%8c%eb%93%a4%ea%b8%b01/"&gt;PyCharm과 함께&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/django-rest-framework-tutorial-by-devissue/</link><guid isPermaLink="false">59815cfcdd47a80001bb9eca</guid><category>Django</category><category>drf</category><category>django-rest-framework</category><category>강좌</category><category>tutorial</category><dc:creator>raccoony</dc:creator><pubDate>Fri, 29 Jan 2016 03:46:00 GMT</pubDate><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;Django Rest Framework를 알려주는 강좌를 하나 발견하여 소개합니다.&lt;/p&gt;
+&lt;p&gt;작성자는 devissue님이시고, PyCharm 설치부터 REST API 구축, 게시판 만들기까지를 자세히 설명해주셨네요.&lt;/p&gt;
+&lt;p&gt;devissue님의 블로그에서 글을 찾기가 살짝 어려운 듯 하여, 순서에 따라 링크를 남겨 봅니다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/02/01/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%9c-%ec%9b%b9-%ec%82%ac%ec%9d%b4%ed%8a%b8-%ea%b5%ac%ec%b6%95%ed%95%98%ea%b8%b0/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용한 웹 사이트 구축하기&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/02/03/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-rest-api-%eb%a7%8c%eb%93%a4%ea%b8%b0/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용하여 REST API 만들기&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/02/15/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-%ea%b0%84%eb%8b%a8%ed%95%9c-%ea%b2%8c%ec%8b%9c%ed%8c%90-%eb%a7%8c%eb%93%a4%ea%b8%b01/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용하여 간단한 게시판 만들기(1)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/02/24/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-%ea%b0%84%eb%8b%a8%ed%95%9c-%ea%b2%8c%ec%8b%9c%ed%8c%90-%eb%a7%8c%eb%93%a4%ea%b8%b02/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용하여 간단한 게시판 만들기(2)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/03/13/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-%ea%b0%84%eb%8b%a8%ed%95%9c-%ea%b2%8c%ec%8b%9c%ed%8c%90-%eb%a7%8c%eb%93%a4%ea%b8%b03/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용하여 간단한 게시판 만들기(3)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/04/02/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-%ea%b0%84%eb%8b%a8%ed%95%9c-%ea%b2%8c%ec%8b%9c%ed%8c%90-%eb%a7%8c%eb%93%a4%ea%b8%b04/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용하여 간단한 게시판 만들기(4)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/04/08/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-%ea%b0%84%eb%8b%a8%ed%95%9c-%ea%b2%8c%ec%8b%9c%ed%8c%90-%eb%a7%8c%eb%93%a4%ea%b8%b05/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용하여 간단한 게시판 만들기(5)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/04/19/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-%ea%b0%84%eb%8b%a8%ed%95%9c-%ea%b2%8c%ec%8b%9c%ed%8c%90-%eb%a7%8c%eb%93%a4%ea%b8%b06/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용하여 간단한 게시판 만들기(6)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://devissue.wordpress.com/2015/04/26/pycharm%ea%b3%bc-%ed%95%a8%ea%bb%98-django%ec%99%80-restframework%eb%a5%bc-%ed%99%9c%ec%9a%a9%ed%95%98%ec%97%ac-%ea%b0%84%eb%8b%a8%ed%95%9c-%ea%b2%8c%ec%8b%9c%ed%8c%90-%eb%a7%8c%eb%93%a4%ea%b8%b07/"&gt;PyCharm과 함께 DJango와 RestFramework를 활용하여 간단한 게시판 만들기(7)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</content:encoded></item><item><title>테스트용 객체 생성을 편하게 - model_mommy</title><description>django에서 테스트용 객체를 생성하기가 좀 귀찮았다. 테스트 픽스처를 만들기도 귀찮았다. 그냥 더미 객체들 좀 알아서 만들어주면 안 되나? model_mommy 도입으로 해결!</description><link>http://raccoonyy.github.io/generating-dynamic-test-fixture-with-model_mommy/</link><guid isPermaLink="false">59815cfbdd47a80001bb9ea8</guid><category>test</category><category>파이썬</category><category>Django</category><category>django-test</category><category>model_mommy</category><category>테스트</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 26 Jan 2016 23:21:53 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/model_mommy.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/01/model_mommy.jpg" alt="테스트용 객체 생성을 편하게 - model_mommy"&gt;&lt;p&gt;개인적으로 테스트를 작성하면서 귀찮다고 여겼던 부분 중 하나는 테스트용 데이터(테스트 픽스처) 구축이었다. Django에서 테스트 전에 테스트 픽스처를 불러들이는 기능을 제공하지만, 이걸 만드는 일 자체가 귀찮기도 하고 어떤 데이터인지 확인하려면 json 파일을 열어봐야 하니까.&lt;/p&gt;
+&lt;p&gt;그러던 중에 &lt;strong&gt;Object Factory&lt;/strong&gt;라는 도구를 알게 되었다. 여러 가지가 있지만(대표적으론 &lt;a href="https://factoryboy.readthedocs.org/en/latest/"&gt;Factory Boy&lt;/a&gt;) 가장 간단해서 사용하게 된 &lt;a href="http://model-mommy.readthedocs.org/"&gt;model_mommy&lt;/a&gt;를 소개해볼까 한다.&lt;/p&gt;
+&lt;h2 id=""&gt;설치&lt;/h2&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ pip install model_mommy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;테스트용 객체 만들기&lt;/h2&gt;
+&lt;p&gt;다음과 같은 Author 모델이 있다고 하자.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# models.py
+class Author(models.Model):
+    name = models.CharField(max_length=35)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이제 model_mommy를 사용하여 테스트용 객체를 만들 수 있다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# test_models.py
+from django.test import TestCase
+from model_mommy import mommy
+
+class TestAuthor(TestCase):
+    def setUp(self):
+        self.author = mommy.make('Author')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이때 Author 모델의 name 속성은 임의의 글자 35개(&lt;code&gt;max_length=35&lt;/code&gt;)로 생성되는데, 이를 직접 지정할 수도 있다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;self.author = mommy.make(
+    'Author', 
+    name='test_name'
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;외부키 연결&lt;/h2&gt;
+&lt;p&gt;이제 &lt;code&gt;models.py&lt;/code&gt;에 Book 모델을 추가하고, Author 모델과 연결했다고 하자.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# models.py
+class Book(models.Model):
+    title = models.CharField(max_length=150)
+    author = models.ForeignKey('Author')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;그리고 테스트에서 특정 Author 객체와 연결된 Book 모델을 만들고 싶다면,&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# test_models.py
+# ... (생략) ...
+class TestBook(TestCase):
+    def setUp(self):
+        self.author = mommy.make('Author')
+        self.book = mommy.make('Book', author=self.author)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;연결된 모델의 속성도 지정할 수 있다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;self.book = mommy.make(
+    'Book',
+    author__name='test_related_name'
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=""&gt;한꺼번에 여러 객체 만들기&lt;/h3&gt;
+&lt;p&gt;객체를 한꺼번에 하나 이상 만들고 싶다면,&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;books = mommy.make(
+    'Book',
+    _quantity=100
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;너무 많이 만들면(10,000개 이상?) 테스트 실행 시간도 늘어난다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;이 외에도 &lt;a href="http://model-mommy.readthedocs.org/en/latest/recipes.html"&gt;Recipe&lt;/a&gt;를 만들어 두고 재활용하거나, 만드는 순서에 따라 번호를 매기는 &lt;a href="http://model-mommy.readthedocs.org/en/latest/recipes.html#sequences-in-recipes"&gt;Sequence&lt;/a&gt; 등의 기능도 있으니 참고하길.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item><item><title>한국의 파이썬 소식(1월 넷째 주)</title><description>#1. django, bower, grunt로 사이트 구조 잡기 by JayJin
+#2. 예제로 따라해보는 Jupyter, pandas 데이터 분석 by 김형용
+#3. 파이썬 슬랙봇 오픈소스 by 한돌</description><link>http://raccoonyy.github.io/python-news-for-korean-4th-week-jan/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ec8</guid><category>python-news</category><category>파이썬 소식</category><category>python</category><category>파이썬</category><category>한국어</category><category>Django</category><category>bower</category><category>grunt</category><category>jupyter</category><category>pandas</category><category>slack-bot</category><dc:creator>raccoony</dc:creator><pubDate>Sun, 24 Jan 2016 23:01:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(1월 넷째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="djangobowergrunt"&gt;&lt;a href="https://milooy.wordpress.com/2016/01/20/django-bower-grunt/"&gt;django, bower, grunt로 사이트 구조잡기&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;JayJin님이 django와 bower, grunt로 사이트 구조 잡는 방법을 설명해 줍니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;요약 : django에는 백엔드만 맡기기&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="jupyterpandas"&gt;&lt;a href="http://insilicogen.com/blog/197?category=2"&gt;예제로 따라해보는 Jupyter, pandas 데이터 분석&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;인실리코젠의 김형용 님이 Jupyter와 pandas를 사용하여 데이터 분석 기법을 보여줍니다. 블로그 글은 짧은 편이고, &lt;a href="http://nbviewer.jupyter.org/gist/yong27/715c0ef9a09dd6eb37e9"&gt;숨겨진 Jupyter 문서&lt;/a&gt;가 진짜배기입니다. :)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;요약 : 통계는 어렵지만 pandas 만세.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=""&gt;&lt;a href="https://haandol.wordpress.com/2016/01/24/%EC%9D%BC%EA%B8%B0-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%8A%AC%EB%9E%99%EB%B4%87-%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4%ED%99%94/"&gt;파이썬 슬랙봇 오픈소스&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;한돌님이 회사(버즈니)에서 사용중인 슬랙 봇을 오픈소스로 공개하였습니다. (공개 시점은 꽤 예전인 듯 한데 이제야 알게 되었네요.)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;요약 : 선 스타 후 클론.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</content:encoded></item><item><title>django 쿼리에 조건적 annotate 붙이기</title><description>Django 1.8에 추가된 Case, When을 사용하면, 특정 조건에 맞는 쿼리에 대해서만 aggregate나 annotate를 할 수 있습니다.</description><link>http://raccoonyy.github.io/conditional-annotate-with-django-query/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ec7</guid><category>Django</category><category>query</category><category>conditional</category><category>annotate</category><category>case</category><category>F-expression</category><category>aggregation</category><dc:creator>raccoony</dc:creator><pubDate>Mon, 18 Jan 2016 23:02:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/conditional-1.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;h3 id=""&gt;문제&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/conditional-1.jpg" alt="django 쿼리에 조건적 annotate 붙이기"&gt;&lt;p&gt;모델 코드는 &lt;a href="http://raccoonyy.github.io/conditional-annotate-with-django-query/.#modeling"&gt;제일 아래&lt;/a&gt;에 적어두었습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;특정 창고&lt;/code&gt;에서 &lt;code&gt;받은 발송장&lt;/code&gt;과 &lt;code&gt;보낸 발송장&lt;/code&gt;을 참고하여, &lt;code&gt;물건&lt;/code&gt;의 남은 양을 파악하고 싶었다. 다시 말하면, 조건에 맞춰서 &lt;code&gt;annotate&lt;/code&gt;를 만들 수 있을까?&lt;/p&gt;
+&lt;p&gt;개인적으로는 가독성과 유지보수성을 위해 SQL보다는 django ORM을 선호하는 편이다. &lt;s&gt;그래서 복잡한 쿼리 만들 때마다 이런 고생을 하는지도&lt;/s&gt; &lt;code&gt;annotate&lt;/code&gt;랑 &lt;code&gt;F 표현식&lt;/code&gt;을 어떻게 조합하면 될 것도 같은데...하며 골머리를 싸매다가, 공식 문서에서 &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/conditional-expressions/"&gt;conditional expressions&lt;/a&gt;라는 항목을 발견했다.&lt;/p&gt;
+&lt;h3 id="caseifelifelse"&gt;&lt;code&gt;Case&lt;/code&gt; == &lt;code&gt;if .. elif .. else&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;조건적인 &lt;code&gt;annotate&lt;/code&gt;에 사용하는 클래스는 &lt;code&gt;Case&lt;/code&gt;와 &lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;When&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Case&lt;/code&gt;는 &lt;code&gt;if elif else&lt;/code&gt;랑 비슷하다고 볼 수 있다. 아래는 발송장(&lt;code&gt;Invoice&lt;/code&gt;)의 수신지(&lt;code&gt;dest&lt;/code&gt;)가 특정 창고(&lt;code&gt;inventory&lt;/code&gt;)인 경우(&lt;code&gt;When&lt;/code&gt;), 물품 목록(&lt;code&gt;stock_entry&lt;/code&gt;)에 포함된 물품의 개수(&lt;code&gt;quantity&lt;/code&gt;)를 가리킨다(=발송 개수). 해당되는 쿼리셋이 없다면 0을 반환한다(&lt;code&gt;default=0&lt;/code&gt;).&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.db.models import Case, When
+
+Case(
+    When(
+        invoice__dest=inventory,
+        then='stock_entry__quantity'
+    ),
+    default=0
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=""&gt;특정 창고에서 보낸 개수 파악하기&lt;/h3&gt;
+&lt;p&gt;이 &lt;code&gt;Case&lt;/code&gt; 문을 실제 모델(&lt;code&gt;Stock&lt;/code&gt;) 객체에 붙여보자. 위의 &lt;code&gt;Case&lt;/code&gt; 문에 &lt;code&gt;Sum&lt;/code&gt; 객체를 덮은 후, &lt;code&gt;annotate&lt;/code&gt;를 사용하여 &lt;code&gt;Stock&lt;/code&gt; 객체에 붙였다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;stock_list = Stock.objects.annotate(
+    received_stocks=Sum(
+        Case(
+            When(
+                stock_entry__invoice__dest=inventory,
+                then='stock_entry__quantity'
+            ),
+            default=Value(0)
+        )
+    ),
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이렇게 하면, &lt;code&gt;stock_list[0].received_stocks&lt;/code&gt;를 통해 각 물품의 보낸 개수를 확인할 수 있다.&lt;/p&gt;
+&lt;h3 id=""&gt;특정 창고에서 받은 개수 확인하기&lt;/h3&gt;
+&lt;p&gt;아래의 &lt;code&gt;sent_stocks&lt;/code&gt; 부분이 받은 개수를 연산하는 부분이다. (&lt;code&gt;dest&lt;/code&gt;가 &lt;code&gt;source&lt;/code&gt;로 바뀐 점 빼고는 &lt;code&gt;received&lt;/code&gt;와 똑같다.)&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;stock_list = Stock.objects.annotate(
+    received_stocks=Sum(
+        Case(
+            When(
+                stock_entry__invoice__dest=inventory,
+                then='stock_entry__quantity'
+            ),
+            default=0
+        )
+    ),
+    sent_stocks=Sum(
+        Case(
+            When(
+                stock_entry__invoice__source=inventory,
+                then='stock_entry__quantity'
+            ),
+            default=0
+        )
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;stock_list[0].sent_stocks&lt;/code&gt;를 통해 각 물품의 보낸 개수를 확인할 수 있다.&lt;/p&gt;
+&lt;h3 id=""&gt;특정 창고에서 물품별 재고 파악하기&lt;/h3&gt;
+&lt;p&gt;이제 각 객체에서 &lt;code&gt;received_stocks&lt;/code&gt; 값과 &lt;code&gt;sent_stocks&lt;/code&gt; 값을 연산하면 재고를 파악할 수 있다. (밑에서 세 번째 줄의 &lt;code&gt;annotate&lt;/code&gt; 구문)&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;stock_list = Stock.objects.annotate(
+    received_stocks=Sum(
+        Case(
+            When(
+                stock_entry__invoice__dest=inventory,
+                then='stock_entry__quantity'
+            ),
+            default=0
+        )
+    ),
+    sent_stocks=Sum(
+        Case(
+            When(
+                stock_entry__invoice__source=inventory,
+                then='stock_entry__quantity'
+            ),
+            default=0
+        )
+    )
+).annotate(
+    remains=F('received_stocks') - F('sent_stocks')
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;더 자세한 내용이 궁금하다면, 공식 문서의 &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/expressions/#f-expressions"&gt;F 표현식&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/conditional-expressions/#case"&gt;Case 객체&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/conditional-expressions/#conditional-aggregation"&gt;conditional aggregation&lt;/a&gt; 등을 참고하길 바란다.&lt;/p&gt;
+&lt;h3 id=""&gt;&lt;a href="http://raccoonyy.github.io/conditional-annotate-with-django-query/./#modeling"&gt;참고용 소스&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;모델들이 어떻게 연결되어 있는지 궁금해 할 분도 있을 것 같아, 남겨본다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class Inventory(models.Model):
+
+    class Meta:
+        verbose_name = &amp;quot;창고&amp;quot;
+
+    title = models.CharField('이름', max_length=150)
+
+
+class Invoice(TimeStampedModel):
+
+    class Meta:
+        verbose_name = &amp;quot;발송장&amp;quot;
+
+    source = models.ForeignKey('Inventory', related_name='sent', null=True, blank=True)
+    dest = models.ForeignKey('Inventory', related_name='received')
+
+
+class StockEntry(models.Model):
+
+    class Meta:
+        verbose_name = &amp;quot;적재 내용&amp;quot;
+
+    invoice = models.ForeignKey('Invoice', related_name='stock_entry', null=True)
+    stock = models.ForeignKey('Stock', related_name='stock_entry')
+    quantity = models.IntegerField('수량')
+
+
+class Stock(models.Model):
+
+    class Meta:
+        verbose_name = &amp;quot;물품&amp;quot;
+
+    title = models.CharField('이름', max_length=150, unique=True)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content:encoded></item><item><title>Django 1.9 릴리스와 주요 변경 사항 소개</title><description>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;지난 12월 1일, Django 1.9 버전이 출시되었습니다.&lt;/p&gt;
+&lt;h2 id=""&gt;파이썬 호환성&lt;/h2&gt;
+&lt;p&gt;Django 1.9는 최소한 파이썬 2.7이 필요하며 파이썬 3.4와 3.5를 지원합니다.&lt;/p&gt;
+&lt;h2 id=""&gt;새 기능&lt;/h2&gt;
+&lt;h3 id="on_commit"&gt;on_commit() 훅&lt;/h3&gt;
+&lt;p&gt;데이터베이스 트랜잭션이 성공한 시점을 인식하여 훅을 걸 수 있습니다. 알림용 이메일이나 태스크 큐 생성, 캐시 갱신(invalidating) 등을 용례로 언급했습니다.&lt;/p&gt;
+&lt;p&gt;참고&lt;/p&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/django-1-9-release-and-major-highlights/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ebe</guid><category>Django</category><category>1.9</category><category>릴리스 노트</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 08 Dec 2015 02:10:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2015/12/Screenshot-2015-12-08-10-41-46.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2015/12/Screenshot-2015-12-08-10-41-46.png" alt="Django 1.9 릴리스와 주요 변경 사항 소개"&gt;&lt;p&gt;지난 12월 1일, Django 1.9 버전이 출시되었습니다.&lt;/p&gt;
+&lt;h2 id=""&gt;파이썬 호환성&lt;/h2&gt;
+&lt;p&gt;Django 1.9는 최소한 파이썬 2.7이 필요하며 파이썬 3.4와 3.5를 지원합니다.&lt;/p&gt;
+&lt;h2 id=""&gt;새 기능&lt;/h2&gt;
+&lt;h3 id="on_commit"&gt;on_commit() 훅&lt;/h3&gt;
+&lt;p&gt;데이터베이스 트랜잭션이 성공한 시점을 인식하여 훅을 걸 수 있습니다. 알림용 이메일이나 태스크 큐 생성, 캐시 갱신(invalidating) 등을 용례로 언급했습니다.&lt;/p&gt;
+&lt;p&gt;참고 링크 : &lt;a href="https://docs.djangoproject.com/en/1.9/topics/db/transactions/#django.db.transaction.on_commit"&gt;https://docs.djangoproject.com/en/1.9/topics/db/transactions/#django.db.transaction.on_commit&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=""&gt;비밀번호 유효성 확인&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://docs.djangoproject.com/en/1.9/ref/settings/#std:setting-AUTH_PASSWORD_VALIDATORS"&gt;&lt;code&gt;AUTH_PASSWORD_VALIDATORS&lt;/code&gt;&lt;/a&gt;라는 설정 값이 생겼습니다. 여기에 유효성 확인용 검사기(validator)를 플러그인처럼 추가하는 방식입니다.&lt;/p&gt;
+&lt;p&gt;새 프로젝트를 생성하면 기본적으로 다음의 검사기들이 추가됩니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;UserAttributeSimilarityValidator : 사용자의 아이디나 이메일 같은 속성들과 비슷한 비밀번호인지 검사&lt;/li&gt;
+&lt;li&gt;MinimumLengthValidator : 비밀번호의 최소 길이보다 짧은지 검사&lt;/li&gt;
+&lt;li&gt;CommonPasswordValidator : 흔한 문자열(password 같은)인지 검사&lt;/li&gt;
+&lt;li&gt;NumericPasswordValidator : 숫자로만 구성되어 있는지 검사&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;참고 링크 : &lt;a href="https://docs.djangoproject.com/en/1.9/topics/auth/passwords/#password-validation"&gt;https://docs.djangoproject.com/en/1.9/topics/auth/passwords/#password-validation&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="permission"&gt;클래스 기반 뷰에 Permission 믹스인 적용&lt;/h3&gt;
+&lt;p&gt;클래스 기반 뷰에서 접근 권한을 제어할 수 있도록 AccessMixin, LoginRequiredMixin, PermissionRequireMixin, UserPassesTestMixin 을 제공합니다. (&lt;a href="http://django-braces.readthedocs.org/en/latest/index.html"&gt;django-braces&lt;/a&gt; 프로젝트에서 영향을 받았다고 합니다.)&lt;/p&gt;
+&lt;p&gt;참고 링크 : &lt;a href="https://docs.djangoproject.com/en/1.9/releases/1.9/#permission-mixins-for-class-based-views"&gt;https://docs.djangoproject.com/en/1.9/releases/1.9/#permission-mixins-for-class-based-views&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="admin"&gt;관리자(admin) 페이지 리뉴얼&lt;/h3&gt;
+&lt;p&gt;기능은 막강했지만 인터페이스가 너무 단조로웠던 관리자 페이지가 새 옷을 입었습니다. 플랫한 디자인을 적용했고 아이콘이 SVG 형태로 바뀌어서 HiDPI 스크린에서도 깔끔하게 보이지만, 아쉽게도 모바일 지원은 아직입니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2015/12/Screenshot-2015-12-08-11-01-18.png" alt="Django 1.9 릴리스와 주요 변경 사항 소개"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2015/12/Screenshot-2015-12-08-11-00-19.png" alt="Django 1.9 릴리스와 주요 변경 사항 소개"&gt;&lt;/p&gt;
+&lt;h3 id=""&gt;병렬 테스트&lt;/h3&gt;
+&lt;p&gt;테스트시 &lt;code&gt;--parallel&lt;/code&gt; 옵션을 추가하면 병렬로 실행할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;참고 링크 : &lt;a href="https://docs.djangoproject.com/en/1.9/ref/django-admin/#django-admin-option---parallel"&gt;https://docs.djangoproject.com/en/1.9/ref/django-admin/#django-admin-option---parallel&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=""&gt;과거 버전과 향후 지원&lt;/h2&gt;
+&lt;p&gt;이번에 출시된 1.9 버전은 2017년 4월까지 업데이트가 지속됩니다. (2017년 4월에 1.11 버전이 출시 예정입니다.)&lt;/p&gt;
+&lt;p&gt;1.8은 LTS 버전이므로 2018년 4월까지 업데이트가 지속됩니다.&lt;/p&gt;
+&lt;p&gt;1.7 버전은 1.7.11을 마지막으로 업데이트가 되지 않겠습니다.&lt;/p&gt;
+&lt;p&gt;다음 번 메이저 업데이트는 1.10 버전이며 2016년 8월에 출시될 예정입니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item><item><title>[RFDP] django-summernote</title><description>summernote라는 꽤 괜찮은 오픈소스 에디터를 django에 손쉽게 적용할 수 있는 플러그인입니다.</description><link>http://raccoonyy.github.io/django-summernote/</link><guid isPermaLink="false">59815cfbdd47a80001bb9ea7</guid><category>django plugins</category><category>Django</category><category>django-summernote</category><category>raccoonys favorite</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 03 Dec 2015 23:35:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/06/raccoonys_favorite_django_plugins.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/06/raccoonys_favorite_django_plugins.jpg" alt="[RFDP] django-summernote"&gt;&lt;p&gt;RFDP : Raccoony's Favorite Django Plugins&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;웹 페이지에 쓸 만한 위지윅 에디터를 찾기란 쉽지 않은데요. &lt;a href="http://summernote.org/"&gt;summernote&lt;/a&gt;라는 꽤 괜찮은 오픈소스 에디터를 django에 손쉽게 적용할 수 있는 django-summernote를 소개합니다.&lt;/p&gt;
+&lt;p&gt;플러그인 이름 : django-summernote&lt;/p&gt;
+&lt;p&gt;저장소 : &lt;a href="https://github.com/summernote/django-summernote"&gt;https://github.com/summernote/django-summernote&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=""&gt;쓰임새&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://summernote.org/"&gt;summernote&lt;/a&gt;를 django 페이지에서 사용할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2015/12/Screenshot-2015-12-04-04-27-47.png" alt="[RFDP] django-summernote"&gt;&lt;/p&gt;
+&lt;h2 id=""&gt;설치&lt;/h2&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;pip install django-summernote
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;설정&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;INSTALLED_APPS&lt;/code&gt;에 &lt;code&gt;django_summernote&lt;/code&gt;를 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;INSTALLED_APPS += ('django_summernote', )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;urls.py&lt;/code&gt; 파일에는 django-summernote에 대한 항목을 추가하고요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;urlpatterns = patterns('',
+    ...
+    (r'^summernote/', include('django_summernote.urls')),
+    ...
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;데이터베이스 마이그레이션을 해줍니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;python manage.py migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;사용법&lt;/h2&gt;
+&lt;h3 id="form"&gt;form에 적용하려면&lt;/h3&gt;
+&lt;p&gt;다음과 같이 특정 필드의 widget을 &lt;code&gt;SummernoteWidget&lt;/code&gt;이나 &lt;code&gt;SummernoteInplaceWidget&lt;/code&gt;으로 지정해주고,&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+
+# Apply summernote to specific fields.
+class SomeForm(forms.Form):
+    foo = forms.CharField(widget=SummernoteWidget())  # instead of forms.Textarea
+
+# If you don't like &amp;lt;iframe&amp;gt;, then use inplace widget
+# Or if you're using django-crispy-forms, please use this.
+class AnotherForm(forms.Form):
+    bar = forms.CharField(widget=SummernoteInplaceWidget())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;템플릿 파일에서 해당 필드를 출력할 때 &lt;code&gt;safe&lt;/code&gt; 필터를 적용하면 됩니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;{{ foobar|safe }}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="admin"&gt;admin 화면에 적용하고 싶다면&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;admin.py&lt;/code&gt;에 ModelAdmin에서 &lt;code&gt;SummernoteModelAdmin&lt;/code&gt;을 상속받습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django_summernote.admin import SummernoteModelAdmin
+
+# Apply summernote to all TextField in model.
+class SomeModelAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;설정&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;settings.py&lt;/code&gt;에 몇 가지 설정을 추가할 수 있는데요. 이를테면 summernote가 보여질 모드 선택(iframe 등), 기본 언어 코드 설정, 에디터 툴바에 나타내고 싶은 아이콘 설정하기 등이 가능합니다.&lt;/p&gt;
+&lt;p&gt;자세한 사항은 &lt;a href="https://github.com/summernote/django-summernote#options"&gt;django-summernote 저장소의 README&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item><item><title>Django 컨퍼런스 US 2015의 강연 목록이 공개되었습니다</title><description>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;지난 번에 &lt;a href="http://raccoonyy.github.io/2015-djangcon-us"&gt;Django 컨퍼런스 US의 일정&lt;/a&gt;을 알려드렸는데요. 드디어 강연과 강연자 목록이 공개되었습니다.&lt;/p&gt;
+&lt;p&gt;몇몇 강연을 살펴 보면...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Django 1.8에서 달라진 PostgreSQL 지원(Christophe Pettus)&lt;/li&gt;
+&lt;li&gt;함수형과 클래스형, 제네릭으로 나뉘어 있는 Django 뷰(Andrew Pinkham)&lt;/li&gt;
+&lt;li&gt;LDAP이나 Google Directory를 Django에서 사용하기(Scot Hacker)&lt;/li&gt;
+&lt;li&gt;Django 1.8의 Meta 인터페이스(Russell Keith-Magee)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;등 Django와&lt;/p&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/2015-djangocon-us-talks-list/</link><guid isPermaLink="false">59815cfbdd47a80001bb9eb8</guid><category>Django</category><category>DjangoConUS</category><category>컨퍼런스</category><category>Conference</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 11 Jun 2015 01:22:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2015/06/Screenshot-2015-06-11-09-58-44.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2015/06/Screenshot-2015-06-11-09-58-44.png" alt="Django 컨퍼런스 US 2015의 강연 목록이 공개되었습니다"&gt;&lt;p&gt;지난 번에 &lt;a href="http://raccoonyy.github.io/2015-djangcon-us"&gt;Django 컨퍼런스 US의 일정&lt;/a&gt;을 알려드렸는데요. 드디어 강연과 강연자 목록이 공개되었습니다.&lt;/p&gt;
+&lt;p&gt;몇몇 강연을 살펴 보면...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Django 1.8에서 달라진 PostgreSQL 지원(Christophe Pettus)&lt;/li&gt;
+&lt;li&gt;함수형과 클래스형, 제네릭으로 나뉘어 있는 Django 뷰(Andrew Pinkham)&lt;/li&gt;
+&lt;li&gt;LDAP이나 Google Directory를 Django에서 사용하기(Scot Hacker)&lt;/li&gt;
+&lt;li&gt;Django 1.8의 Meta 인터페이스(Russell Keith-Magee)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;등 Django와 관련된 깊은 내용들이 군침을 흘리게 하고요.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;엘라스틱서치, 기본을 넘어서(Honza Král)&lt;/li&gt;
+&lt;li&gt;자신만만한 React 웹 개발(Julien Phalip)&lt;/li&gt;
+&lt;li&gt;Sphinx와 Read the Docs 입문(Eric Holscher)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;등도 Django와 직접 관련은 없지만 관련 개발자들이 관심을 보일 만한 내용이네요.&lt;/p&gt;
+&lt;p&gt;또, Django계의 스타라고 할 수 있는 Kenneth Reitz나 Jacob Kaplan-Moss도 강연자 목록에 올라 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;최소 기능 보안(Jacob Kaplan-Moss)&lt;/li&gt;
+&lt;li&gt;Django가 꾸는 꿈(Kenneth Reitz)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이런 강연들로 9월은 풍성해질 듯 합니다. :)&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item><item><title>Awesome Django (링크 모음)</title><description>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;특정 언어나 환경에 대한 링크들을 모아 둔 글을 언제부턴가 Awesome OOO라고 부르기 시작했는데요. Django의 Awesome 문서가 있어서 소개합니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://awesome-django.com/"&gt;http://awesome-django.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;큰 분류로는 Django 플러그인 모음(Awesome Django)과 Django로 만든 프로젝트(CMS, 전자 상거래 관련, 프로젝트 관리 도구 등), 리소스 모음(책, 웹사이트, 비디오 등)으로 나눌 수 있고,&lt;/p&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/awesome-django/</link><guid isPermaLink="false">59815cfbdd47a80001bb9eb7</guid><category>Django</category><category>resources</category><category>Awesome</category><category>링크 모음</category><dc:creator>raccoony</dc:creator><pubDate>Wed, 06 May 2015 02:11:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2015/05/Screenshot-2015-05-06-11-06-04.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2015/05/Screenshot-2015-05-06-11-06-04.png" alt="Awesome Django (링크 모음)"&gt;&lt;p&gt;특정 언어나 환경에 대한 링크들을 모아 둔 글을 언제부턴가 Awesome OOO라고 부르기 시작했는데요. Django의 Awesome 문서가 있어서 소개합니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://awesome-django.com/"&gt;http://awesome-django.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;큰 분류로는 Django 플러그인 모음(Awesome Django)과 Django로 만든 프로젝트(CMS, 전자 상거래 관련, 프로젝트 관리 도구 등), 리소스 모음(책, 웹사이트, 비디오 등)으로 나눌 수 있고, 각 분류 아래에 상세한 분류들도 많습니다.&lt;/p&gt;
+&lt;p&gt;이 링크들만 둘러보더라도 Django 세계를 탐험할 때 꼭 읽어야 할 내용은 빠짐 없이 챙길 수 있겠습니다. ^^&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>나를 짜증나게 하는 IT 기술 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>나를 짜증나게 하는 IT 기술 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:21 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/nareul-jjajeungnage-haneun-it-gisul/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>나를 짜증나게 하는 IT 기술</title><description>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;나를 짜증나게 하는 IT 기술 : URL 고정 + 데이터 변경&lt;/p&gt;
+&lt;p&gt;정부 기관의 홈페이지를 돌아다니다가 유용한 정보를 발견하여 어딘가에 공유하고 싶다고 하자. 그런데 주소창을 보면 이상하게도 홈페이지 대표 주소만 보인다. 주소는 고정되어 있고 내용만 바뀌는 페이지들. 심지어 게시판에서도 이런 처리 방식이 비일비재하다.&lt;/p&gt;
+&lt;p&gt;이해를 돕기 위해 국내 IT 산업과 가장 관련 있는 부처랄&lt;/p&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/it-tech-that-annoys-me/</link><guid isPermaLink="false">59815cfbdd47a80001bb9eac</guid><category>나를 짜증나게 하는 IT 기술</category><category>weird-write</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 26 Mar 2015 11:42:00 GMT</pubDate><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;나를 짜증나게 하는 IT 기술 : URL 고정 + 데이터 변경&lt;/p&gt;
+&lt;p&gt;정부 기관의 홈페이지를 돌아다니다가 유용한 정보를 발견하여 어딘가에 공유하고 싶다고 하자. 그런데 주소창을 보면 이상하게도 홈페이지 대표 주소만 보인다. 주소는 고정되어 있고 내용만 바뀌는 페이지들. 심지어 게시판에서도 이런 처리 방식이 비일비재하다.&lt;/p&gt;
+&lt;p&gt;이해를 돕기 위해 국내 IT 산업과 가장 관련 있는 부처랄 수 있는 &lt;strong&gt;미래 창조 과학부&lt;/strong&gt;의 홈페이지에 가보자. 다음 링크는 미창부에서 설문 조사를 모아 둔 페이지다.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.msip.go.kr/mng/qustnr/frontList.do?mId=MTEy"&gt;http://www.msip.go.kr/mng/qustnr/frontList.do?mId=MTEy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;여기에서 특정 설문 조사를 바로 열게 할 방법이 있을까? URL만 노출하면 해결될 일을 어렵게 만든다. (미창부는 그나마 양반이다. 설문 조사 모아둔 페이지로는 바로 갈 수 있으니까.)&lt;/p&gt;
+&lt;p&gt;웹 페이지를 만들 땐 웹의 기본을 기억했으면 좋겠다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;월드 와이드 웹(World Wide Web, WWW, W3)은 인터넷에 연결된 컴퓨터들을 통해 사람들이 &lt;strong&gt;정보를 공유&lt;/strong&gt;할 수 있는 전 세계적인 정보 공간을 말한다. - 위키백과의 &lt;a href="http://ko.wikipedia.org/wiki/%EC%9B%94%EB%93%9C_%EC%99%80%EC%9D%B4%EB%93%9C_%EC%9B%B9"&gt;월드 와이드 웹&lt;/a&gt; 항목&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>quickstart - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>quickstart - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:26 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/quickstart/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Django Rest Framework 3 훑어보기</title><description>Django Rest Framework 3을 이해해 보고자 튜토리얼 문서를 번역하고 있습니다. 의역이 난무하지만 기술적으로 잘못된 내용을 전달하지 않게 최선을 다해보겠습니다. ----
+관리자 계정으로 사용자를 관리하는 간단한 API를 만들어 보겠습니다.</description><link>http://raccoonyy.github.io/django-rest-framework-3-quickstart/</link><guid isPermaLink="false">59815cfbdd47a80001bb9e98</guid><category>django rest framework 3</category><category>DRF3</category><category>quickstart</category><category>translate</category><category>Django</category><dc:creator>raccoony</dc:creator><pubDate>Wed, 04 Mar 2015 15:01:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2015/12/drf-logo.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2015/12/drf-logo.png" alt="Django Rest Framework 3 훑어보기"&gt;&lt;p&gt;Django Rest Framework 3을 이해해 보고자 튜토리얼 문서를 번역하고 있습니다. 의역이 난무하지만 기술적으로 잘못된 내용을 전달하지 않게 최선을 다해보겠습니다.&lt;/p&gt;
+&lt;p&gt;원문 - &lt;a href="http://www.django-rest-framework.org/tutorial/quickstart/"&gt;QuickStart Guide with Django Rest Framework3&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;번역을 허락해 준 &lt;a href="https://twitter.com/_tomchristie"&gt;Tom Christie&lt;/a&gt;에게 고마움을 전합니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=""&gt;훑어보기&lt;/h1&gt;
+&lt;p&gt;이제부터 관리자 계정으로 사용자를 관리하는 간단한 API를 만들어 보겠습니다.&lt;/p&gt;
+&lt;h2 id=""&gt;프로젝트 설정&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;tutorial&lt;/code&gt;이라는 이름으로 새로운 Django 프로젝트를 만든 다음 &lt;code&gt;quickstart&lt;/code&gt; 앱을 생성합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-bash"&gt;# 프로젝트용 디렉터리를 만듭니다
+mkdir tutorial
+cd tutorial
+
+# 패키지 환경을 독립적으로 관리하기 위해 가상 환경을 생성합니다
+virtualenv env
+source env/bin/activate  # On Windows use `env\Scripts\activate`
+
+# Django와 Django REST framework를 가상 환경에 설치합니다
+pip install django
+pip install djangorestframework
+
+# 프로젝트와 앱을 생성합니다
+django-admin.py startproject tutorial .  # 마지막에 있는 .을 꼭 입력하세요
+cd tutorial
+django-admin.py startapp quickstart
+cd ..
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이제 처음으로 데이터베이스를 생성합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-bash"&gt;python manage.py migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;관리자 계정으로 사용할 아이디와 비밀번호도 만들죠. 나중에 이 계정으로 인증을 할 겁니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-bash"&gt;python manage.py createsuperuser
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;자, 이제 준비를 마쳤으니 코딩을 해봅시다.&lt;/p&gt;
+&lt;h2 id=""&gt;시리얼라이저&lt;/h2&gt;
+&lt;p&gt;시리얼라이저부터 만들어보죠. &lt;code&gt;tutorial/quickstart/serializers.py&lt;/code&gt; 파일을 만듭시다. 데이터를 표현하는 데 사용할 겁니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-python"&gt;from django.contrib.auth.models import User, Group
+from rest_framework import serializers
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'email', 'groups')
+
+
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('url', 'name')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;하이퍼링크 관계를 위해 &lt;code&gt;HyperlinkedModelSerializer&lt;/code&gt;를 사용한 것을 눈여겨 보세요. 물론 주 키(primary key)나 다른 방법으로도 관계를 연결할 수 있겠지만, 하이퍼링크야말로 RESTful 디자인에 잘 어울립니다.&lt;/p&gt;
+&lt;h2 id=""&gt;뷰&lt;/h2&gt;
+&lt;p&gt;좋습니다. 이제 뷰를 만들죠. &lt;code&gt;tutorial/quickstart/views.py&lt;/code&gt; 파일을 다음과 같이 작성합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-python"&gt;from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from tutorial.quickstart.serializers import UserSerializer, GroupSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    &amp;quot;&amp;quot;&amp;quot;
+    사용자(user)를 보거나 편집하는 API
+    &amp;quot;&amp;quot;&amp;quot;
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    &amp;quot;&amp;quot;&amp;quot;
+    그룹(group)을 보거나 편집하는 API
+    &amp;quot;&amp;quot;&amp;quot;
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;뷰를 여러 번 작성하기보다는 자주 사용되는 기능들을 묶은 ViewSet 클래스를 사용했습니다.&lt;/p&gt;
+&lt;p&gt;물론 필요에 따라 뷰를 잘게 나눌 수도 있습니다. 하지만 뷰셋(viewset)을 사용하면 뷰 로직을 아주 간결하고 체계적으로 유지할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.django-rest-framework.org/#example"&gt;문서의 제일 처음&lt;/a&gt;에 보여드렸던 클래스에서는 &lt;code&gt;model&lt;/code&gt; 속성 대신 &lt;code&gt;queryset&lt;/code&gt;과 &lt;code&gt;serializer_class&lt;/code&gt; 속성을 사용했는데요.&lt;/p&gt;
+&lt;p&gt;일반적인 경우 ViewSet 클래스에 &lt;code&gt;model&lt;/code&gt; 속성만 설정하면 &lt;code&gt;serializer&lt;/code&gt;와 &lt;code&gt;queryset&lt;/code&gt;은 자동으로 설정됩니다. &lt;code&gt;queryset&lt;/code&gt;이나 &lt;code&gt;serializer_class&lt;/code&gt; 속성을 설정하면 API의 행동을 좀더 명시적으로 표현할 수 있는데 대다수 애플리케이션에서는 이렇게 하기를 권장합니다.&lt;/p&gt;
+&lt;h2 id="url"&gt;URL&lt;/h2&gt;
+&lt;p&gt;자 이제 API URL을 연결해봅시다. &lt;code&gt;tutorial/urls.py&lt;/code&gt; 파일입니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-python"&gt;from django.conf.urls import url, include
+from rest_framework import routers
+from tutorial.quickstart import views
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+
+# 우리가 만든 API를 자동으로 라우팅합니다.
+# 그리고 API 탐색을 위해 로그인 URL을 추가했습니다.
+urlpatterns = [
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;뷰 대신 뷰셋을 사용한 덕에, 뷰셋의 라우터(router) 클래스를 통해 API에 대한 URL이 자동으로 생성됩니다.&lt;/p&gt;
+&lt;p&gt;여기서도 역시, API URL을 여러분 마음대로 설정하고 싶다면 여러분이 직접 만든 클래스 기반 뷰(class based view)에 URL을 연결하면 되겠습니다.&lt;/p&gt;
+&lt;p&gt;마지막으로 탐색친화적(browseable)인 API를 만들기 위해 기본 로그인/로그아웃 뷰를 추가했습니다. 반드시 추가해야 하는 건 아니자만 여러분의 API가 인증 후 API 탐색을 허용하는 경우에는 유용하게 사용할 수 있겠습니다.&lt;/p&gt;
+&lt;h2 id=""&gt;설정&lt;/h2&gt;
+&lt;p&gt;전역 변수를 몇 개 설정해 봅시다. 페이지 기능을 켜고, API에는 관리자 계정만 접근하도록 합시다. &lt;code&gt;tutorial/settings.py&lt;/code&gt; 파일에 다음 내용을 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-python"&gt;INSTALLED_APPS = (
+    ...
+    'rest_framework',
+)
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGINATE_BY': 10
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;네, 이제 끝났습니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="api"&gt;API 테스트하기&lt;/h2&gt;
+&lt;p&gt;지금까지 만든 API를 테스트해 봅시다. 명령창에서 서버를 실행합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-bash"&gt;python ./manage.py runserver
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이제 명령창에서 (curl 명령 등으로) API에 접근할 수 있습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-bash"&gt;bash: curl -H 'Accept: application/json; indent=4' -u admin:password http://127.0.0.1:8000/users/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-language-json"&gt;{
+    &amp;quot;count&amp;quot;: 2,
+    &amp;quot;next&amp;quot;: null,
+    &amp;quot;previous&amp;quot;: null,
+    &amp;quot;results&amp;quot;: [
+        {
+            &amp;quot;email&amp;quot;: &amp;quot;admin@example.com&amp;quot;,
+            &amp;quot;groups&amp;quot;: [],
+            &amp;quot;url&amp;quot;: &amp;quot;http://127.0.0.1:8000/users/1/&amp;quot;,
+            &amp;quot;username&amp;quot;: &amp;quot;admin&amp;quot;
+        },
+        {
+            &amp;quot;email&amp;quot;: &amp;quot;tom@example.com&amp;quot;,
+            &amp;quot;groups&amp;quot;: [                ],
+            &amp;quot;url&amp;quot;: &amp;quot;http://127.0.0.1:8000/users/2/&amp;quot;,
+            &amp;quot;username&amp;quot;: &amp;quot;tom&amp;quot;
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;httpie 같은 도구를 사용해도 좋습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-language-bash"&gt;bash: http -a username:password http://127.0.0.1:8000/users/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-language-json"&gt;HTTP/1.1 200 OK
+...
+{
+    &amp;quot;count&amp;quot;: 2,
+    &amp;quot;next&amp;quot;: null,
+    &amp;quot;previous&amp;quot;: null,
+    &amp;quot;results&amp;quot;: [
+        {
+            &amp;quot;email&amp;quot;: &amp;quot;admin@example.com&amp;quot;,
+            &amp;quot;groups&amp;quot;: [],
+            &amp;quot;url&amp;quot;: &amp;quot;http://localhost:8000/users/1/&amp;quot;,
+            &amp;quot;username&amp;quot;: &amp;quot;paul&amp;quot;
+        },
+        {
+            &amp;quot;email&amp;quot;: &amp;quot;tom@example.com&amp;quot;,
+            &amp;quot;groups&amp;quot;: [                ],
+            &amp;quot;url&amp;quot;: &amp;quot;http://127.0.0.1:8000/users/2/&amp;quot;,
+            &amp;quot;username&amp;quot;: &amp;quot;tom&amp;quot;
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;아니면 웹 브라우저에서 봐도 되죠.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.django-rest-framework.org/img/quickstart.png" alt="Django Rest Framework 3 훑어보기"&gt;&lt;/p&gt;
+&lt;p&gt;웹 브라우저를 사용한다면 오른쪽 상단의 버튼을 눌러 로그인을 해야 할 겁니다.&lt;/p&gt;
+&lt;p&gt;좋습니다. 쉽죠?&lt;/p&gt;
+&lt;p&gt;REST 프레임워크가 어떻게 작동하는지 더 알고 싶다면, &lt;a href="http://raccoonyy.github.io/drf3-tutorial-1"&gt;다음 튜토리얼&lt;/a&gt;을 계속 읽어가든지 &lt;a href="http://www.django-rest-framework.org/#api-guide"&gt;API 가이드&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

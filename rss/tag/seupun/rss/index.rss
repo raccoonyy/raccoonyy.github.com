@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>스푼 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>스푼 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:34 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/seupun/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(12월 첫 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 Flask-babel 설치부터 활용까지 #2 파이썬용 GUI 비교 #3 Flask-Login 예제 #4 파이썬 격월 세미나 #5 스푼 백엔드 개발자 구인</description><link>http://raccoonyy.github.io/python-news-for-korean-1st-week-dec/</link><guid isPermaLink="false">59815cfcdd47a80001bb9f01</guid><category>파이썬 소식</category><category>python-news</category><category>flask-babel</category><category>python gui</category><category>flask-login</category><category>파이썬 격월 세미나</category><category>스푼</category><dc:creator>raccoony</dc:creator><pubDate>Mon, 05 Dec 2016 23:43:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(12월 첫 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="flaskbabeli18nbyurangurang"&gt;&lt;a href="https://urangurang.github.io/Flask-babel/"&gt;Flask-babel을 통한 i18n&lt;/a&gt; by UrangUrang님&lt;/h3&gt;
+&lt;p&gt;Flask 기반 프로젝트에서 국제화를 구현하기 위해 Flask-Babel을 설치하고 사용한 경험을 UrangUrang님이 정리하였습니다.&lt;/p&gt;
+&lt;h3 id="pythonguiby"&gt;&lt;a href="http://stackrefactoring.blogspot.kr/2016/05/python-gui-gui.html"&gt;Python GUI 비교&lt;/a&gt; by 이정우 님&lt;/h3&gt;
+&lt;p&gt;이정우 님이 파이썬용 GUI 구현 도구인 PyQt, pyGTK, wxPython를 간단한 기준으로 비교, 정리하였습니다. (댓글에 반전이 있습니다.)&lt;/p&gt;
+&lt;h3 id="flaskloginby"&gt;&lt;a href="https://github.com/mcchae/Flask-Login"&gt;Flask-Login 예제&lt;/a&gt; by 지훈현서아빠님&lt;/h3&gt;
+&lt;p&gt;Flask-Login 모듈의 사용법을 지훈현서아빠님이 정리하였습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;행사&lt;/h1&gt;
+&lt;h3 id=""&gt;&lt;a href="http://onoffmix.com/event/85393"&gt;파이썬 격월 세미나&amp;amp;송년회&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;일시: 2016년 12월 17일(토) 오후 2시 ~ 오후 7시&lt;br&gt;
+장소: 포스코사거리 경암빌딩 2층 세미나실&lt;br&gt;
+비용: 5,000원&lt;/p&gt;
+&lt;p&gt;아울러, &lt;a href="https://goo.gl/forms/AHMFEV8Xne5Ucmkr2"&gt;발표자도 모집&lt;/a&gt;한다고 합니다.&lt;/p&gt;
+&lt;h1 id=""&gt;구인&lt;/h1&gt;
+&lt;h3 id=""&gt;&lt;a href="https://www.rocketpunch.com/jobs/20471/%EC%8A%A4%ED%91%BC-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90"&gt;스푼 백엔드 개발자&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;실시간 오디오 방송 서비스인 &lt;a href="http://spooncast.net/"&gt;스푼-소셜라디오&lt;/a&gt;를 개발하는 마이쿤에서 파이썬 개발자를 구합니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

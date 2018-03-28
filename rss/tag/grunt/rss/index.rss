@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>grunt - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>grunt - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:28 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/grunt/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(1월 넷째 주)</title><description>#1. django, bower, grunt로 사이트 구조 잡기 by JayJin
+#2. 예제로 따라해보는 Jupyter, pandas 데이터 분석 by 김형용
+#3. 파이썬 슬랙봇 오픈소스 by 한돌</description><link>http://raccoonyy.github.io/python-news-for-korean-4th-week-jan/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ec8</guid><category>python-news</category><category>파이썬 소식</category><category>python</category><category>파이썬</category><category>한국어</category><category>Django</category><category>bower</category><category>grunt</category><category>jupyter</category><category>pandas</category><category>slack-bot</category><dc:creator>raccoony</dc:creator><pubDate>Sun, 24 Jan 2016 23:01:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(1월 넷째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="djangobowergrunt"&gt;&lt;a href="https://milooy.wordpress.com/2016/01/20/django-bower-grunt/"&gt;django, bower, grunt로 사이트 구조잡기&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;JayJin님이 django와 bower, grunt로 사이트 구조 잡는 방법을 설명해 줍니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;요약 : django에는 백엔드만 맡기기&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="jupyterpandas"&gt;&lt;a href="http://insilicogen.com/blog/197?category=2"&gt;예제로 따라해보는 Jupyter, pandas 데이터 분석&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;인실리코젠의 김형용 님이 Jupyter와 pandas를 사용하여 데이터 분석 기법을 보여줍니다. 블로그 글은 짧은 편이고, &lt;a href="http://nbviewer.jupyter.org/gist/yong27/715c0ef9a09dd6eb37e9"&gt;숨겨진 Jupyter 문서&lt;/a&gt;가 진짜배기입니다. :)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;요약 : 통계는 어렵지만 pandas 만세.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=""&gt;&lt;a href="https://haandol.wordpress.com/2016/01/24/%EC%9D%BC%EA%B8%B0-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%8A%AC%EB%9E%99%EB%B4%87-%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4%ED%99%94/"&gt;파이썬 슬랙봇 오픈소스&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;한돌님이 회사(버즈니)에서 사용중인 슬랙 봇을 오픈소스로 공개하였습니다. (공개 시점은 꽤 예전인 듯 한데 이제야 알게 되었네요.)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;요약 : 선 스타 후 클론.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

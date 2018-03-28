@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>1.10 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>1.10 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:30 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/1-10/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Django 1.10 릴리스 노트 요약</title><description>Django 1.10 릴리스 노트를 요약하였습니다. #1 PostgreSQL에서 Full Text 검색 지원 #2 미들웨어 스타일 변경 #3 사용자 username에 유니코드 지원 등</description><link>http://raccoonyy.github.io/django-1-10-release-note-korean/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ede</guid><category>Django</category><category>1.10</category><category>릴리스 노트</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 02 Aug 2016 04:00:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/08/django_1-10_released.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/django_1-10_released.png" alt="Django 1.10 릴리스 노트 요약"&gt;&lt;p&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/"&gt;Django 1.10 릴리스 노트&lt;/a&gt;를 요약해 보았습니다.&lt;/p&gt;
+&lt;p&gt;(제 주관이 많이 들어간 요약이므로, 원문도 꼭 챙겨보길 권합니다.)&lt;/p&gt;
+&lt;h2 id=""&gt;파이썬 호환성&lt;/h2&gt;
+&lt;p&gt;Django 1.9와 마찬가지로, 파이썬 2.7, 3.4, 3.5를 지원합니다.&lt;/p&gt;
+&lt;h2 id=""&gt;새 기능&lt;/h2&gt;
+&lt;h4 id="postgresqlfulltext"&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#full-text-search-for-postgresql"&gt;PostgreSQL에서 Full Text 검색을 지원&lt;/a&gt;&lt;/h4&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; Entry.objects.filter(body_text__search='Cheese')
+[&amp;lt;Entry: Cheese on Toast recipes&amp;gt;, &amp;lt;Entry: Pizza Recipes&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;기본 Full Text 검색 외에도 &lt;a href="https://docs.djangoproject.com/en/1.10/ref/contrib/postgres/search/#postgresql-fts-weighting-queries"&gt;가중치를 부여한 검색&lt;/a&gt; 등도 지원하니, PostgreSQL로 넘어갈 이유가 점점 많아지고 있네요.&lt;/p&gt;
+&lt;h4 id="middleware_classesmiddleware"&gt;&lt;a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-MIDDLEWARE"&gt;MIDDLEWARE_CLASSES 대신 MIDDLEWARE&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#new-style-middleware"&gt;업그레이드 가이드&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;h4 id="username"&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#official-support-for-unicode-usernames"&gt;유니코드 username 지원&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;파이썬 3에서는 &lt;code&gt;username_validator&lt;/code&gt;가 기본으로 유니코드를 지원하게 됩니다.&lt;/p&gt;
+&lt;h2 id=""&gt;중단 예정인 기능&lt;/h2&gt;
+&lt;h4 id="commaseparatedintegerfield"&gt;&lt;a href="https://docs.djangoproject.com/en/1.10/releases/1.10/#commaseparatedintegerfield-model-field"&gt;CommaSeparatedIntegerField&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;대신, &lt;a href="https://docs.djangoproject.com/en/1.10/ref/validators/#django.core.validators.validate_comma_separated_integer_list"&gt;&lt;code&gt;validate_comma_separated_integer_list&lt;/code&gt;&lt;/a&gt;를 사용하라고 하네요.&lt;/p&gt;
+&lt;h2 id=""&gt;삭제된 기능&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;django.conf.urls.patterns()&lt;/code&gt;가 사라졌어요.&lt;/li&gt;
+&lt;li&gt;별도로 설정 가능하던 템플릿 관련 설정들이 사라졌습니다. &lt;code&gt;TEMPLATES&lt;/code&gt; 설정 안에 넣어야 합니다.&lt;/li&gt;
+&lt;li&gt;migrate 명령 실행시 &lt;code&gt;--list&lt;/code&gt; 옵션이 사라집니다. (migrate 명령 대신 showmigrations 명령을 사용하면 됩니다.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

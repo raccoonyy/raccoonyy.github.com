@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ORM - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>ORM - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:27 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/orm/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>(엑셀만큼 쉬운) Django Annotation/Aggregation</title><description>&lt;div class="kg-card-markdown"&gt;&lt;p&gt;Django ORM을 강력하게 만들어주는 기능 중 하나는 바로 애너테이션(&lt;code&gt;annotate&lt;/code&gt;)과 애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;)입니다. 이 두 기능이 명쾌하게 와닿지 않아서 사용하지 못하다가, 엑셀에 빗대어 이해해보니 제게는 도움이 되어서 해당 내용을 공유합니다.&lt;/p&gt;
+&lt;h4 id=""&gt;시작하기 전에&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;표기법: &lt;code&gt;이건 Django 메서드 이름&lt;/code&gt;, &lt;em&gt;이건 필드나 값&lt;/em&gt; 을 나타냅니다.&lt;/li&gt;
+&lt;li&gt;메서드의 링크는 Django 공식 문서로 연결됩니다&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=""&gt;모델&lt;/h2&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/</link><guid isPermaLink="false">59815cfcdd47a80001bb9edb</guid><category>Django</category><category>annotate</category><category>aggregate</category><category>ORM</category><category>애너테이션</category><category>애그리게이션</category><category>조건적 애너테이션</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 24 May 2016 23:59:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/05/excel.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/excel.jpg" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;p&gt;Django ORM을 강력하게 만들어주는 기능 중 하나는 바로 애너테이션(&lt;code&gt;annotate&lt;/code&gt;)과 애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;)입니다. 이 두 기능이 명쾌하게 와닿지 않아서 사용하지 못하다가, 엑셀에 빗대어 이해해보니 제게는 도움이 되어서 해당 내용을 공유합니다.&lt;/p&gt;
+&lt;h4 id=""&gt;시작하기 전에&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;표기법: &lt;code&gt;이건 Django 메서드 이름&lt;/code&gt;, &lt;em&gt;이건 필드나 값&lt;/em&gt; 을 나타냅니다.&lt;/li&gt;
+&lt;li&gt;메서드의 링크는 Django 공식 문서로 연결됩니다&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=""&gt;모델 구성&lt;/h2&gt;
+&lt;p&gt;다음과 같은 제품을 판매하는 온라인 쇼핑몰을 만든다고 합시다. (원래는 제품별 id도 있겠지만, 설명을 간단히 하기 위해 생략하겠습니다.)&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-19-09-21-34-1.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;p&gt;이를 Django 모델로 구현해보면 다음과 같을 겁니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class Product(models.Model):
+    name = models.CharField('이름', max_length=150, unique=True)
+    price = models.IntegerField('가격')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이제, 이 제품들이 팔린 내역이 다음과 같다고 해보죠.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-21-13-15-45.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;p&gt;이러한 판매 내역을 모델로 구현하면 다음과 같겠고요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class OrderLog(models.Model):
+    product = models.ForeignKey('Product')
+    created = models.DateTimeField(u'판매일')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;엑셀 화면과 코드를 비교해 보면 엑셀의 컬럼 하나가 Django의 필드 하나와 대응됨을 발견할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;데이터베이스를 구성했으니, &lt;a href="https://gist.github.com/raccoonyy/b1aa0c36bfcf2f207737b72efadcc0a4"&gt;이 코드&lt;/a&gt;를 실행해서 실습용 데이터를 만들어주세요.&lt;/p&gt;
+&lt;h2 id=""&gt;총 판매액 구하기&lt;/h2&gt;
+&lt;p&gt;판매 내역을 보면 물품 이름만 있고 가격이 적혀 있지 않습니다. 엑셀에서 작업할 때라면 &lt;strong&gt;1.&lt;/strong&gt; 제품별 가격을 옆에 적어두고, &lt;strong&gt;2.&lt;/strong&gt; 그 값을 모두 더해서 총 판매액을 알 수 있겠죠. 이 과정을 Django로 따라해 봅시다.&lt;/p&gt;
+&lt;h4 id="1values"&gt;1. 제품별 가격 참조하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#django.db.models.query.QuerySet.values"&gt;values&lt;/a&gt;)&lt;/h4&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서 제품별 가격을 적었다면 다음과 같은 화면이 되겠죠. (실제로는 일일이 찾지 않고 제품 이름으로 참조하여 판매 가격 컬럼을 자동으로 채을 겁니다.)&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-21-13-17-57.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;이를 Django에서 구현하려면 &lt;code&gt;values&lt;/code&gt; 메서드를 사용하면 됩니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;order_qs = OrderLog.objects.values(
+    'created', 'product__name', 'product__price'
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;order_queryset&lt;/code&gt;의 내용을 출력해보면 엑셀과 같음을 알 수 있습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; for order in order_qs:
+...     print(order)
+...
+{'product__price': 9900, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'product__name': 'ABC Activity'}
+{'product__price': 8200, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'product__name': '동물동요'}
+
+# (중략)
+
+{'product__price': 9900, 'created': datetime.datetime(2016, 4, 3, 0, 0), 'product__name': 'ABC Activity'}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;밑줄 두 개가 붙은 모습이 보기에 좋지 않고, 타이핑하기도 귀찮으니까 짧은 이름으로 바꿔주겠습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 앞의 쿼리를 재작성
+order_qs = OrderLog.objects.annotate(
+    name=F('product__name'), 
+    price=F('product__price')
+).values(
+    'created', 'name', 'price'
+)
+
+# 내용을 보면,
+{'price': 9900, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': 'ABC Activity'}
+{'price': 8200, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': '동물동요'}
+{'price': 38400, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': '사운드북 패키지'}
+...
+# (하략)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;이후 등장할 코드에는 Django ORM 메서드가 많이 나오는데요. 필요한 메서드를 미리 불러두시면 좋습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.db.models import F, Sum, Count, Case, When
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;방금 사용한 애너테이션(&lt;code&gt;annotate&lt;/code&gt;)은 필드 하나를 만들고 거기에 '어떤 내용'을 채웁니다. 엑셀에서 컬럼 하나를 만드는 것과 같다고 생각하면 됩니다.&lt;/p&gt;
+&lt;p&gt;'내용'에는 &lt;strong&gt;1.&lt;/strong&gt; (방금 했듯이) 다른 필드의 값을 그대로 복사하거나, &lt;strong&gt;2.&lt;/strong&gt; (이후에 나오겠지만) 다른 필드의 값들을 조합한 값을 넣을 수 있습니다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;annotate의 사전적 의미는 '주석을 달다'인데요. Django에서는 주석 대신 '필드'를 추가한다고 생각하시면 되겠습니다. (엑셀이라면 컬럼을 추가하는 셈이겠고요.)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id="2aggregatesum"&gt;2. 제품 가격 모두 더해서 총 판매액 구하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#aggregate"&gt;aggregate&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#sum"&gt;Sum&lt;/a&gt;)&lt;/h4&gt;
+&lt;p&gt;그럼 이제 &lt;em&gt;price&lt;/em&gt;의 값을 모두 합하여 총 판매액을 구해야겠죠.&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서는 수식을 사용하여 해당 필드 전체를 더해줍니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-21-15-55-55.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;Django에서 쿼리셋의 특정 필드를 모두 더할 때는 애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;) 메서드를 사용합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 앞의 코드에서 이어집니다.
+&amp;gt;&amp;gt;&amp;gt; order_qs.aggregate(total_price=Sum('price'))
+{'total_price': 262200}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;aggregate의 사전적 의미는 '합계', '종합'입니다. Django에서는 필드 전체의 합이나 평균, 개수 등을 계산할 때 사용하면 됩니다. (엑셀에서는 한 컬럼 전체의 합이나 평균, 개수를 계산한다고 보면 되겠고요.)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="valuesannotatesum"&gt;일별 판매액 구하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#django.db.models.query.QuerySet.values"&gt;values&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#annotate"&gt;annotate&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#sum"&gt;Sum&lt;/a&gt;)&lt;/h2&gt;
+&lt;p&gt;총 판매액이 아닌 일별 판매액을 구할 땐 어떻게 할까요?&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀이라면 피벗 테이블을 만들텐데요. 피벗 테이블에 익숙하지 않은 분을 위해 간단히 설명을 하자면, 기준(pivot)을 정하고 이 기준에 따라 값을 묶는 기능이라고 생각하시면 됩니다. (자세한 사용 방법은 &lt;a href="https://support.office.com/ko-kr/article/%ED%94%BC%EB%B2%97-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4-%EC%9B%8C%ED%81%AC%EC%8B%9C%ED%8A%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-a9a84538-bfe9-40a9-a8e9-f99134456576"&gt;엑셀 2013 도움말&lt;/a&gt;을 참고하세요.)&lt;/p&gt;
+&lt;p&gt;예를 들어, 날짜를 행의 기준으로 정하고 가격을 묶으면(=합계), 다음과 같이 일별 판매액을 알 수 있겠죠.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-19-10-11-05.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;Django에서 뭔가를 기준으로 값들을 묶고 싶다면 &lt;code&gt;values&lt;/code&gt;와 &lt;code&gt;annotate&lt;/code&gt;를 사용하면 됩니다. 여기서는 날짜(&lt;em&gt;created&lt;/em&gt;)가 기준이 되고, 날짜별로 묶고 싶은 값은 가격(&lt;em&gt;price&lt;/em&gt;)입니다. 묶은 값들은 모두 더해서 &lt;em&gt;daily_total&lt;/em&gt; 필드에 넣어주었습니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;values&lt;/code&gt; 메서드 이전에 &lt;code&gt;annotate&lt;/code&gt;로 추가했던 필드는, &lt;code&gt;values&lt;/code&gt; 메서드 이후에 나오는 &lt;code&gt;annotate&lt;/code&gt; 메서드에서 참조할 수 없습니다. 아쉽지만 여기서는 &lt;em&gt;product__price&lt;/em&gt;를 그대로 적어주어야 합니다.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;daily_list = order_qs.values(
+    'created'
+).annotate(
+    daily_total=Sum('product__price')
+)
+
+# 내용을 확인해보면,
+&amp;gt;&amp;gt;&amp;gt; for data in daily_data_list:
+...     print(data)
+...
+{'daily_total': 113000, 'created': datetime.datetime(2016, 4, 1, 0, 0)}
+{'daily_total': 84500, 'created': datetime.datetime(2016, 4, 2, 0, 0)} 
+{'daily_total': 64700, 'created': datetime.datetime(2016, 4, 3, 0, 0)}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="valuesannotatecount"&gt;날짜별+제품별 판매 개수 구하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#django.db.models.query.QuerySet.values"&gt;values&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#annotate"&gt;annotate&lt;/a&gt;, &lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#count"&gt;Count&lt;/a&gt;)&lt;/h2&gt;
+&lt;p&gt;조금 더 들어가 봅시다. 이제는 날짜별로 각 제품이 몇 개씩 팔렸는지 알고 싶습니다.&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서는 역시나 피벗 테이블을 사용하겠죠. 아까의 피벗 테이블에서 &lt;strong&gt;1.&lt;/strong&gt; 열 기준으로 행을 추가하고, &lt;strong&gt;2.&lt;/strong&gt; 값으로는 레코드의 개수를 선택하면 아래와 같이 일별/제품별 판매 개수를 알 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-21-13-11-33.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;이를 Django에 옮겨보죠. &lt;code&gt;values&lt;/code&gt;에 넣을 기준 필드는 &lt;em&gt;created&lt;/em&gt;와 &lt;em&gt;name&lt;/em&gt;이 되겠고요. &lt;code&gt;annotate&lt;/code&gt;에서는 레코드 개수를 세기 위해 &lt;code&gt;Count&lt;/code&gt; 메서드를 사용했습니다. &lt;em&gt;count&lt;/em&gt; 필드를 만들어서 일별+제품별 판매 개수를 넣어주었고요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;daily_count = order_qs.values(
+    'created', 'name'
+).annotate(
+    count=Count('name')
+)
+
+# 내용을 확인해보면,
+&amp;gt;&amp;gt;&amp;gt; for data in daily_count:
+...     print(data)
+...
+{'count': 2, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': 'ABC Activity'}
+{'count': 2, 'created': datetime.datetime(2016, 4, 1, 0, 0), 'name': '동물동요'}
+
+# (중략)
+
+{'count': 1, 'created': datetime.datetime(2016, 4, 3, 0, 0), 'name': '사운드북 패키지'}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="filter"&gt;특정 제품의 날짜별 판매 개수 구하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#filter"&gt;filter&lt;/a&gt;)&lt;/h2&gt;
+&lt;p&gt;전체 제품이 아닌 관심 있는 제품의 날짜별 판매 개수를 알고 싶을 땐 어떻게 할까요?&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서는 피벗 테이블에 필터를 추가하면 됩니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-23-17-36-52.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;Django에서도 필터(&lt;code&gt;filter&lt;/code&gt;)를 추가하면 됩니다. &lt;code&gt;filter&lt;/code&gt; 외의 부분은 바로 앞의 코드와 동일합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;sound_book_daily_count = order_qs.filter(
+    name='ABC Activity'
+).values(
+    'created', 'name'
+).annotate(
+    count=Count('product')
+)
+
+# 내용을 확인해보면,
+{'name': 'ABC Activity', 'count': 2, 'created': datetime.datetime(2016, 4, 1, 0, 0}
+{'name': 'ABC Activity', 'count': 3, 'created': datetime.datetime(2016, 4, 2, 0, 0}
+{'name': 'ABC Activity', 'count': `, 'created': datetime.datetime(2016, 4, 3, 0, 0}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;(심화) 결제 취소 발생!&lt;/h2&gt;
+&lt;p&gt;이제 진짜 애너테이션과 애그리게이션이 유용한 사례를 살펴봅시다. 쇼핑몰에서는 판매 내역이 취소되기도 하죠. 결제가 취소되었을 때는 취소 로그를 남겨야 합니다. 여기서는 최대한 간단히 설명하기 위해 판매 내역에 &lt;em&gt;결제 취소(is_cancel)&lt;/em&gt; 필드를 추가하고, 결제 취소 내역인 경우에는 해당 필드를 &lt;em&gt;True&lt;/em&gt;로 설정하겠습니다.&lt;/p&gt;
+&lt;h4 id=""&gt;엑셀 버전&lt;/h4&gt;
+&lt;p&gt;엑셀에서는 다음과 같은 열이 추가됩니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-19-12-58-10.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h4 id="django"&gt;Django 버전&lt;/h4&gt;
+&lt;p&gt;OrderLog 모델은 다음과 같이 수정하겠습니다. (원래는 취소된 내역 자체도 참조해야 하지만, 여기서는 설명을 간단히 하고자 생략했습니다.)&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# OrderLog 모델 수정
+class OrderLog(models.Model):
+    product = models.ForeignKey('Product')
+    created = models.DateTimeField(u'판매일', auto_now_add=True)
+    is_cancel = models.BooleanField(u'결제 취소인지', default=False)  # 추가된 필드
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;여기서는 설명하지 않겠지만, 모델을 변경했다면 데이터베이스 마이그레이션 과정을 거쳐야만 합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;그리고 결제 취소 내역을 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;abc = Product.objects.get(name='ABC Activity')
+may3 = datetime(2016, 4, 3)
+OrderLog.objects.create(created=may3, product=abc, is_cancel=True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;(결제 취소 버전) 총 판매액 수정&lt;/h2&gt;
+&lt;p&gt;지금 시점에 총 판매액을 다시 계산해보면 맨 마지막에 추가한 결제 취소 내역 때문에 다음과 같이 총 판매액이 잘못 계산됩니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; order_qs.aggregate(total_price=Sum('price'))
+{'total_price': 272100}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;일견, &lt;code&gt;exclude&lt;/code&gt;를 추가해서 결제 취소 내역을 제외시키고 계산을 하려 할지도 모르겠습니다. 그래도 여전히 판매액이 틀립니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;order_qs.exclude(
+    is_cancel=True
+).aggregate(
+    total_price=Sum('price')
+)
+
+# 내용을 확인해보면,
+{'total_price': 262200}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;왜냐하면 &lt;strong&gt;총 판매액 = 순수 판매 금액 - 취소 금액&lt;/strong&gt;이기 때문입니다. 바로 앞의 쿼리는 취소 금액을 계산하지 않습니다. (애초에 결제 취소 내역의 판매 금액을 음수로 저장하는 방법도 있지만, 여기서는 설명을 위해 그렇게 하지 않았습니다.)&lt;/p&gt;
+&lt;p&gt;그럼 이제 판매 금액과 취소 금액, 총 판매액을 계산해보겠습니다.&lt;/p&gt;
+&lt;p&gt;엑셀에서라면 &lt;strong&gt;1.&lt;/strong&gt; 판매 금액 컬럼과 취소 금액 컬럼을 추가하고, 결제 취소 필드의 내용에 따라 각 컬럼에 가격을 넣은 다음, &lt;strong&gt;2.&lt;/strong&gt; 판매 금액의 합에서 취소 금액의 합을 빼주면 됩니다.&lt;/p&gt;
+&lt;h4 id="1"&gt;1. 결제 취소 필드에 따라 판매 금액, 취소 금액 필드 추가하기(&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/conditional-expressions/"&gt;조건적 애너테이션&lt;/a&gt;)&lt;/h4&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서의 모습을 보면 다음과 같습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-19-13-19-10.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;이를 Django에 구현하기는 조금 까다롭습니다. 결제 취소라는 조건이 생긴 탓인데요. Django 1.8에 추가된 조건적 애너테이션을 사용하면 이 문제를 해결할 수 있습니다. 조건적 애너테이션이란, 말 그대로 특정 조건에 따라 애너테이션을 붙일 수 있는 기능입니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;order_list_2 = order_qs.annotate(
+    sales_price=Case(
+        When(
+            is_cancel=False,  # 결제 취소가 아닌 경우
+            then=F('price')
+        ),
+        default=0
+    ),
+    cancel_price=Case(
+        When(
+            is_cancel=True,   # 결제 취소인 경우
+            then=F('price')
+        ),
+        default=0
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이렇게 하면 판매 내역인 경우 &lt;em&gt;sales_price&lt;/em&gt; 필드에 &lt;em&gt;price&lt;/em&gt; 값이 들어가고, 결제 취소 내역인 경우엔 &lt;em&gt;cancel_price&lt;/em&gt; 필드에 &lt;em&gt;price&lt;/em&gt; 값이 들어갑니다. (&lt;code&gt;default=0&lt;/code&gt;이므로 해당하지 않는 필드에는 0이 들어갑니다.)&lt;/p&gt;
+&lt;p&gt;결과를 확인해보죠.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; for data in order_list_2:
+...     print(data)
+...
+{'cancel_price': 0, 'name': 'ABC Activity', 'sales_price': 9900, 'price': 9900, 'created': datetime.datetime(2016, 4, 1, 0, 0)}
+{'cancel_price': 0, 'name': '동물동요', 'sales_price': 8200, 'price': 8200, 'created': datetime.datetime(2016, 4, 1, 0, 0)}
+
+# (중략)
+
+{'cancel_price': 9900, 'name': 'ABC Activity', 'sales_price': 0, 'price': 9900, 'created': datetime.datetime(2016, 4, 3, 0, 0)}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="2"&gt;2. 판매 금액의 합 - 취소 금액의 합 = 총 판매액&lt;/h4&gt;
+&lt;p&gt;이제 판매 금액의 합에서 취소 금액의 합을 빼 봅시다.&lt;/p&gt;
+&lt;h6 id=""&gt;엑셀 버전&lt;/h6&gt;
+&lt;p&gt;엑셀에서라면 다음과 같이 소계가 추가될 겁니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/05/Screenshot-2016-05-20-14-01-41.png" alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"&gt;&lt;/p&gt;
+&lt;h6 id="django"&gt;Django 버전&lt;/h6&gt;
+&lt;p&gt;이를 Django로 옮기면 다음과 같습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 위에서 이어집니다.
+result = order_list_2.aggregate(
+    total_price=Sum('sales_price')-Sum('cancel_price')
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;판매 금액의 합(&lt;code&gt;Sum('sales_price')&lt;/code&gt;)에서 취소 금액의 합(&lt;code&gt;Sum('cancel_price')&lt;/code&gt;)을 빼서, &lt;em&gt;total_price&lt;/em&gt; 필드에 넣었습니다. 특정 필드 전체에 대한 연산이므로 애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;)을 사용했습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 내용을 확인해보면,
+&amp;gt;&amp;gt;&amp;gt; result
+{'total_price': 252300}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;(결제 취소 버전) 특정 제품의 날짜별 판매 개수 계산하기&lt;/h2&gt;
+&lt;p&gt;특정 제품의 날짜별 판매 개수에도 역시 결제 취소 내역이라는 장애물이 생겼습니다. 총 판매액에서처럼 조건적 애너테이션을 사용하면 계산할 수 있겠는데요. 일단 결제 취소 내역이 발생하기 전의 코드를 다시 살펴보죠.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 결제 취소가 생기기 전 버전
+sound_book_daily_count = order_qs.filter(
+    name='사운드북 패키지'
+).values(
+    'created', 'name'
+).annotate(
+    count=Count('product')
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;애너테이션(&lt;code&gt;annotate&lt;/code&gt;) 부분을 수정하면 될 것 같습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;sound_book_daily_count = order_qs.filter(
+    name='ABC Activity'
+).values(
+    'created', 'name'
+).annotate(
+    count=Sum(
+        Case(
+            When(
+                is_cancel=False, then=1, 
+            ),
+            When(
+                is_cancel=True, then=-1
+            ),
+            output_field=IntegerField(),
+            default=0
+        )
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;총 판매액 쿼리와는 살짝 달라진 모습을 알 수 있습니다. 순수 판매 내역인 경우엔(&lt;code&gt;is_cancel=False&lt;/code&gt;) 1을 넣고(&lt;code&gt;then=1&lt;/code&gt;), 결제 취소 내역인 경우엔(&lt;code&gt;is_cancel=True&lt;/code&gt;) -1을 넣습니다(&lt;code&gt;then=-1&lt;/code&gt;). 그리고 이 값들을 모두 합해서 &lt;em&gt;count&lt;/em&gt; 필드에 넣었습니다.&lt;/p&gt;
+&lt;p&gt;결과는 다음과 같습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;{'name': 'ABC Activity', 'count': 2, 'created': datetime.datetime(2016, 4, 1, 0, 0}
+{'name': 'ABC Activity', 'count': 3, 'created': datetime.datetime(2016, 4, 2, 0, 0}
+{'name': 'ABC Activity', 'count': 0, 'created': datetime.datetime(2016, 4, 3, 0, 0}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;4월 3일의 판매 개수에서 결제 취소 내역이 제대로 반영되었음을 알 수 있습니다.&lt;/p&gt;
+&lt;h2 id=""&gt;(부록) 반복되는 애너테이션 구문은 저장해서 사용하기&lt;/h2&gt;
+&lt;p&gt;조건적 애너테이션 구문은 항상 길어지기 마련이라 유지보수하기가 어려워지는 단점이 있는데요. 만약 여러 군데서 같은 구문을 사용한다면 다음과 같이 중복을 없앨 수 있습니다.&lt;/p&gt;
+&lt;p&gt;먼저 조건적 애너테이션 구문을 저장해놓고,&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;REAL_COUNT = Sum(
+    Case(
+        When(
+            is_cancel=False, then=1, 
+        ),
+        When(
+            is_cancel=True, then=-1
+        ),
+        output_field=FloatField(),
+        default=0
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;저장한 애너테이션 구문은 다음과 같이 사용합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;sound_book_daily_count = order_qs.filter(
+    name='ABC Activity'
+).values(
+    'created', 'name'
+).annotate(
+    count=REAL_COUNT
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;요약&lt;/h2&gt;
+&lt;p&gt;지금까지 Django의 애너테이션과 애그리게이션에 대해 알아보았습니다. 요약하면 다음과 같습니다.&lt;/p&gt;
+&lt;ol start="0"&gt;
+&lt;li&gt;Django 모델의 필드는 엑셀의 컬럼에 대입된다고 생각합시다.&lt;/li&gt;
+&lt;li&gt;애너테이션(&lt;code&gt;annotate&lt;/code&gt;)은 엑셀에서 계산용 컬럼을 하나 추가하는 것과 같습니다.&lt;/li&gt;
+&lt;li&gt;애그리게이션(&lt;code&gt;aggregate&lt;/code&gt;)은 엑셀에서 특정 컬럼 전체를 대상으로 계산하는 것과 같습니다. (합, 평균, 개수 등)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;이 정도만 이해하신다면, Django의 annotate와 aggregate 메서드를 좀더 친근하게 사용하실 수 있을 겁니다. :)&lt;/p&gt;
+&lt;h2 id=""&gt;참고할 만한 링크&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.9/topics/db/aggregation/"&gt;Django 공식 문서의 애너테이션 가이드(영문)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.9/ref/models/conditional-expressions/"&gt;Django 공식 문서의 조건적 애너테이션 가이드(영문)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://agiliq.com/blog/2009/08/django-aggregation-tutorial/"&gt;Django의 애너테이션과 애그리게이션 튜토리얼(블로그/영문)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://raccoonyy.github.io/conditional-annotate-with-django-query/"&gt;django 쿼리에 조건적 annotate 붙이기(블로그/한글)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://jerrywohlgemuth.com/detail/conditional-aggregations-with-django/"&gt;조건적 애너테이션(블로그/영문)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://splbio.wordpress.com/2013/10/28/some-nitty-gritty-django-orm-queries-multiple-group-by/"&gt;애너테이션 적용시 주의할 점(블로그/영문)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

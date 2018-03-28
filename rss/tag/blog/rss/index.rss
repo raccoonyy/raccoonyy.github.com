@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>blog - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>blog - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:34 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/blog/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>파이썬, Django와 관련된 국내 블로그</title><description>파이썬이나 Django와 관련한 국내 블로그들을 찾아 정리하였습니다. (2016-01-30 - devissue님의 블로그를 추가하였습니다.)</description><link>http://raccoonyy.github.io/useful-korean-blog-for-python-and-django/</link><guid isPermaLink="false">59815cfbdd47a80001bb9eaf</guid><category>Django</category><category>python</category><category>blog</category><category>resources</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 07 Apr 2015 03:57:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0001.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0001.jpg" alt="파이썬, Django와 관련된 국내 블로그"&gt;&lt;p&gt;지난 번 &lt;a href="http://raccoonyy.github.io/useful-resources-for-python-and-django"&gt;유용한 리소스&lt;/a&gt; 글에 이어, 이번에는 블로그를 소개합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ChangeLog
+---------
+2016-01-30 devissue님의 블로그 추가
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;p&gt;파이썬이나 Django가 모두 외국 개발자들의 산물이다보니 대다수 자료가 영문으로 작성되어 있는 현실에, 한글로 고급 기술을 정리해주는 분들의 블로그는 정말 가뭄에 샘물 같습니다.&lt;/p&gt;
+&lt;p&gt;이런 귀한 블로그들을 찾아보았습니다(가나다 순).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;박영록 님의 블로그 - &lt;a href="http://www.codeok.net"&gt;http://www.codeok.net&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;소프트웨어 아웃소싱 그룹인 &lt;a href="http://www.ecolemo.com/"&gt;이콜레모&lt;/a&gt;의 멤버인 박영록 님의 블로그입니다. 박영록 님의 &lt;a href="http://youngrok.com"&gt;개인 위키&lt;/a&gt;에도 생각해볼 만한 글이 많습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;추천 글 : [스타트업을 위한 기술 스택](http://www.codeok.net/%EC%8A%A4%ED%83%80%ED%8A%B8%EC%97%85%EC%9D%84%20%EC%9C%84%ED%95%9C%20%EA%B8%B0%EC%88%A0%20%EC%8A%A4%ED%83%9D)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;스타트업이라면 파이썬과 Django를 선택해야 하는 이유를 설명합니다. 비슷한 기술인 루비 온 레일스와 살짝 비교도 되고 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;스포카 블로그 - &lt;a href="https://spoqa.github.io/"&gt;https://spoqa.github.io/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.dodopoint.com/"&gt;도도포인트&lt;/a&gt;라는 서비스를 운영하는 회사인 스포카의 기술 블로그입니다. 실제 서비스에서 파이썬을 어떻게 활용하고 있는지 알 수 있습니다.&lt;/p&gt;
+&lt;p&gt;추천 글 : &lt;a href="http://spoqa.github.io/2012/06/27/using-jinja2-api.html"&gt;Jinja2 API를 이용한 템플릿 분석&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;파이님&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;블로그 1 - &lt;a href="https://perhapsspy.wordpress.com/"&gt;https://perhapsspy.wordpress.com/&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;블로그 2 - http://perhapsspy.tumblr.com/ 
+
+슬라이드 - http://www.slideshare.net/perhapsspy/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;스마트스터디의 서버 개발자인 파이님의 블로그+슬라이드입니다. 어느 시점엔가 블로그가 둘로 나뉘었는데요. Django와 관련된 삽질(?)기는 &lt;a href="https://perhapsspy.wordpress.com/"&gt;워드프레스&lt;/a&gt; 쪽에 많습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;추천 슬라이드 : [Django, 저는 이렇게 씁니다](http://www.slideshare.net/perhapsspy/django-42665652)
+
+Django로 서비스를 운영할 때 겪을 만한 고민들에 대해 적절할 수도 있는(환경마다 조금 다를 수도 있지요) 대답을 주는 슬라이드입니다.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;한날님 블로그 - &lt;a href="http://blog.hannal.com/"&gt;http://blog.hannal.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://blog.hannal.com/2014/8/start_with_django_webframework_00/"&gt;날로 먹는 Django 프레임워크 강좌&lt;/a&gt;라는 Django 강좌를 진행하고 계신 한날님의 블로그입니다. 해당 강좌는 인스타그램과 비슷한 서비스를 만들면서 Django의 기능들을 익히는 형태로 구성되어 있습니다. 2015년 4월 현재 5화까지 공개되었네요.&lt;/p&gt;
+&lt;p&gt;추천 글 : &lt;a href="http://blog.hannal.com/2014/8/start_with_django_webframework_00/"&gt;날로 먹는 Django 프레임워크 강좌 여는 글&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;이 외에도 &lt;a href="http://blog.hannal.com/2015/02/devlife-s1-01/"&gt;개발 생활&lt;/a&gt;이라는 연재 글을 통해 서버 개발자의 삶을 엿볼 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;홍민희 님 블로그 - &lt;a href="http://blog.dahlia.kr/"&gt;http://blog.dahlia.kr/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;파이썬 이미지 라이브러리인 Wand로 유명하신 홍민희 님의 블로그입니다. 파이썬 뿐만 아니라 생활 속 깊은 고민들이 묻어납니다.&lt;/p&gt;
+&lt;p&gt;추천 글 : &lt;a href="http://blog.dahlia.kr/post/66778859403"&gt;디자이너에게 부탁하기&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;파이썬 블로그라고 소개했지만 추천 글은 '디자이너와 소통 문제'를 다룬 글로 선정했습니다. 개발자가 간과하기 쉬운 문제를 적절히 다루고 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;devissue님 블로그 - &lt;a href="https://devissue.wordpress.com"&gt;https://devissue.wordpress.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Django RESTful Framework를 잘 활용하시는 devissue님의 블로그입니다. PyCharm의 설치/설정부터 RESTful API를 구축해보고, 이후 게시판까지 만드는 과정을 자세하게 설명해줍니다.&lt;/p&gt;
+&lt;p&gt;추천 글 : &lt;a href="http://raccoonyy.github.io/django-rest-framework-tutorial-by-devissue"&gt;PyCharm 설치부터 REST API 구축, 게시판 만들기까지(시리즈)&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Jongrae님 블로그 - &lt;a href="http://myjr52.tumblr.com/"&gt;http://myjr52.tumblr.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;[공학자를 위한 파이썬]이라는 연재물을 올리고 계신 Jongrae님의 블로그입니다. [공학자를 위한 파이썬]은 컴퓨터 관련 전공이 아닌 공학도들이 수치해석이나 그래프, 통계에 파이썬을 사용할 수 있게 알려주는 연재물입니다.&lt;/p&gt;
+&lt;p&gt;추천 글 : &lt;a href="http://myjr52.tumblr.com/post/106505817926/python-1"&gt;공학자를 위한 Python 사용법 1&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;귀한 경험을 나누어 주시는 모든 분들께 머리 숙여 감사합니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

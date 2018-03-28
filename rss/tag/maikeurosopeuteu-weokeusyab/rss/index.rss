@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>마이크로소프트 워크샵 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>마이크로소프트 워크샵 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:37 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/maikeurosopeuteu-weokeusyab/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(6월 둘째 주)</title><description>#1 메모용 프로그램(sync)과 에버노트 동기화를 파이썬으로 자동화하기 + 시행착오 #2 (워크샵) Django로 여행블로그 만들기 #3 (구인) 스타트업 CTO #4 (구인) 스마트포캐스트</description><link>http://raccoonyy.github.io/python-news-for-korean-2nd-week-june/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ee0</guid><category>python</category><category>python-news</category><category>파이썬</category><category>파이썬 소식</category><category>마이크로소프트 워크샵</category><category>스마트포캐스트</category><dc:creator>raccoony</dc:creator><pubDate>Mon, 13 Jun 2016 01:36:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(6월 둘째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;p&gt;&lt;a href="http://everypython.com/archives/285"&gt;[좌충우돌 개발기] sync2evernote&lt;/a&gt; by everypython&lt;/p&gt;
+&lt;p&gt;메모용 프로그램(sync)으로 작성한 기록을 에버노트에 옮기는 과정을 파이썬으로 자동화하는 과정과 시행착오를 everypython님이 정리하였습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;강좌&lt;/h1&gt;
+&lt;p&gt;&lt;a href="https://www.microsoftevents.com/profile/form/index.cfm?PKformID=0x27008670aa"&gt;Django로 여행블로그 만들기 워크샵&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Django를 사용하여 여행블로그를 직접 만들어 보고 클라우드에 배포까지 해보는 워크샵을 마이크로소프트에서 준비했네요! 아쉽게도 순식간에 마감...&lt;/p&gt;
+&lt;h1 id=""&gt;구인&lt;/h1&gt;
+&lt;h3 id="cto"&gt;&lt;a href="https://twitter.com/kenu0000/status/740900773853171712"&gt;스타트업 CTO&lt;/a&gt;&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet" data-lang="ko"&gt;&lt;p lang="ko" dir="ltr"&gt;* 시급 3만원 정규직 CTO 어떨까요?&lt;br&gt;* 스타트업입니다. (edited)&lt;br&gt;* DM 또는 kenu.heo@gmail.com 으로 메시지 보내주시면 감사하겠습니다.&lt;br&gt;* python, node.js 우대합니다.&lt;/p&gt;&amp;mdash; kenu (@kenu0000) &lt;a href="https://twitter.com/kenu0000/status/740900773853171712"&gt;2016년 6월 9일&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;p&gt;자바 개발자로 유명하신 허광남 님이 파이썬이나 Node.js를 다룰 줄 아는 CTO를 구하고 계십니다.&lt;/p&gt;
+&lt;h3 id=""&gt;&lt;a href="http://www.smfcast.com/#!recruit/kx3oh"&gt;스마트포캐스트&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;빅데이터를 통한 주가방향 예측 앱인 Bigta를 만드는 스마트포캐스트에서 파이썬 개발자를 구합니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>하이퍼커넥트 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>하이퍼커넥트 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:32 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/haipeokeonegteu/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(2017년 4월 첫 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 파이썬 저장소를 분석하는 pyreportcard 프로젝트 공개 #2 flask-assets 사용법 #3 jinja2의 tojson 필터 #4 파이콘 한국 2017 발표 제안 접수 시작 #5 (구인) 하이퍼커넥트 신사업 부문</description><link>http://raccoonyy.github.io/python-news-for-korean-2017-1st-week-apr/</link><guid isPermaLink="false">59815cfcdd47a80001bb9f1a</guid><category>파이썬 소식</category><category>python-news</category><category>파이썬 저장소 분석 pyreportcard</category><category>flask-assets</category><category>jinja2 tojson</category><category>파이콘 한국 2017 발표 제안 접수</category><category>하이퍼커넥트</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 04 Apr 2017 22:49:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2017/01/python-news-for-korean-cover-2017.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2017/01/python-news-for-korean-cover-2017.jpg" alt="한국의 파이썬 소식(2017년 4월 첫 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;프로젝트&lt;/h1&gt;
+&lt;h3 id="pyreportcardbymigrammer"&gt;&lt;a href="https://github.com/mingrammer/pyreportcard"&gt;파이썬 저장소 분석 프로젝트 pyreportcard&lt;/a&gt; by migrammer님&lt;/h3&gt;
+&lt;p&gt;Github에 있는 파이썬 저장소에 대해 Linter, 코드 분석기, 코드 통계 등을 확인할 수 있는 pyreportcard 프로젝트를 mingrammer님이 공개하였습니다.&lt;/p&gt;
+&lt;div class="github-card" data-github="mingrammer/pyreportcard" data-width="400" data-height="" data-theme="default"&gt;&lt;/div&gt;
+&lt;script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"&gt;&lt;/script&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2017/04/report.png" alt="한국의 파이썬 소식(2017년 4월 첫 주)"&gt;&lt;/p&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="flaskassets1byurangurang"&gt;&lt;a href="https://urangurang.github.io/python/flask-assets-1/"&gt;Flask-Assets 사용 방법 1편&lt;/a&gt; by UrangUrang님&lt;/h3&gt;
+&lt;p&gt;플라스크에서 정적 파일을 사용하는 방법을 UrangUrang님이 정리하였습니다. (&lt;a href="https://urangurang.github.io/python/flask-assets-2/"&gt;2편&lt;/a&gt;도 있습니다.)&lt;/p&gt;
+&lt;h3 id="flaskjinja2tojsonbyash84"&gt;&lt;a href="http://ash84.net/2017/04/03/flask-jinja2-tojson-pilteo/"&gt;flask의 jinja2 tojson 필터&lt;/a&gt; by ash84님&lt;/h3&gt;
+&lt;p&gt;jinja2 템플릿에서 tojson 필터를 사용하여, 해당 값을 json 객체로 변환하는 과정을 ash84님이 설명합니다.&lt;/p&gt;
+&lt;h1 id=""&gt;행사&lt;/h1&gt;
+&lt;h3 id="2017"&gt;&lt;a href="https://docs.google.com/document/d/1VWrvjeiVxJxpWGn_3ELujXDTxGk6IwjK4e3cSA9tl68/pub"&gt;파이콘 한국 2017 발표 제안 접수&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;2017년 8월 12일부터 8월 15일까지 코엑스에서 열릴 파이콘 한국 2017에서 발표 제안서를 받습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;모집 마감: 5월 20일&lt;/li&gt;
+&lt;li&gt;발표자 확정: 6월 2일&lt;/li&gt;
+&lt;li&gt;문의: &lt;a href="mailto:program@pycon.kr"&gt;program@pycon.kr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=""&gt;구인&lt;/h1&gt;
+&lt;h3 id=""&gt;&lt;a href="https://career.hpcnt.com/"&gt;하이퍼커넥트 신사업 부문&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;영상 통화 서비스인 &lt;a href="https://www.azarlive.com/"&gt;아자르&lt;/a&gt;를 운영하는 하이퍼커넥트에서 신사업 부문을 같이 할 파이썬/Django 3년 이상 경력자를 채용합니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

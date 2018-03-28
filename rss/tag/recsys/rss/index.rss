@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>RecSys - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>RecSys - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:36 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/recsys/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(11월 둘째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 파이썬 언더스코어(_)에 대하여 #2 RecSys를 활용한 추천 시스템의 기초 #3 RescueTime 자동화하기 #4 Jupyter 서버 설치와 실행법, 오류 대응 #5 (구인) 만화 추천 서비스 라프텔</description><link>http://raccoonyy.github.io/python-news-for-korean-2nd-week-nov/</link><guid isPermaLink="false">59815cfcdd47a80001bb9efc</guid><category>python-news</category><category>파이썬 소식</category><category>언더스코어</category><category>추천 시스템</category><category>RecSys</category><category>Jupyter 서버</category><category>라프텔</category><category>RescueTime</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 08 Nov 2016 00:20:44 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(11월 둘째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="_bymingrammer"&gt;&lt;a href="https://mingrammer.com/underscore-in-python"&gt;파이썬 언더스코어(_)에 대하여&lt;/a&gt; by mingrammer님&lt;/h3&gt;
+&lt;p&gt;파이썬에서 밑줄(_)을 활용하는 네 가지 경우를 mingrammer님이 짧은 예시와 함께 설명합니다.&lt;/p&gt;
+&lt;h3 id="by"&gt;&lt;a href="https://www.datascienceschool.net/view-notebook/fcd3550f11ac4537acec8d18136f2066/"&gt;추천 시스템의 기초&lt;/a&gt; by 데이터사이언스 스쿨&lt;/h3&gt;
+&lt;p&gt;오픈소스 추천 시스템인 RecSys를 활용하여 사용자가 콘텐츠를 어떻게 평가할지 예측하는 시스템을 만들어 봅니다.&lt;/p&gt;
+&lt;h3 id="rescuetimebyjello"&gt;&lt;a href="http://guswnsxodlf.github.io/automate-rescuetime-03"&gt;RescueTime 자동화하기&lt;/a&gt; by Jello님&lt;/h3&gt;
+&lt;p&gt;컴퓨터 사용 패턴을 측정하는 RescueTime의 정보를 하루 한 번씩 자동으로 알려주는 봇을 Jello님이 만들었습니다. 1편과 2편에서는 API 키 발급과 연동 시스템을 설명하고, 3편에서 파이썬 코드를 다룹니다.&lt;/p&gt;
+&lt;h3 id="jupyterby"&gt;&lt;a href="http://goodtogreate.tistory.com/entry/IPython-Notebook-%EC%84%A4%EC%B9%98%EB%B0%A9%EB%B2%95"&gt;Jupyter 서버 설치 및 실행법&lt;/a&gt; by 이재민 님&lt;/h3&gt;
+&lt;p&gt;Jupyter 서버를 실행하는 다양한 옵션과 오류 대응 방법을 이재민 님이 정리하였습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;신간&lt;/h1&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=96083131"&gt;파이썬 플레이그라운드&lt;/a&gt; by 에이콘&lt;/h3&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/11/python_playground-1.jpg" alt="한국의 파이썬 소식(11월 둘째 주)"&gt;&lt;/p&gt;
+&lt;h1 id=""&gt;구인&lt;/h1&gt;
+&lt;h3 id=""&gt;&lt;a href="https://www.facebook.com/Laftel.net/posts/1256620424410068"&gt;라프텔&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;웹툰/만화/애니 추천 서비스인 라프텔에서 Django 경험이 있는 웹 개발자를 모집합니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

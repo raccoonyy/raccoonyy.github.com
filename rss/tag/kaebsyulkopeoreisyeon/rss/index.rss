@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>캡슐코퍼레이션 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>캡슐코퍼레이션 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:29 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/kaebsyulkopeoreisyeon/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(3월 넷째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 테스트 코드랑 코딩하기 #2 부동산다이렉트 구인 #3 레이니스트 구인 #4 캡슐코퍼레이션 구인</description><link>http://raccoonyy.github.io/python-news-for-korean-4th-week-mar/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ed2</guid><category>python</category><category>python-news</category><category>파이썬</category><category>파이썬 소식</category><category>테스트</category><category>부동산다이렉트</category><category>레이니스트</category><category>캡슐코퍼레이션</category><dc:creator>raccoony</dc:creator><pubDate>Mon, 21 Mar 2016 00:48:18 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(3월 넷째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="byitem"&gt;&lt;a href="https://item4.github.io/2016-03-19/Coding-with-Test-Code/"&gt;테스트 코드랑 코딩하기&lt;/a&gt; by item님&lt;/h3&gt;
+&lt;p&gt;테스트를 작성해서 얻을 수 있는 이점을 item님이 간단한 예로 설명해줍니다.&lt;/p&gt;
+&lt;h1 id=""&gt;구인&lt;/h1&gt;
+&lt;h3 id=""&gt;&lt;a href="https://www.facebook.com/hannal/posts/10154091532908623"&gt;부동산다이렉트&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;r.square를 서비스하는 부동산다이렉트에서 파이썬 개발자를 모집합니다.&lt;/p&gt;
+&lt;p&gt;(페이스북 글을 읽지 못할 분도 계실 듯 하여 캡처 화면을 아래에 올립니다.)&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/03/Screenshot-2016-03-21-09-51-26.png" alt="한국의 파이썬 소식(3월 넷째 주)"&gt;&lt;/p&gt;
+&lt;h3 id=""&gt;&lt;a href="https://www.rocketpunch.com/jobs/10949/%EB%8D%95%EC%97%85%EC%9D%BC%EC%B9%98-%EC%9B%B9%EC%84%9C%EB%B2%84iOS-%EA%B0%9C%EB%B0%9C%EC%9E%90"&gt;캡슐코퍼레이션&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;덕업일치를 지향하는 캡슐코퍼레이션에서 웹 서비스 개발자를 모집합니다. (Django 경험자도 환영한다고 하네요.)&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

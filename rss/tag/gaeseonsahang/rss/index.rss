@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>개선사항 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>개선사항 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:35 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/gaeseonsahang/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>파이썬 3.6에서 바뀐 점</title><description>파이썬 3.6에 추가된 기능과 개선 사항을 살펴봅니다. #1 f 문자열 포매팅 #2 타입 힌트 #3 숫자 값에 자릿수 표시용 _ 기호 사용 #4 async / await 활용도 증가 #5 secrets 라이브러리 등 </description><link>http://raccoonyy.github.io/whats-new-in-python-3-6-korean/</link><guid isPermaLink="false">59815cfcdd47a80001bb9f03</guid><category>python 3.6</category><category>파이썬 3.6</category><category>new features</category><category>새 기능</category><category>개선사항</category><category>python</category><category>파이썬</category><category>릴리스 노트</category><dc:creator>raccoony</dc:creator><pubDate>Fri, 23 Dec 2016 14:57:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/12/python-3.6-release.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/12/python-3.6-release.png" alt="파이썬 3.6에서 바뀐 점"&gt;&lt;p&gt;파이썬 3.6이 방금 전(12월 23일) 정식 출시되었습니다. 이 글에서는 파이썬 3.6에 추가된 문법과 바뀐점을 간략하게 알아보려 합니다. 파이썬 공식 문서의 &lt;a href="https://docs.python.org/3.6/whatsnew/3.6.html"&gt;What’s New In Python 3.6&lt;/a&gt;을 참고하였습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;새 문법&lt;/h1&gt;
+&lt;h3 id="1fpep498"&gt;1. f 문자열 포매팅(&lt;a href="https://www.python.org/dev/peps/pep-0498/"&gt;PEP 498&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;.format()&lt;/code&gt; 메서드나 &lt;code&gt;%&lt;/code&gt;를 사용할 때 변수를 죽 늘어놓아야 했던 불편함을 덜 수 있습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; lang = 'Python'
+&amp;gt;&amp;gt;&amp;gt; author = 'Guido van Rossum'
+
+&amp;gt;&amp;gt;&amp;gt; 'Language: {}, Author: {}'.format(lang, author)
+Language: Python, Author: Guido van Rossum
+&amp;gt;&amp;gt;&amp;gt; f'Language: {lang}, Author: {author}'
+Language: Python, Author: Guido van Rossum
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;자세한 내용은 파이썬 공식 문서의 &lt;a href="https://docs.python.org/3.6/reference/lexical_analysis.html#f-strings"&gt;2.4.3 Formatted string literals&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;p&gt;PyCharm에서는 기존 포매팅에서 우클릭하여 &lt;code&gt;Convert to f-string literal&lt;/code&gt;이라는 메뉴를 선택하면, f 문자열 포매팅으로 손쉽게 바꿀 수 있습니다. (&lt;a href="https://blog.jetbrains.com/pycharm/2016/12/python-3-6-a-quick-look/"&gt;PyCharm 블로그&lt;/a&gt; 참고)&lt;/p&gt;
+&lt;h3 id="2pep484"&gt;2. 타입 힌트(&lt;a href="https://www.python.org/dev/peps/pep-0484/"&gt;PEP 484&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;3.5에서는 함수의 전달인자나 리턴 값에만 사용할 수 있었던 타입 힌팅을 변수에도 적용할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;파이썬은 동적 언어이므로 타입 힌트가 오류 검출 수단으로 사용되는 건 아니지만, PyCharm 등의 서드파티에서 자동 완성시 타입 힌트가 나타나는 등의 방법으로 사용됩니다. (&lt;a href="https://blog.jetbrains.com/pycharm/2016/12/python-3-6-a-quick-look/"&gt;PyCharm 블로그&lt;/a&gt; 참고)&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; value: str
+&amp;gt;&amp;gt;&amp;gt; value = 'test str'
+&amp;gt;&amp;gt;&amp;gt; value
+'test str'
+&amp;gt;&amp;gt;&amp;gt; value = 123
+&amp;gt;&amp;gt;&amp;gt; value
+123
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;자세한 내용은 파이썬 공식 문서의 &lt;a href="https://www.python.org/dev/peps/pep-0484/"&gt;PEP 484 -- Type Hints&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;h3 id="3_pep515"&gt;3. 숫자 값에 &lt;code&gt;_&lt;/code&gt; 사용(&lt;a href="https://www.python.org/dev/peps/pep-0515"&gt;PEP 515&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;숫자 값에 밑줄(&lt;code&gt;_&lt;/code&gt;)을 사용할 수 있습니다. 숫자 값을 읽을 때 자릿수 세기의 불편함을 덜 수 있겠습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; 1000
+1000
+&amp;gt;&amp;gt;&amp;gt; 1_000
+1000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;사람이 직접 넣는 방식이 원시적으로 보인다면, 문자열 포매팅을 사용하면 되고요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; value = 12345678
+&amp;gt;&amp;gt;&amp;gt; f'{value:_}'
+12_345_678
+&amp;gt;&amp;gt;&amp;gt; '{:_}'.format(value)  # 기존 포매팅도 됩니다.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;자세한 내용은 파이썬 공식 문서의 &lt;a href="https://www.python.org/dev/peps/pep-0515/"&gt;PEP 515 -- Underscores in Numeric Literals&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;h3 id="4asyncpep525"&gt;4. async 제너레이터(&lt;a href="https://www.python.org/dev/peps/pep-0525/"&gt;PEP 525&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;async / await 문법을 제너레이터에 사용할 수 있습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;import asyncio
+async def gen(x):
+    for i in range(x):
+        yield i
+        await asyncio.sleep(1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;자세한 내용은 파이썬 공식 문서의 &lt;a href="https://www.python.org/dev/peps/pep-0525/"&gt;PEP 525 -- Asynchronous Generators&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;h3 id="5asyncpep530"&gt;5. async 축약(&lt;a href="https://www.python.org/dev/peps/pep-0530/"&gt;PEP 530&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;리스트 축약, dict 축약과 같은 문법에도 async / await를 사용할 수 있습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# 4. async 제너레이터에서 이어서
+result = [i async for i in aiter() if i % 2]
+
+result = [await fun() for fun in funcs if await condition()]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;자세한 내용은 파이썬 공식 문서의 &lt;a href="https://www.python.org/dev/peps/pep-0530/"&gt;PEP 530 -- Asynchronous Comprehensions&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;h3 id="6pep487"&gt;6. 클래스 정의 문법 단순화(&lt;a href="https://www.python.org/dev/peps/pep-0487/"&gt;PEP 487&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;부모 클래스에 &lt;code&gt;__init_subclass__&lt;/code&gt;를 정의하면, 상속 클래스 정의가 간단해 집니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class BlogBase:
+    def __init_subclass__(cls, name, **kwargs):
+        cls.name = name
+        super().__init_subclass__(**kwargs)
+
+class Blog(BlogBase, name=&amp;quot;raccoony's cave&amp;quot;):
+    pass
+
+&amp;gt;&amp;gt;&amp;gt; Blog.name
+&amp;quot;raccoony's cave&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;자세한 내용은 파이썬 공식 문서의 &lt;a href="https://www.python.org/dev/peps/pep-0487/"&gt;PEP 487 -- Simpler customisation of class creation&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;h1 id=""&gt;새 라이브러리&lt;/h1&gt;
+&lt;h3 id="secretspep506"&gt;secrets(&lt;a href="https://www.python.org/dev/peps/pep-0506"&gt;PEP 506&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;random보다 강화된 난수 생성 라이브러리가 추가되었습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; import secrets
+&amp;gt;&amp;gt;&amp;gt; secrets.token_bytes(10)
+b'\xf6!\x00w\r8\x89\xd7\x93\x80'
+&amp;gt;&amp;gt;&amp;gt; secrets.token_hex(10)
+'742ae68b333bc3d70048'
+&amp;gt;&amp;gt;&amp;gt; secrets.token_urlsafe(10)
+'UiT0E-HgthTMGQ'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;자세한 내용은 파이썬 공식 문서의 &lt;a href="https://docs.python.org/3.6/library/secrets.html#module-secrets"&gt;secrets — Generate secure random numbers for managing secrets&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+&lt;h1 id=""&gt;개선 사항&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;dict 타입의 작동 방식이 개선되어, 3.5 버전 대비 20%~25% 정도 메모리가 절약됩니다. PyPy의 작동 방식을 채용했다네요. (&lt;a href="https://docs.python.org/3.6/whatsnew/3.6.html#whatsnew36-compactdict"&gt;New dict implementation&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;클래스에 정의한 속성들의 순서가 유지됩니다. (&lt;a href="https://www.python.org/dev/peps/pep-0520/"&gt;PEP 520&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;전달인자의 &lt;code&gt;**kwargs&lt;/code&gt;에 들어 있는 변수의 순서가 유지됩니다. (&lt;a href="https://www.python.org/dev/peps/pep-0468"&gt;PEP 468&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;이 외에도 3.6 업데이트와 관련된 자세한 내용은 파이썬 공식 문서의 &lt;a href="https://docs.python.org/3.6/whatsnew/3.6.html"&gt;What’s New In Python 3.6&lt;/a&gt;을 참고하세요.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

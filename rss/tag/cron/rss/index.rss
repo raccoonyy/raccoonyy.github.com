@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>cron - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>cron - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:20 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/cron/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>docker 안에서 주기적인 작업(cron) 처리하기</title><description>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;p&gt;문제 : docker 컨테이너 안에서 cron job을 돌리고 싶었습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h5 id="201637"&gt;2016년 3월 7일 업데이트&lt;/h5&gt;
+&lt;p&gt;이 문제를 DockerKorea 모임에 문의했더니 cron 처리를 위한 별도의 프로그램을 추천해주셨습니다. &lt;a href="https://pypi.python.org/pypi/python-crontab/"&gt;python-crontab&lt;/a&gt;이나 &lt;a href="https://github.com/anarcher/go-cron"&gt;go-cron&lt;/a&gt; 등이요.&lt;/p&gt;
+&lt;p&gt;한편, 주기적인 작업에는 cron 대신 &lt;a href="https://syncano.io/blog/configuring-running-django-celery-docker-containers-pt-1/"&gt;celery를 사용하는 방법&lt;/a&gt;도 많이 사용된답니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id="dockercron"&gt;docker 내에서 일반적인 cron 설정 방법&lt;/h3&gt;
+&lt;p&gt;일단 제가 찾아 본 일반적인 설정은&lt;/p&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/cron-job-with-uwsgi-in-docker-container/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ecf</guid><category>docker</category><category>cron</category><category>uwsgi</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 03 Mar 2016 00:57:52 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/03/rotate.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/03/rotate.jpg" alt="docker 안에서 주기적인 작업(cron) 처리하기"&gt;&lt;p&gt;문제 : docker 컨테이너 안에서 cron job을 돌리고 싶었습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h5 id="201637"&gt;2016년 3월 7일 업데이트&lt;/h5&gt;
+&lt;p&gt;이 문제를 DockerKorea 모임에 문의했더니 cron 처리를 위한 별도의 프로그램을 추천해주셨습니다. &lt;a href="https://pypi.python.org/pypi/python-crontab/"&gt;python-crontab&lt;/a&gt;이나 &lt;a href="https://github.com/anarcher/go-cron"&gt;go-cron&lt;/a&gt; 등이요.&lt;/p&gt;
+&lt;p&gt;한편, 주기적인 작업에는 cron 대신 &lt;a href="https://syncano.io/blog/configuring-running-django-celery-docker-containers-pt-1/"&gt;celery를 사용하는 방법&lt;/a&gt;도 많이 사용된답니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id="dockercron"&gt;docker 내에서 일반적인 cron 설정 방법&lt;/h3&gt;
+&lt;p&gt;일단 제가 찾아 본 일반적인 설정은 다음과 같습니다.&lt;/p&gt;
+&lt;h5 id="1dockercroncron"&gt;1. docker 이미지에 cron 설치 (cron 없는 이미지도 있으니까)&lt;/h5&gt;
+&lt;pre&gt;&lt;code class="language-language-docker"&gt;# Dockerfile
+RUN apt-get install -y cron
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h5 id="2cronjobtxt"&gt;2. &lt;code&gt;cronjob.txt&lt;/code&gt; 파일 생성&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;# cronjob.txt
+*/5 * * * * root echo &amp;quot;hello cron&amp;quot; &amp;gt;&amp;gt; /dev/stdout
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h5 id="3cronjobtxtetccrond"&gt;3. &lt;code&gt;cronjob.txt&lt;/code&gt;을 &lt;code&gt;/etc/cron.d/&lt;/code&gt;에 복사&lt;/h5&gt;
+&lt;pre&gt;&lt;code class="language-language-docker"&gt;# Dockerfile
+ADD ./etc/cronjob.txt   /etc/cron.d/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h5 id="4supervisorcron"&gt;4. supervisor 등의 프로세스 관리자에 cron을 등록&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;# supervisord.conf
+[program:cron]
+command = cron -f -L 15
+autostart = true
+autorestart = true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h5 id="5"&gt;5. 컨테이너 실행&lt;/h5&gt;
+&lt;pre&gt;&lt;code class="language-language-bash"&gt;$ docker run -d image_name 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;그런데 저는 이게 잘 안 되더군요. (혹시 틀린 부분이 있다면 알려주세요. 다시 시도해보겠습니다. ㅠㅠ)&lt;/p&gt;
+&lt;p&gt;그러던 중에 &lt;a href="https://dittos.github.io/2015/10/24/advanced-uwsgi/"&gt;uwsgi에서 cron을 지원한다는 이야기&lt;/a&gt;를 들었습니다. 어차피 고통받는 상황이니, 밑져야 본전이라는 생각으로 시도를 해봤습니다.&lt;/p&gt;
+&lt;h3 id="uwsgicron"&gt;uwsgi에서 cron 설정하기&lt;/h3&gt;
+&lt;h5 id="1uwsgiini"&gt;1. &lt;code&gt;uwsgi.ini&lt;/code&gt; 파일에 다음 내용을 추가합니다.&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;[uwsgi]
+-5 -1 -1 -1 -1 echo &amp;quot;hello cron&amp;quot; &amp;gt;&amp;gt; /dev/stdout
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;crontab에서 *로 설정하는 부분을 uwsgi에서는 -1로 설정하고, 주기적인 작업을 위해 */5로 설정하는 부분을 uwsgi에서는 -5로 설정하면 됩니다. (더 인간 친화적인 설정 방법도 있으니 &lt;a href="http://uwsgi-docs.readthedocs.org/en/latest/Cron.html"&gt;문서&lt;/a&gt;를 참고하세요~)&lt;/p&gt;
+&lt;p&gt;끝입니다. -_-;&lt;/p&gt;
+&lt;p&gt;테스트할 땐, 출력을 &lt;code&gt;/dev/stdout&lt;/code&gt;이 아닌 &lt;code&gt;/var/log/cron.log&lt;/code&gt; 같은 로컬 파일로 바꾼 다음에 확인을 해봤습니다. 잘 되더군요.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;결론: uwsgi 설치된 서버에서 cron 작업할 땐 uwsgi 쓸게요.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

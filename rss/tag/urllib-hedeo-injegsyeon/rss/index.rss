@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>urllib 헤더 인젝션 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>urllib 헤더 인젝션 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:36 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/urllib-hedeo-injegsyeon/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(6월 넷째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 데이터로 만나는 태아 #2 Faker 선수 플레이 분석 #3 세 줄 요약기 만들기 #4 urllib 라이브러리의 헤더 인젝션 취약점 보고 #5 파이콘 프로그램 선호도 조사</description><link>http://raccoonyy.github.io/python-news-for-korean-4th-week-june/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ee3</guid><category>python-news</category><category>파이썬 소식</category><category>태아의 DNA 분석</category><category>Faker 플레이 분석</category><category>세 줄 요약기</category><category>urllib 헤더 인젝션</category><category>파이콘 APAC 2016 프로그램 선호도 조사</category><dc:creator>raccoony</dc:creator><pubDate>Mon, 27 Jun 2016 01:00:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(6월 넷째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://highthroughput.org/wp/nipt-in-a-notebook/"&gt;앞으로 태어날 우리 아기, 데이터로 미리 만나볼까&lt;/a&gt; by 장혜식 님&lt;/h3&gt;
+&lt;p&gt;태어나기 전인 아기의 DNA를 분석해 봅니다.&lt;/p&gt;
+&lt;h3 id="faker1byseunseun"&gt;&lt;a href="http://seunseun.ghost.io/fakerseonsuyi-daehoe-peulrei-bunseog-1-caempieon-pyeon/"&gt;Faker 선수의 대회 플레이 분석 - (1) 챔피언 편&lt;/a&gt; by SeunSeun님&lt;/h3&gt;
+&lt;p&gt;BeatifulSoup과 PhantomJS를 통해 Faker 선수의 LOL 플레이를 크롤링하고, Jupyter로 분석을 해봅니다.&lt;/p&gt;
+&lt;h3 id="bytheeluwin"&gt;&lt;a href="http://blog.theeluwin.kr/post/146188165713/summariz3"&gt;파이썬으로 세 줄 요약기 만들기&lt;/a&gt; by theeluwin님&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://konlpy.org/en/v0.4.4/"&gt;KoNLPy&lt;/a&gt;와 &lt;a href="https://networkx.github.io/"&gt;NetworkX&lt;/a&gt;를 활용하여, 긴 문장을 세 줄로 요약해주는 도구를 만들어 봅니다.&lt;/p&gt;
+&lt;h3 id="pythonurllibhttp"&gt;&lt;a href="http://blog.alyac.co.kr/668"&gt;Python urllib HTTP 헤더 인젝션 취약점&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;파이썬의 urllib 라이브러리에 헤더 인젝션 취약점이 보고되었습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;행사&lt;/h1&gt;
+&lt;h3 id="apac"&gt;&lt;a href="https://www.pycon.kr/2016apac/programs/preference"&gt;파이콘 APAC 프로그램 선호도 조사&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://www.pycon.kr/2016apac/programs/list/"&gt;파이콘 APAC 2016의 프로그램 공개&lt;/a&gt;와 함께 선호도 조사가 시작되었습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/06/Screenshot-2016-06-26-22-07-33.png" alt="한국의 파이썬 소식(6월 넷째 주)"&gt;&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

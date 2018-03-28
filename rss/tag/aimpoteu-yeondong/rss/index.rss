@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>아임포트 연동 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>아임포트 연동 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:27 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/aimpoteu-yeondong/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(2017년 2월 셋째 주)</title><description>한국에서 일어나는 파이썬 소식을 전합니다. #1 (프로젝트) SQLAlchemy를 HTML로 변환하는 도도 테이블 #2 Django에 결제 모듈 아임포트 연동하기 #3 Django 외부 DB에 ORM 적용하기 #4 (온라인 강좌) 데이터 과학을 위한 파이썬 입문 외</description><link>http://raccoonyy.github.io/python-news-for-korean-2017-3rd-week-feb/</link><guid isPermaLink="false">59815cfcdd47a80001bb9f14</guid><category>파이썬 소식</category><category>python-news</category><category>도도 테이블</category><category>아임포트 연동</category><category>inspectdb</category><category>데이터 과학을 위한 파이썬 입문</category><category>파이콘 한국 2017 키노트 스피커 추천</category><category>싸일런스홀딩스</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 21 Feb 2017 02:21:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2017/01/python-news-for-korean-cover-2017.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2017/01/python-news-for-korean-cover-2017.jpg" alt="한국의 파이썬 소식(2017년 2월 셋째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;프로젝트&lt;/h1&gt;
+&lt;h3 id="by"&gt;&lt;a href="https://github.com/spoqa/dodotable"&gt;도도 테이블&lt;/a&gt; by 스포카&lt;/h3&gt;
+&lt;p&gt;SQLAlchemy에서 가져온 결과를 HTML &lt;code&gt;&amp;lt;table&amp;gt;&lt;/code&gt; 태그로 쉽게 보여주는 파이썬 라이브러리를 스포카에서 공개했습니다. &lt;a href="https://spoqa.github.io/2017/02/17/dodotable.html"&gt;만든 과정을 담은 블로그 글&lt;/a&gt;에도 유익한 정보가 많네요.&lt;/p&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="import1by"&gt;&lt;a href="http://genius-project.postach.io/post/django-iamport-yeondonghagi-1"&gt;결제 모듈 I'mport 연동하기 1편 - 개요&lt;/a&gt; by 권재원 님&lt;/h3&gt;
+&lt;p&gt;간편한 결제 API를 제공하는 I'mport를 Django에서 사용하는 방법을 권재원 님이 정리하였습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://genius-project.postach.io/post/django-iamport-yeondonghagi-2"&gt;2편 - I'mport와 연동할 모듈 작성&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://genius-project.postach.io/post/django-iamport-yeondonghagi-3"&gt;3편 - 뷰 작성&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://genius-project.postach.io/post/django-iamport-yeondonghagi-4"&gt;4편 - 템플릿 작성&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://brownbears.tistory.com/292"&gt;병렬처리&lt;/a&gt; by 불곰님&lt;/h3&gt;
+&lt;p&gt;파이썬의 GIL(Global Internal Lock) 문제를 해결하고자 파이썬 3.2부터 추가된 &lt;code&gt;concurrent.futures&lt;/code&gt; 모듈을 불곰님이 예시와 함께 설명합니다.&lt;/p&gt;
+&lt;h3 id="numpybyshia"&gt;&lt;a href="http://riseshia.github.io/2017/01/30/numpy-tutorial-with-code.html"&gt;코드로 읽는 NumPy 튜토리얼&lt;/a&gt; by shia님&lt;/h3&gt;
+&lt;p&gt;행렬이나 삼각함수 등 다양한 계산을 쉽게 해주는 NumPy 라이브러리에 대한 간단한 튜토리얼을 shia님이 정리하였습니다.&lt;/p&gt;
+&lt;h3 id="djangodbormby"&gt;&lt;a href="http://genius-project.postach.io/post/django-djangoyi-inspectdbeul-iyonghae-oebu-dbe-daehae-ormreul-sseoboja"&gt;Django에서 외부 DB에도 ORM 적용하기&lt;/a&gt; by 권재원 님&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;inspectdb&lt;/code&gt; 명령을 통해, 처음부터 Django로 만들지 않은 DB에 대해서도 ORM 기능을 사용하는 방법을 권재원 님이 알려줍니다.&lt;/p&gt;
+&lt;h1 id=""&gt;강좌&lt;/h1&gt;
+&lt;h3 id="python"&gt;&lt;a href="http://www.kmooc.kr/courses/course-v1:GachonUnivK+ACE.GachonUnivK01+2016_01/about"&gt;(온라인) 데이터 과학을 위한 Python 입문&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;파이썬 입문자를 위한 온라인 공개 강좌를 가천대학교의 최성철 교수님이 K-MOOC 사이트에 공개하였습니다. 3월 20일부터 시작합니다. (수강신청 마감: 3월 31일)&lt;/p&gt;
+&lt;p&gt;강의 영상은 &lt;a href="https://www.youtube.com/playlist?list=PLBHVuYlKEkUJvRVv9_je9j3BpHwGHSZHz"&gt;유튜브에도 공개&lt;/a&gt;되어 있습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;행사&lt;/h1&gt;
+&lt;h3 id="2017"&gt;&lt;a href="https://docs.google.com/forms/d/e/1FAIpQLSfASbn2S2umdUIt7B1fQiO0UOnNKJ6gbco3ciZB8_10jZHovA/viewform?c=0&amp;amp;w=1&amp;amp;usp=send_form"&gt;파이콘 한국 2017 키노트 스피커 추천&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;파이콘 한국 2017 행사에서 키노트를 맡을 연사를 추천받습니다. 국적이나 인종, 나이, 성별에 구애 없이, 파이썬 생태계에 많은 발전과 공헌을 해주신 분을 추천해달라고 합니다. (연사 추천 외에 파이콘 한국 준비위원회에 요청하고 싶은 내용을 적을 수도 있습니다.)&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2017/02/pycon-korea-2017-keynote-speaker.png" alt="한국의 파이썬 소식(2017년 2월 셋째 주)"&gt;&lt;/p&gt;
+&lt;h1 id=""&gt;구인&lt;/h1&gt;
+&lt;h3 id=""&gt;&lt;a href="https://github.com/inqpia/jobs"&gt;싸일런스홀딩스 백엔드 개발자&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;여행 정보 서비스를 만드는 싸일런스홀딩스에서 웹 개발 1년 이상 경험이 있는 Django 개발자를 모집합니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

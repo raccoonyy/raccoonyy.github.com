@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>비동기 파이썬 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>비동기 파이썬 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:34 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/bidonggi-paisseon/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(10월 둘째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 SQLAlchemy의 새 기능 index_property #2 (번역) 비동기 파이썬 #3 slacker로 만든 커밋 추적 봇 #4 Pycon Korea 2017 준비위원회 모집</description><link>http://raccoonyy.github.io/python-news-for-korean-2nd-week-oct/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ef8</guid><category>python-news</category><category>파이썬 소식</category><category>index_property</category><category>SQLAlchemy 1.1</category><category>비동기 파이썬</category><category>Pycon 준비위원회</category><category>솔트룩스</category><category>Dable</category><dc:creator>raccoony</dc:creator><pubDate>Wed, 12 Oct 2016 00:00:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(10월 둘째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="sqlalchemy11index_propertybyyouknowone"&gt;&lt;a href="http://text.youknowone.org/post/151520654846/sqlalchemy-indexproperty"&gt;SQLAlchemy 1.1에 추가된 index_property 기능 소개&lt;/a&gt; by youknowone님&lt;/h3&gt;
+&lt;p&gt;SQLAlchemy 1.1에 index_property 기능을 추가한 youknowone님이 직접 해당 기능에 대해 설명합니다.&lt;/p&gt;
+&lt;h3 id="bymingrammer"&gt;&lt;a href="https://mingrammer.com/translation-asynchronous-python"&gt;(번역) 비동기 파이썬&lt;/a&gt; by Mingrammer님&lt;/h3&gt;
+&lt;p&gt;파이썬에서의 비동기 프로그래밍을 다룬 &lt;a href="https://hackernoon.com/asynchronous-python-45df84b82434#.irtdum9dx"&gt;Asynchronous Python&lt;/a&gt; 글을 Mingrammer님이 번역하였습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;프로젝트&lt;/h1&gt;
+&lt;h3 id="slackerbyhyesun03"&gt;&lt;a href="https://hyesun03.github.io/2016/10/08/slackbot/"&gt;slacker로 만든 커밋 스토킹 봇&lt;/a&gt; by hyesun03님&lt;/h3&gt;
+&lt;p&gt;커밋한지 얼마나 지났는지 알려주는 슬랙용 봇을 hyesun03님이 만들었습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;행사&lt;/h1&gt;
+&lt;h3 id="pyconkorea2017"&gt;&lt;a href="https://docs.google.com/forms/d/e/1FAIpQLSdpKn3oWy-YLfK81LjKzlysP4DtGk-cBTLYcsX-KX4yXjje-Q/viewform"&gt;PyCon Korea 2017 준비위원회 모집&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;PyCon Korea 2017을 준비하는 준비위원회를 모집합니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lh4.googleusercontent.com/zemq6jDIk2GynVvs1g8QYi1Wlq64VBLgkDJud1SynU86IpKg-jnAvthvcZtvPVsS-CX9bxiM7w" alt="한국의 파이썬 소식(10월 둘째 주)"&gt;&lt;/p&gt;
+&lt;h1 id=""&gt;구인&lt;/h1&gt;
+&lt;h3 id=""&gt;&lt;a href="https://www.facebook.com/groups/pythonkorea/permalink/1122227534527073/"&gt;솔트룩스&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;페이스북에 접속하지 않은 분들을 위해 캡처 화면을 아래에 첨부합니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/10/Screenshot-2016-10-11-17.10.10.png" alt="한국의 파이썬 소식(10월 둘째 주)"&gt;&lt;/p&gt;
+&lt;h3 id="dable"&gt;&lt;a href="http://blog.naver.com/PostView.nhn?blogId=teamdable&amp;amp;logNo=220824669049&amp;amp;redirect=Dlog&amp;amp;widgetTypeCall=true"&gt;Dable&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;콘텐츠 디스커버리 플랫폼을 만드는 Dable에서 파이썬 백엔드 개발자를 모집합니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

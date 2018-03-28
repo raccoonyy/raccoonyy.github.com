@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>writethedocs - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>writethedocs - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:40 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/writethedocs/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>WriteTheDocs 서울 모임 후기</title><description>nacyot님께서 WriteTheDocs라는 커뮤니티를 소개해 주신 이후, 우리나라에서도 한 번 해보자는 의견을 주고 받다가, 옆에서 이야기듣던 scari님의 제안으로 행사는 급 물살을 타게 되는데...</description><link>http://raccoonyy.github.io/2016-write-the-docs-seoul-meetup-epilogue/</link><guid isPermaLink="false">59815cfcdd47a80001bb9eef</guid><category>writethedocs</category><category>pyconapac</category><category>라이트더닥스</category><category>후기</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 18 Aug 2016 00:21:13 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/08/WRITE_THE_DOCS_SEOUL.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;h1 id=""&gt;기&lt;/h1&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/08/WRITE_THE_DOCS_SEOUL.jpg" alt="WriteTheDocs 서울 모임 후기"&gt;&lt;p&gt;nacyot님께서 &lt;a href="http://writethedocs.org/"&gt;WriteTheDocs&lt;/a&gt;라는 커뮤니티를 소개해 주신 이후, 우리나라에서도 한 번 해보자는 의견을 주고 받은 적이 있다.&lt;/p&gt;
+&lt;p&gt;내년에나 한 번 해보려나... 하고 있었는데 옆에서 이야기듣던 &lt;a href="https://twitter.com/scari_net"&gt;scari&lt;/a&gt;님이 이번 &lt;a href="https://www.pycon.kr/2016apac/"&gt;PyConAPAC&lt;/a&gt;에서 장소를 제공받아보면 어떠냐고 하셔서 급 물살.&lt;/p&gt;
+&lt;h1 id=""&gt;승&lt;/h1&gt;
+&lt;p&gt;그리고 진짜로 페이지가 열렸다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-19-31-58.png" alt="WriteTheDocs 서울 모임 후기"&gt;&lt;/p&gt;
+&lt;p&gt;(아... 일은 원래 내가 원하지 않을 때 가장 빨리 진행되나보다.)&lt;/p&gt;
+&lt;p&gt;그래서 막 트위터 계정도 만들고, 페이스북 페이지도 만들고...&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" data-lang="ko"&gt;&lt;p lang="ko" dir="ltr"&gt;2016 WriteTheDocsSeoul이 PyCon APAC의 부대 행사로 열리게 되었습니다.&lt;a href="https://t.co/UDEVtCJWJV"&gt;https://t.co/UDEVtCJWJV&lt;/a&gt; &lt;a href="https://t.co/9kEcZmcrg9"&gt;pic.twitter.com/9kEcZmcrg9&lt;/a&gt;&lt;/p&gt;&amp;mdash; Write The Docs Seoul (@WTDSeoul) &lt;a href="https://twitter.com/WTDSeoul/status/763640755021750272"&gt;2016년 8월 11일&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;p&gt;이제 중요한 건 내용! 부랴부랴 세션 맡을 분을 모으고 아는 분들께 참석해달라는 메일을 보내면서도, **사람들이 오기는 할까?**하는 불안감이 많았는데, 막상 등록 버튼이 생기자마자 걱정할 필요가 없을 만큼 사람들이 많이 눌러줬다. (하지만 나중에 보니까 일단 눌러놓고 보는 분이 많았던...)&lt;/p&gt;
+&lt;p&gt;초록색이 등록자고 노란색은 대기자. (**대기하는 사람까지 있다니!**라며 기뻐했다.)&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/08/Screenshot_2016-08-17_19_26_01.jpg" alt="WriteTheDocs 서울 모임 후기"&gt;&lt;/p&gt;
+&lt;p&gt;하지만 세션 발표에 이름과 주제를 올려놓은 나는 정작 발표 준비를 전혀 못하고, &lt;a href="https://www.facebook.com/SmartStudyKR/posts/1296073290433660"&gt;회사의 행사&lt;/a&gt;로 끌려다니기 바빴고... 일요일엔 가족과 함께 시간을 보내고 뻗어버린 터라 세션 준비는 월요일 새벽에 시작... ㅡㅡ;&lt;/p&gt;
+&lt;p&gt;제목부터가 '실험'인지라 자료만 대충 때려넣자는 심정이었는데, 이걸 맥락이 이어지게 배치하고 수위를 적절히 조절하는 일이 꽤 어려웠다.&lt;/p&gt;
+&lt;h1 id=""&gt;전&lt;/h1&gt;
+&lt;p&gt;그래도 어찌어찌 겨우 발표 준비를 마치고 행사 시작.&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" data-lang="ko"&gt;&lt;p lang="en" dir="ltr"&gt;Just started! &lt;a href="https://twitter.com/hashtag/writethedocs?src=hash"&gt;#writethedocs&lt;/a&gt; &lt;a href="https://t.co/9FwqDbNXLE"&gt;pic.twitter.com/9FwqDbNXLE&lt;/a&gt;&lt;/p&gt;&amp;mdash; Write The Docs Seoul (@WTDSeoul) &lt;a href="https://twitter.com/WTDSeoul/status/764994374061002753"&gt;2016년 8월 15일&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;h1 id=""&gt;결&lt;/h1&gt;
+&lt;p&gt;행사는 잘 끝났고, 이제 WriteTheDocs 서울 모임이 정기적 혹은 비정기적으로 잘 모일 일만 남았다. (이게 더 큰일이긴 하다...)&lt;/p&gt;
+&lt;h1 id=""&gt;뱀발&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://twitter.com/WTDSeoul"&gt;WriteTheDocs 서울 모임 트위터&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.facebook.com/groups/writethedocsseoul/"&gt;WriteTheDocs 서울 모임 페이스북 페이지&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.meetup.com/write-the-docs-seoul/"&gt;WriteTheDocs 서울 모임 밋업&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://slack.writethedocs.org"&gt;WriteTheDocs 서울 모임 slack&lt;/a&gt; -&amp;gt; #seoul&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

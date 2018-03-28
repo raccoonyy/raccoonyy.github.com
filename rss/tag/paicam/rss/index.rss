@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>파이참 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>파이참 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:30 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/paicam/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(10월 셋째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 파이썬에서의 OOP 연재 #2 클로저와 변수 스코프의 상호작용 #3 파이참에서 pep8 #4 파이썬 격월 세미나 #5 파이썬 격월 세미나 발표자 모집 #6 (신간) 파이썬 병렬 프로그래밍</description><link>http://raccoonyy.github.io/python-news-for-korean-3rd-week-oct/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ef9</guid><category>python-news</category><category>파이썬 소식</category><category>OOP</category><category>클로저</category><category>변수 스코프</category><category>파이참</category><category>pep8</category><category>파이썬 병렬 프로그래밍</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 18 Oct 2016 01:00:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(10월 셋째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="oopby"&gt;&lt;a href="http://schoolofweb.net/blog/posts/%ED%8C%8C%EC%9D%B4%EC%8D%AC-oop-part-1-%EA%B0%9D%EC%B2%B4-%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8Doop%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80-%EC%99%9C-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94%EA%B0%80/"&gt;파이썬에서의 OOP 연재&lt;/a&gt; by 이상희 님&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://schoolofweb.net/blog"&gt;School of Web 블로그&lt;/a&gt;를 운영하는 이상희 님이 '파이썬에서의 OOP'라는 주제로 연재를 하고 있습니다. 일곱 번에 걸쳐 진행될 예정이며 지금은 5회까지 진행되었네요.&lt;/p&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://brownbears.tistory.com/128"&gt;클로저와 변수 스코프의 상호작용 알아보기&lt;/a&gt; by 불곰님&lt;/h3&gt;
+&lt;p&gt;클로저와 변수 스코프라는 주제는 파이썬에서도 조금 까다로운 주제인데요. 불곰님이 간단한 예로 이를 설명하였습니다.&lt;/p&gt;
+&lt;h3 id="pycharmpep8byjello"&gt;&lt;a href="http://guswnsxodlf.github.io/check-pep8-on-pycharm"&gt;파이참(pycharm)에서 pep8 가이드 검사하기&lt;/a&gt; by Jello님&lt;/h3&gt;
+&lt;p&gt;파이참에서 pep8에 어긋나는 코드를 바로 확인할 수 있는 설정법을 Jello님이 설명하였습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;행사&lt;/h1&gt;
+&lt;h3 id=""&gt;&lt;a href="http://onoffmix.com/event/81168"&gt;파이썬 격월 세미나&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;파이썬 격월 세미나가 오랜만에 열립니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;일시: 10월 22일 토요일 오후 1시&lt;/li&gt;
+&lt;li&gt;장소: 선릉역 5번출구 KossLab 세미나실&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=""&gt;구인&lt;/h1&gt;
+&lt;h3 id="201610"&gt;&lt;a href="https://docs.google.com/forms/d/e/1FAIpQLSdcQt2dXcMsUu5tG6LYCPxvztaoxZ2ou9xVAongqGpyRRkCew/viewform?c=0&amp;amp;w=1"&gt;2016년 10월 파이썬 세미나 발표자 모집&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;위에서도 언급했던 &lt;a href="http://onoffmix.com/event/81168"&gt;격월로 진행되는 파이썬 세미나&lt;/a&gt;에서 발표자를 모집합니다. 발표자 모집 마감은 10월 18일까지라고 하네요.&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lh3.googleusercontent.com/R-E_Zt0nBgAwt3itj5nbdEsFGsYRV9bgsMXjzCD7gBcgWLED5Q9ieSpceO2w--Uf6xcGjk5gcQ" alt="한국의 파이썬 소식(10월 셋째 주)"&gt;&lt;/p&gt;
+&lt;h1 id=""&gt;책&lt;/h1&gt;
+&lt;h3 id="by"&gt;&lt;a href="http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=94675121"&gt;파이썬 병렬 프로그래밍&lt;/a&gt; by 에이콘&lt;/h3&gt;
+&lt;p&gt;&lt;img src="http://raccoonyy.github.io/content/images/2016/10/python_parallel_programming.jpg" alt="한국의 파이썬 소식(10월 셋째 주)"&gt;&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

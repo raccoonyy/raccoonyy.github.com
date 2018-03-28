@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>Authentication - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>Authentication - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:31 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/authentication/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>DRF3 튜토리얼 4 - 인증과 권한</title><description>(django-rest-framework 공식 문서를 번역함) 지금까지 만든 API에 로그인 기능을 추가합니다. 또, 코드 조각을 올렸던 사용자만 해당 코드 조각을 편집하거나 삭제하도록 권한을 제한하겠습니다.</description><link>http://raccoonyy.github.io/drf3-tutorial-4/</link><guid isPermaLink="false">59815cfbdd47a80001bb9e9e</guid><category>django rest framework 3</category><category>DRF3</category><category>translate</category><category>Authentication</category><category>Permissions</category><category>Django</category><dc:creator>raccoony</dc:creator><pubDate>Fri, 06 Mar 2015 04:15:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2015/12/drf-logo.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;img src="http://raccoonyy.github.io/content/images/2015/12/drf-logo.png" alt="DRF3 튜토리얼 4 - 인증과 권한"&gt;&lt;p&gt;원문 - &lt;a href="http://www.django-rest-framework.org/tutorial/4-authentication-and-permissions"&gt;Authentication &amp;amp; Permissions&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;번역을 허락해 준 &lt;a href="https://twitter.com/_tomchristie"&gt;Tom Christie&lt;/a&gt;에게 고마움을 전합니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id="4"&gt;튜토리얼 4: 인증과 권한&lt;/h1&gt;
+&lt;p&gt;지금까지 우리가 만든 API에서는 누구라도 코드 조각을 편집하거나 삭제할 수 있습니다. 아무 제한이 없죠. 여기에 다음과 같은 고급 기능을 추가하고 싶습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;코드 조각은 만든 사람과 연관이 있다.&lt;/li&gt;
+&lt;li&gt;인증받은 사용자만 코드 조각을 만들 수 있다.&lt;/li&gt;
+&lt;li&gt;해당 코드 조각을 만든 사람만, 이를 편집하거나 삭제할 수 있다.&lt;/li&gt;
+&lt;li&gt;인증받지 않은 사용자는 '읽기 전용'으로만 사용 가능하다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=""&gt;모델에 속성 추가하기&lt;/h2&gt;
+&lt;p&gt;먼저 &lt;code&gt;Snippet&lt;/code&gt; 모델을 조금 수정해보겠습니다.&lt;/p&gt;
+&lt;p&gt;필드를 두 개 추가합니다. 하나(owner)는 코드 조각을 만든 사람을 가리킵니다. 다른 하나는 하이라이트된 코드를 HTML 형태로 저장하는 데 사용됩니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;models.py&lt;/code&gt;에 있는 &lt;code&gt;Snippet&lt;/code&gt; 모델에 다음 내용을 추가하세요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;owner = models.ForeignKey('auth.User', related_name='snippets')
+highlighted = models.TextField()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;그리고 모델이 저장될 때 하이라이트된 코드를 highlighed 필드에 저장해야 합니다. 코드 하이라이팅에는 &lt;code&gt;pygments&lt;/code&gt; 라이브러리를 사용합니다.&lt;/p&gt;
+&lt;p&gt;필요한 라이브러리들을 임포트하고,&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from pygments.lexers import get_lexer_by_name
+from pygments.formatters.html import HtmlFormatter
+from pygments import highlight
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;모델에 &lt;code&gt;.save()&lt;/code&gt; 메서드를 작성합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def save(self, *args, **kwargs):
+    &amp;quot;&amp;quot;&amp;quot;
+    `pygments` 라이브러리를 사용하여 하이라이트된 코드를 만든다.
+    &amp;quot;&amp;quot;&amp;quot;
+    lexer = get_lexer_by_name(self.language)
+    linenos = self.linenos and 'table' or False
+    options = self.title and {'title': self.title} or {}
+    formatter = HtmlFormatter(style=self.style, linenos=linenos,
+                              full=True, **options)
+    self.highlighted = highlight(self.code, lexer, formatter)
+    super(Snippet, self).save(*args, **kwargs)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;코드를 모두 작성했다면 데이터베이스를 업데이트해야 합니다.&lt;/p&gt;
+&lt;p&gt;보통은 데이터베이스 마이그레이션을 작성하겠지만, 지금은 튜토리얼일 뿐이니 데이터베이스를 지우고 새로 만들겠습니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;rm -f tmp.db db.sqlite3
+rm -r snippets/migrations
+python manage.py makemigrations snippets
+python manage.py migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;API를 테스트하는 데 사용할 사용자 계정을 만들고 싶다면, 다음과&lt;br&gt;
+같이 &lt;code&gt;createsuperuser&lt;/code&gt; 명령을 사용하시면 됩니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;python manage.py createsuperuser
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;사용자 모델에 엔드포인트 추가하기&lt;/h2&gt;
+&lt;p&gt;사용자를 추가했으니 사용자를 보여주는 API도 추가합시다. &lt;code&gt;serializers.py&lt;/code&gt; 파일에 새 시리얼라이저를 작성합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.contrib.auth.models import User
+
+class UserSerializer(serializers.ModelSerializer):
+    snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'snippets')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;'snippets'&lt;/code&gt;는 사용자 모델과 &lt;strong&gt;반대 방향&lt;/strong&gt;으로 이어져 있기 때문에 &lt;code&gt;ModelSerializer&lt;/code&gt;에 기본적으로 추가되지 않습니다. 따라서 명시적으로 필드를 지정해주었습니다.&lt;/p&gt;
+&lt;p&gt;사용자와 관련된 뷰도 추가해야겠죠. 읽기 전용 뷰만 있으면 되니까, 제네릭 클래스 기반 뷰 중에서 &lt;code&gt;ListAPIView&lt;/code&gt;와 &lt;code&gt;RetrieveAPIView&lt;/code&gt;를 사용합시다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.contrib.auth.models import User
+
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;UserSerializer&lt;/code&gt; 클래스도 임포트하고요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from snippets.serializers import UserSerializer
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;마지막으로 뷰에 URL을 연결합시다. &lt;code&gt;urls.py&lt;/code&gt; 파일에 다음 내용을 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;url(r'^users/$', views.UserList.as_view()),
+url(r'^users/(?P&amp;lt;pk&amp;gt;[0-9]+)/$', views.UserDetail.as_view()),
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;사용자가 만든 코드 조각 연결하기&lt;/h2&gt;
+&lt;p&gt;지금까지는 코드 조각을 만들었더라도, 해당 코드 조각을 만든 사용자와 아무 관계도 맺지 않았습니다. 사용자는 직렬화된 표현에 나타나지 않았고, 요청하는 측에서 지정하는 속성이었을 뿐입니다.&lt;/p&gt;
+&lt;p&gt;이를 해결하기 위해 코드 조각 뷰에서 &lt;code&gt;.perform_create()&lt;/code&gt; 메서드를 오버라이딩합시다. 이 메서드는 인스턴스를 저장하는 과정을 조정하며, 따라서 요청이나 요청 URL에서 정보를 가져와 원하는 대로 다룰 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SnippetList&lt;/code&gt; 뷰 클래스에 다음 내용을 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def perform_create(self, serializer):
+    serializer.save(owner=self.request.user)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;우리가 만든 시리얼라이저의 &lt;code&gt;create()&lt;/code&gt; 메서드는 검증한 요청 데이터에 더하여 &lt;code&gt;'owner'&lt;/code&gt; 필드도 전달합니다.&lt;/p&gt;
+&lt;h2 id=""&gt;시리얼라이저 업데이트하기&lt;/h2&gt;
+&lt;p&gt;이제 코드 조각이, 해당 코드 조각을 작성한 사용자와 연결되었습니다. &lt;code&gt;SnippetSerializer&lt;/code&gt;에도 이를 반영합시다. 다음 내용을 &lt;code&gt;serializers.py&lt;/code&gt;의 &lt;code&gt;SnippetSerializer&lt;/code&gt;에 추가합시다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;owner = serializers.ReadOnlyField(source='owner.username')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;안내:&lt;/strong&gt; &lt;code&gt;Meta&lt;/code&gt; 클래스의 필드 목록에도 &lt;code&gt;'owner'&lt;/code&gt;를 추가해야 합니다.&lt;/p&gt;
+&lt;p&gt;이 필드에는 조금 재미있는 면이 있는데요. &lt;code&gt;source&lt;/code&gt; 인자로는 특정 필드를 지정할 수 있습니다. 여기에는 직렬화된 인스턴스의 속성 뿐만 아니라 위의 코드에서처럼 마침표 표기 방식을 통해 특정 속성을 탐색할 수도 있습니다. 마치 Django의 템플릿 언어와 비슷하죠.&lt;/p&gt;
+&lt;p&gt;이 필드는 &lt;code&gt;CharField&lt;/code&gt;나 &lt;code&gt;BooleanField&lt;/code&gt;와는 달리 타입이 없는 &lt;code&gt;ReadOnlyField&lt;/code&gt; 클래스로 지정했습니다. 타입이 없는 &lt;code&gt;ReadOnlyField&lt;/code&gt;는 직렬화에 사용되었을 땐 언제나 읽기 전용이므로, 모델의 인스턴스를 업데이트할 때는 사용할 수 없습니다. &lt;code&gt;CharField(read_only=True)&lt;/code&gt;도 이와 같은 기능을 수행합니다.&lt;/p&gt;
+&lt;h2 id=""&gt;뷰에 요청 권한 추가하기&lt;/h2&gt;
+&lt;p&gt;이렇게 해서 코드 조각이 사용자와 연결되었습니다. 이제 인증 받은 사용자만 코드 조각을 생성/업데이트/삭제해봅시다.&lt;/p&gt;
+&lt;p&gt;REST 프레임워크는 특정 뷰에 제한을 걸 수 있는 권한 클래스를 제공하고 있습니다. 그 중 한 가지인 &lt;code&gt;IsAuthenticatedOrReadOnly&lt;/code&gt;는 인증 받은 요청에 읽기와 쓰기 권한을 부여하고, 인증 받지 않은 요청에 대해서는 읽기 권한만 부여합니다.&lt;/p&gt;
+&lt;p&gt;뷰 파일에 다음 내용을 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from rest_framework import permissions
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;그리고 &lt;code&gt;SnippetList&lt;/code&gt; 클래스와 &lt;code&gt;SnippetDetail&lt;/code&gt; 클래스에 &lt;strong&gt;모두&lt;/strong&gt; 다음 속성을 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="api"&gt;탐색 가능한 API에 로그인 추가하기&lt;/h2&gt;
+&lt;p&gt;여러분이 지금 시점에 브라우저에서 API에 접속해본다면 더이상 새 코드 조각을 만들 수 없다는 사실을 알 수 있을 겁니다. 이를 해결하려면 사용자 로그인 기능이 필요합니다.&lt;/p&gt;
+&lt;p&gt;URL 설정 파일인 &lt;code&gt;urls.py&lt;/code&gt;를 수정하면 탐색 가능한 API에 사용할 로그인 뷰를 추가할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;다음 내용을 &lt;code&gt;urls.py&lt;/code&gt; 파일의 첫 부분에 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.conf.urls import include
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;그리고 파일의 끝 부분에 다음 내용을 추가합니다. 탐색 가능한 API의 로그인 뷰와 로그아웃 뷰에 사용되는 url 패턴입니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;url 패턴에서 &lt;code&gt;r'^api-auth/'&lt;/code&gt; 부분은 여러분이 사용하고 싶은 URL을 나타냅니다. 여기에는 한 가지 제약만 따르는데, 바로 namespace에 &lt;code&gt;'rest_framework'&lt;/code&gt;를 지정해야 한다는 점입니다.&lt;/p&gt;
+&lt;p&gt;다시 브라우저로 돌아가 API에 접근해 보면 오른쪽 상단에 'Login' 링크가 보일 겁니다. 이제 앞에서 만들었던 사용자로 로그인하면 코드 조각을 만들 수 있습니다.&lt;/p&gt;
+&lt;p&gt;코드 조각을 몇 개 만든 후에는 '/users/'에도 가보세요. 해당 사용자가 만든 코드 조각 목록이 'snippets' 필드에 포함되어 있을 겁니다.&lt;/p&gt;
+&lt;h2 id=""&gt;객체 수준에서 권한 설정하기&lt;/h2&gt;
+&lt;p&gt;코드 조각은 아무나 볼 수 있어야 하지만, 업데이트와 삭제는 해당 코드를 만든 사용자만 할 수 있어야 합니다.&lt;/p&gt;
+&lt;p&gt;이를 위해 커스텀 권한을 만들어 봅시다.&lt;/p&gt;
+&lt;p&gt;snippets 앱 안에 &lt;code&gt;permissions.py&lt;/code&gt; 파일을 만들고 다음 내용을 입력합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from rest_framework import permissions
+
+
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    &amp;quot;&amp;quot;&amp;quot;
+    객체의 소유자에게만 쓰기를 허용하는 커스텀 권한
+    &amp;quot;&amp;quot;&amp;quot;
+
+    def has_object_permission(self, request, view, obj):
+        # 읽기 권한은 모두에게 허용하므로,
+        # GET, HEAD, OPTIONS 요청은 항상 허용함
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # 쓰기 권한은 코드 조각의 소유자에게만 부여함
+        return obj.owner == request.user
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이렇게 만든 커스텀 권한을 코드 조각 인스턴스에 추가합시다. &lt;code&gt;SnippetDetail&lt;/code&gt; 클래스에 &lt;code&gt;permission_classes&lt;/code&gt; 속성을 추가합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly,)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;당연히 &lt;code&gt;IsOwnerOrReadOnly&lt;/code&gt; 클래스를 임포트해야겠고요.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from snippets.permissions import IsOwnerOrReadOnly
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;다시 브라우저로 돌아가 보면, 코드 조각에 대한 'DELETE'와 'PUT' 기능은 해당 사용자에게만 나타날 겁니다.&lt;/p&gt;
+&lt;h2 id="api"&gt;API에 인증 붙이기&lt;/h2&gt;
+&lt;p&gt;API에 권한을 설정했으므로, 이제는 코드 조각을 수정할 수 있는 인증 절차가 필요합니다. 지금까지는 &lt;a href="http://www.django-rest-framework.org/api-guide/authentication"&gt;인증 클래스&lt;/a&gt;를 만들지 않고 기본으로 제공되는 &lt;code&gt;SessionAuthentication&lt;/code&gt;과 &lt;code&gt;BasicAuthentication&lt;/code&gt;을 사용했습니다.&lt;/p&gt;
+&lt;p&gt;웹 브라우저로 API를 사용하는 경우, 로그인을 하면 브라우저의 세션에 인증 정보가 저장됩니다.&lt;/p&gt;
+&lt;p&gt;프로그램 상에서 API를 사용하는 경우, 인증에 필요한 내용을 명시적으로 전달해야만 합니다.&lt;/p&gt;
+&lt;p&gt;인증 없이 코드 조각을 생성하려는 경우, 다음과 같이 에러를 보여줍니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;http POST http://127.0.0.1:8000/snippets/ code=&amp;quot;print 123&amp;quot;
+
+{
+    &amp;quot;detail&amp;quot;: &amp;quot;Authentication credentials were not provided.&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;사용자 계정과 비밀번호를 포함하여 요청한다면, 이 요청은 성공합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;http -a tom:password POST http://127.0.0.1:8000/snippets/ code=&amp;quot;print 789&amp;quot;
+
+{
+    &amp;quot;id&amp;quot;: 5,
+    &amp;quot;owner&amp;quot;: &amp;quot;tom&amp;quot;,
+    &amp;quot;title&amp;quot;: &amp;quot;foo&amp;quot;,
+    &amp;quot;code&amp;quot;: &amp;quot;print 789&amp;quot;,
+    &amp;quot;linenos&amp;quot;: false,
+    &amp;quot;language&amp;quot;: &amp;quot;python&amp;quot;,
+    &amp;quot;style&amp;quot;: &amp;quot;friendly&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=""&gt;요약&lt;/h2&gt;
+&lt;p&gt;이렇게 해서 웹 API 위에 권한들이 잘 설정되었고, 사용자의 코드 조각에 대한 엔드 포인트도 완성되었습니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://raccoonyy.github.io/drf3-tutorial-5"&gt;튜토리얼 5부&lt;/a&gt;에서는 이 모든 것을 한 데 엮어 하이라이트된 코드 조각을 보여주는 HTML 엔드 포인트를 만들고, API에서는 관련 모델에 대한 링크도 제공해 보겠습니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

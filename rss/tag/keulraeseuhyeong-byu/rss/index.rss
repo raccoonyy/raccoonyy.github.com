@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>클래스형 뷰 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>클래스형 뷰 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:39 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/keulraeseuhyeong-byu/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(11월 셋째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 장고에서 클래스형 뷰를 사용해야 하는 이유 #2 장고 1.10 튜토리얼</description><link>http://raccoonyy.github.io/python-news-for-korean-3rd-week-nov/</link><guid isPermaLink="false">59815cfcdd47a80001bb9efd</guid><category>파이썬 소식</category><category>python-news</category><category>장고 1.10 튜토리얼</category><category>클래스형 뷰</category><dc:creator>raccoony</dc:creator><pubDate>Mon, 14 Nov 2016 23:22:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2016/01/IMG_0005.jpg" alt="한국의 파이썬 소식(11월 셋째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="djangoby"&gt;&lt;a href="http://jwgo.co/python-jango-why-generic-views/"&gt;파이썬 장고(Django), 클래스형 뷰를 사용하는 이유&lt;/a&gt; by 고재웅 님&lt;/h3&gt;
+&lt;p&gt;장고에서 함수형 뷰 대신 클래스형 뷰를 사용해야 하는 세 가지 이유를 고재웅 님이 정리하였습니다.&lt;/p&gt;
+&lt;h3 id="django1103tutorialbyjunbokpark"&gt;&lt;a href="http://gauryan.blogspot.kr/2016/11/django-1103-tutorial.html"&gt;Django 1.10.3 Tutorial&lt;/a&gt; by JunBok Park 님&lt;/h3&gt;
+&lt;p&gt;JunBok Park 님이 장고 1.10.3 버전에 맞춘 튜토리얼을 작성하였습니다. 설치부터 관리자 화면, 로그인, 부트스트랩 적용 등을 다룹니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>구글 코드잼 - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>구글 코드잼 - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:26 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/gugeul-kodeujaem/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>한국의 파이썬 소식(2017년 4월 둘째 주)</title><description>한국에서 일어나는 파이썬 관련 소식을 전합니다. #1 한글 관련 파이썬 라이브러리 프로젝트 공개 #2 나라장터 입찰 공고 크롤링 프로그램 #3 Numpy로 선형대수학 계산하기 #4 슬랙 번역 봇 개발기 #5 코드잼 2017 파이썬 풀이</description><link>http://raccoonyy.github.io/python-news-for-korean-2017-2nd-week-apr/</link><guid isPermaLink="false">59815cfcdd47a80001bb9f1b</guid><category>파이썬 소식</category><category>python-news</category><category>나라장터 입찰공고 크롤링</category><category>Numpy</category><category>hgtk</category><category>구글 번역 봇</category><category>구글 코드잼</category><dc:creator>raccoony</dc:creator><pubDate>Tue, 11 Apr 2017 11:12:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2017/01/python-news-for-korean-cover-2017.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;img src="http://raccoonyy.github.io/content/images/2017/01/python-news-for-korean-cover-2017.jpg" alt="한국의 파이썬 소식(2017년 4월 둘째 주)"&gt;&lt;p&gt;한국에서 일어나는 파이썬 관련 소식을 전합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=""&gt;프로젝트&lt;/h1&gt;
+&lt;h3 id="simpletoolkitforhangulbybluedisk"&gt;&lt;a href="https://github.com/bluedisk/hangul-toolkit"&gt;Simple Toolkit for Hangul&lt;/a&gt; by bluedisk님&lt;/h3&gt;
+&lt;p&gt;한글 자모 분해, 조합(오토마타), 조사 붙이기, 초/중/종 분해조합, 한글/한자/영문 여부 체크 등을 지원하는 파이썬 라이브러리를 bluedisk님이 공개하였습니다.&lt;/p&gt;
+&lt;h3 id="byseoweon"&gt;&lt;a href="https://github.com/seoweon/narajangteo"&gt;나라장터 입찰공고 크롤링 프로그램&lt;/a&gt; by seoweon님&lt;/h3&gt;
+&lt;p&gt;나라장터에 올라오는 입찰 공고를 크롤링하여, 새 입찰 공고를 모니터링할 수 있는 프로젝트를 seoweon님이 공개하였습니다.&lt;/p&gt;
+&lt;h1 id=""&gt;블로그&lt;/h1&gt;
+&lt;h3 id="numpybypinkwink"&gt;&lt;a href="http://pinkwink.kr/720"&gt;Numpy로 선형대수학 계산하기&lt;/a&gt; by PinkWink님&lt;/h3&gt;
+&lt;p&gt;Numpy를 사용하여 행렬, 최소자승법 등의 선형대수학 문제를 계산하는 방법을 PinkWink님이 설명합니다.&lt;/p&gt;
+&lt;h3 id="pythonslackcibyqodot"&gt;&lt;a href="https://qodot.github.io/Python-Slack-%EB%B4%87-%EA%B0%9C%EB%B0%9C-%EB%B0%8F-CI-%EC%97%B0%EB%8F%99-%EC%82%BD%EC%A7%88%EA%B8%B0.html"&gt;Python Slack 봇 개발 및 CI 연동 삽질기&lt;/a&gt; by qodot님&lt;/h3&gt;
+&lt;p&gt;구글 번역 API를 이용한 슬랙 봇을 만들었던 과정을 qodot님이 간략하게 정리하고, &lt;a href="https://github.com/qodot/gtbot"&gt;완성본 코드도 공개&lt;/a&gt;하였습니다.&lt;/p&gt;
+&lt;h3 id="2017qualificationroundbyeunsollee"&gt;&lt;a href="https://github.com/Eunsol-Lee/algorithmStudyDayByDay"&gt;구글 코드잼 2017 Qualification Round 문제 풀이와 후기&lt;/a&gt; by Eunsol Lee 님&lt;/h3&gt;
+&lt;p&gt;파이썬을 사용하여 구글 코드잼 2017의 Qualification Round에 도전한 후기와 문제 풀이 코드를 Eunson Lee 님이 정리하였습니다.&lt;/p&gt;
+&lt;/div&gt;</content:encoded></item></channel></rss></html>
