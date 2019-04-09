@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>github_universe - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>github_universe - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:38 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/github_universe/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>2016 ConfConf 후기(=ConfConfConf)</title><description>&lt;div class="kg-card-markdown"&gt;&lt;h2 id="confconf"&gt;ConfConf?&lt;/h2&gt;
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>github_universe - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>github_universe - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 2.19</generator><lastBuildDate>Tue, 09 Apr 2019 21:39:45 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/github_universe/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>2016 ConfConf 후기(=ConfConfConf)</title><description>&lt;h2 id="confconf"&gt;ConfConf?&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;내용 : 컨퍼런스 경험을 나누는 컨퍼런스&lt;/li&gt;
 &lt;li&gt;일시 : 2016년 2월 20일(토) 오후 2시 30분 ~ 오후 6시&lt;/li&gt;
@@ -12,7 +12,7 @@
 &lt;/blockquote&gt;
 &lt;p&gt;그렇게 준비팀이 되었다. &lt;s&gt;평소에 대답할 때 주의를 기울이지 않으면...&lt;/s&gt;&lt;/p&gt;
 &lt;h2 id=""&gt;이름&lt;/h2&gt;
-&lt;p&gt;'행사 이름을 뭐라고 할까요?'라는&lt;/p&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/2016-confconfconf/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ed0</guid><category>confconf</category><category>캐주얼 토크</category><category>pycon</category><category>plan_b_barcamp</category><category>ruby_kaigy</category><category>act_festival</category><category>github_universe</category><category>mozilla_festival</category><category>yapc</category><category>frankfurt_bookfair</category><category>aws_reinvent</category><dc:creator>raccoony</dc:creator><pubDate>Wed, 09 Mar 2016 11:10:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/03/Screenshot-2016-03-10-09-55-05.png" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;h2 id="confconf"&gt;ConfConf?&lt;/h2&gt;
+&lt;p&gt;'행사 이름을 뭐라고 할까요?'라는&lt;/p&gt;</description><link>http://raccoonyy.github.io/2016-confconfconf/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ed0</guid><category>confconf</category><category>캐주얼 토크</category><category>pycon</category><category>plan_b_barcamp</category><category>ruby_kaigy</category><category>act_festival</category><category>github_universe</category><category>mozilla_festival</category><category>yapc</category><category>frankfurt_bookfair</category><category>aws_reinvent</category><dc:creator>raccoony</dc:creator><pubDate>Wed, 09 Mar 2016 11:10:00 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/03/Screenshot-2016-03-10-09-55-05.png" medium="image"/><content:encoded>&lt;h2 id="confconf"&gt;ConfConf?&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;내용 : 컨퍼런스 경험을 나누는 컨퍼런스&lt;/li&gt;
 &lt;li&gt;일시 : 2016년 2월 20일(토) 오후 2시 30분 ~ 오후 6시&lt;/li&gt;
@@ -103,4 +103,4 @@
 &lt;/ul&gt;
 &lt;h6 id=""&gt;사족&lt;/h6&gt;
 &lt;p&gt;내 발표 말미에 특정 정당에 가입하지 않고 다른 정당에 가입한 이유를 설명하려다 얼버무리고 넘어가는 부분이 나온다. 가입하지 않은 특정 정당을 싫어해서가 아니라 대세를 의도적으로 거부하는 내 성향이 작용한 탓이라고 설명하고 싶었는데, 남은 시간이 없어서 말이 막 꼬였다. (&lt;s&gt;그런데... 요즘 같은 시국에 이렇게 대놓고 특정 정당에 가입했다는 말을 해도 되는 걸까&lt;/s&gt;)&lt;/p&gt;
-&lt;/div&gt;</content:encoded></item></channel></rss></html>
+</content:encoded></item></channel></rss></html>

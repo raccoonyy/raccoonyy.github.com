@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>cron - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>cron - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 1.21</generator><lastBuildDate>Wed, 28 Mar 2018 00:18:20 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/cron/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>docker 안에서 주기적인 작업(cron) 처리하기</title><description>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+<html><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>cron - raccoony's cave</title><description>Raccoony writes about programming, book and etc.</description><link>http://raccoonyy.github.io/</link><image><url>http://raccoonyy.github.io/favicon.png</url><title>cron - raccoony's cave</title><link>http://raccoonyy.github.io/</link></image><generator>Ghost 2.19</generator><lastBuildDate>Tue, 09 Apr 2019 21:39:51 GMT</lastBuildDate><atom:link href="http://raccoonyy.github.io/tag/cron/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>docker 안에서 주기적인 작업(cron) 처리하기</title><description>&lt;blockquote&gt;
 &lt;p&gt;문제 : docker 컨테이너 안에서 cron job을 돌리고 싶었습니다.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
@@ -8,7 +8,7 @@
 &lt;p&gt;한편, 주기적인 작업에는 cron 대신 &lt;a href="https://syncano.io/blog/configuring-running-django-celery-docker-containers-pt-1/"&gt;celery를 사용하는 방법&lt;/a&gt;도 많이 사용된답니다.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id="dockercron"&gt;docker 내에서 일반적인 cron 설정 방법&lt;/h3&gt;
-&lt;p&gt;일단 제가 찾아 본 일반적인 설정은&lt;/p&gt;&lt;/div&gt;</description><link>http://raccoonyy.github.io/cron-job-with-uwsgi-in-docker-container/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ecf</guid><category>docker</category><category>cron</category><category>uwsgi</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 03 Mar 2016 00:57:52 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/03/rotate.jpg" medium="image"/><content:encoded>&lt;div class="kg-card-markdown"&gt;&lt;blockquote&gt;
+&lt;p&gt;일단 제가 찾아 본 일반적인 설정은&lt;/p&gt;</description><link>http://raccoonyy.github.io/cron-job-with-uwsgi-in-docker-container/</link><guid isPermaLink="false">59815cfcdd47a80001bb9ecf</guid><category>docker</category><category>cron</category><category>uwsgi</category><dc:creator>raccoony</dc:creator><pubDate>Thu, 03 Mar 2016 00:57:52 GMT</pubDate><media:content url="http://raccoonyy.github.io/content/images/2016/03/rotate.jpg" medium="image"/><content:encoded>&lt;blockquote&gt;
 &lt;img src="http://raccoonyy.github.io/content/images/2016/03/rotate.jpg" alt="docker 안에서 주기적인 작업(cron) 처리하기"&gt;&lt;p&gt;문제 : docker 컨테이너 안에서 cron job을 돌리고 싶었습니다.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
@@ -51,4 +51,4 @@ autorestart = true
 &lt;p&gt;끝입니다. -_-;&lt;/p&gt;
 &lt;p&gt;테스트할 땐, 출력을 &lt;code&gt;/dev/stdout&lt;/code&gt;이 아닌 &lt;code&gt;/var/log/cron.log&lt;/code&gt; 같은 로컬 파일로 바꾼 다음에 확인을 해봤습니다. 잘 되더군요.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;결론: uwsgi 설치된 서버에서 cron 작업할 땐 uwsgi 쓸게요.&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;</content:encoded></item></channel></rss></html>
+</content:encoded></item></channel></rss></html>
