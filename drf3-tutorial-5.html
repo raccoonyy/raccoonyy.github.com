@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+    <title>DRF3 튜토리얼 5 - 관계 &amp; 하이퍼링크 API</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="assets/built/screen.css%3Fv=d92811ac5b.css" />
+
+    <meta name="description" content="(django-rest-framework 공식 문서를 번역함) API의 시작 위치를 만들어 봅니다. 또, 각 부분을 하이퍼링크로 연결하여 탐색 가능한 API로 업그레이드합니다." />
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="canonical" href="drf3-tutorial-5.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="raccoony&#x27;s cave" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="DRF3 튜토리얼 5 - 관계 &amp; 하이퍼링크 API" />
+    <meta property="og:description" content="(django-rest-framework 공식 문서를 번역함) API의 시작 위치를 만들어 봅니다. 또, 각 부분을 하이퍼링크로 연결하여 탐색 가능한 API로 업그레이드합니다." />
+    <meta property="og:url" content="raccoonyy.github.io/drf3-tutorial-5/" />
+    <meta property="og:image" content="raccoonyy.github.io/content/images/2015/12/drf-logo.png" />
+    <meta property="article:published_time" content="2015-03-06T04:16:00.000Z" />
+    <meta property="article:modified_time" content="2017-08-03T10:17:20.000Z" />
+    <meta property="article:tag" content="django rest framework 3" />
+    <meta property="article:tag" content="DRF3" />
+    <meta property="article:tag" content="translate" />
+    <meta property="article:tag" content="Relationships" />
+    <meta property="article:tag" content="Hyperlinked-API" />
+    <meta property="article:tag" content="Django" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DRF3 튜토리얼 5 - 관계 &amp; 하이퍼링크 API" />
+    <meta name="twitter:description" content="(django-rest-framework 공식 문서를 번역함) API의 시작 위치를 만들어 봅니다. 또, 각 부분을 하이퍼링크로 연결하여 탐색 가능한 API로 업그레이드합니다." />
+    <meta name="twitter:url" content="raccoonyy.github.io/drf3-tutorial-5/" />
+    <meta name="twitter:image" content="raccoonyy.github.io/content/images/2015/12/drf-logo.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="raccoony" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="django rest framework 3, DRF3, translate, Relationships, Hyperlinked-API, Django" />
+    <meta name="twitter:site" content="@raccoonyy" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="265" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "url": "raccoonyy.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "raccoonyy.github.io/favicon.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "raccoony",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "raccoonyy.github.io/author/raccoony/",
+        "sameAs": []
+    },
+    "headline": "DRF3 튜토리얼 5 - 관계 &amp; 하이퍼링크 API",
+    "url": "raccoonyy.github.io/drf3-tutorial-5/",
+    "datePublished": "2015-03-06T04:16:00.000Z",
+    "dateModified": "2017-08-03T10:17:20.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "raccoonyy.github.io/content/images/2015/12/drf-logo.png",
+        "width": 600,
+        "height": 265
+    },
+    "keywords": "django rest framework 3, DRF3, translate, Relationships, Hyperlinked-API, Django",
+    "description": "원문 - Relationships and Hyperlinked APIs\n[http://www.django-rest-framework.org/tutorial/5-relationships-and-hyperlinked-apis]\n\n번역을 허락해 준 Tom Christie [https://twitter.com/_tomchristie]에게 고마움을 전합니다.\n\n\n--------------------------------------------------------------------------------\n\n튜토리얼 5: 관계 &amp; 하이퍼링크 API\n지금까지 우리가 만든 API에서 &#x27;관계&#x27;는 주 키(primary key)로 나타나고 있었습니다. 이번 튜토리얼에서는 API의\n발견성(discoverability)과 응집력(cohesion)을 향상시키고자 관계를 하이퍼링크로 나타내 보겠습니다.\n\nAPI의 최상단에 대한 엔드 포인트 만들기\n지금까지 &#x27;코드 조각&#x27;과 &#x27;사용자&#x27;에 대한 엔드 포인트를 만들었",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 4.1" />
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="rss/index.html" />
+    <script defer src="https://unpkg.com/@tryghost/portal@~1.0.0/umd/portal.min.js" data-ghost="raccoonyy.github.io/"></script><style> .gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style>
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2370280605121686",
+    enable_page_level_ads: true
+  });
+</script>
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+    body {
+        font-family: 'KoPub Batang', serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: sans-serif;
+    }
+    .post-content a {
+        border-bottom: 0px;
+        background: linear-gradient(#f26a3d, #f26a3d) no-repeat;
+        background-size: 100% 1px;
+        background-position: 0 1em;
+        font-weight: 700;
+        text-shadow: .05em 0 white, -.05em 0 white;
+    }
+    code, tt {
+        background: none;
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+        font-weight: 700;
+    }
+</style><style>:root {--ghost-accent-color: #FF1A75;}</style>
+
+</head>
+<body class="post-template tag-django-rest-framework-3 tag-drf3 tag-translate tag-relationships tag-hyperlinked-api tag-django">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head has-cover">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="index.html">
+                        raccoony&#x27;s cave
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
+    <li class="nav-about-me"><a href="about-me/index.html">About Me</a></li>
+    <li class="nav-django"><a href="tag/django/index.html">Django</a></li>
+    <li class="nav-python"><a href="tag/python/index.html">Python</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                        <a class="gh-social-facebook" href="https://www.facebook.com/raccoonyy" title="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 0c8.837 0 16 7.163 16 16s-7.163 16-16 16S0 24.837 0 16 7.163 0 16 0zm5.204 4.911h-3.546c-2.103 0-4.443.885-4.443 3.934.01 1.062 0 2.08 0 3.225h-2.433v3.872h2.509v11.147h4.61v-11.22h3.042l.275-3.81h-3.397s.007-1.695 0-2.187c0-1.205 1.253-1.136 1.329-1.136h2.054V4.911z" /></svg></a>
+                        <a class="gh-social-twitter" href="https://twitter.com/raccoonyy" title="Twitter" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+                </div>
+
+                    <a class="gh-head-button" href="drf3-tutorial-5.html#/portal">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-django-rest-framework-3 tag-drf3 tag-translate tag-relationships tag-hyperlinked-api tag-django">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="tag/django-rest-framework-3/index.html">django rest framework 3</a>
+        </section>
+
+        <h1 class="article-title">DRF3 튜토리얼 5 - 관계 &amp; 하이퍼링크 API</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="author/raccoony/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="author/raccoony/index.html">raccoony</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2015-03-06">2015년 3월 6일</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 7 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <figure class="article-image">
+            <img
+                srcset="content/images/size/w300/2015/12/drf-logo.png 300w,
+                       content/images/size/w600/2015/12/drf-logo.pngg 600w,
+                      content/images/size/w1000/2015/12/drf-logo.pngng 1000w,
+                     content/images/size/w2000/2015/12/drf-logo.pngpng 2000w"
+                sizes="(min-width: 1400px) 1400px, 92vw"
+                src="content/images/size/w2000/2015/12/drf-logo.png"
+                alt="DRF3 튜토리얼 5 - 관계 &amp; 하이퍼링크 API"
+            />
+        </figure>
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <!--kg-card-begin: markdown--><p>원문 - <a href="http://www.django-rest-framework.org/tutorial/5-relationships-and-hyperlinked-apis">Relationships and Hyperlinked APIs</a></p>
+<p>번역을 허락해 준 <a href="https://twitter.com/_tomchristie">Tom Christie</a>에게 고마움을 전합니다.</p>
+<hr>
+<h1 id="5api">튜토리얼 5: 관계 &amp; 하이퍼링크 API</h1>
+<p>지금까지 우리가 만든 API에서 '관계'는 주 키(primary key)로 나타나고 있었습니다. 이번 튜토리얼에서는 API의 발견성(discoverability)과 응집력(cohesion)을 향상시키고자 관계를 하이퍼링크로 나타내 보겠습니다.</p>
+<h2 id="api">API의 최상단에 대한 엔드 포인트 만들기</h2>
+<p>지금까지 '코드 조각'과 '사용자'에 대한 엔드 포인트를 만들었지만, 아직까지 이렇다 할 API의 시작점은 없었습니다. 이를 만들기 위해 평범한 함수 기반 뷰와 <code>@api_view</code> 데코레이터(<a href="drf3-tutorial-2.html">2부 참고</a>)를 사용해 보겠습니다. <code>snippets/views.py</code> 파일을 여세요.</p>
+<pre><code class="language-python">from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+
+@api_view(('GET',))
+def api_root(request, format=None):
+    return Response({
+        'users': reverse('user-list', request=request, format=format),
+        'snippets': reverse('snippet-list', request=request, format=format)
+    })
+</code></pre>
+<p>여기서 URL을 만드는 데 <code>reverse</code> 함수를 사용한 점을 주목하세요.</p>
+<h2 id="">코드 조각의 하이라이트 버전에 대한 엔드 포인트 만들기</h2>
+<p>우리 API에서 아직까지 만들지 않은 부분은 바로, 코드 조각의 하이라이트 버전을 볼 수 있는 방법입니다.</p>
+<p>API의 다른 부분과는 달리 이번에는 JSON 대신 HTML 형태로 나타내겠습니다. REST 프레임워크에서 HTML로 렌더링하는 방식은 두 가지 정도가 있는데, 하나는 템플릿을 사용하는 것이고, 다른 하나는 미리 렌더링된 HTML을 사용하는 것입니다. 이번에는 후자가 더 어울려 보입니다.</p>
+<p>하이라이트된 코드 조각을 보여주려고 할 때 주의해야 할 점 하나는, 우리가 사용할 만한 제네릭 뷰가 없다는 것입니다. 오브젝트 자체가 아니라, 오브젝트의 속성 하나를 반환할 것이기 때문입니다.</p>
+<p>제네릭 뷰 대신 평범한 클래스를 사용하고, <code>.get()</code> 메서드를 구현하겠습니다. <code>snippets/views.py</code> 파일에 다음 내용을 추가하세요.</p>
+<pre><code class="language-python">from rest_framework import renderers
+from rest_framework.response import Response
+
+class SnippetHighlight(generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    renderer_classes = (renderers.StaticHTMLRenderer,)
+
+    def get(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
+</code></pre>
+<p>지금까지 그래왔듯이, 새 뷰는 URL 설정에서도 연결해야 합니다.</p>
+<p><code>snippets/urls.py</code> 파일에서 최상단 url을 방금 만든 뷰로 연결합시다.</p>
+<pre><code class="language-python">url(r'^$', views.api_root),
+</code></pre>
+<p>하이라이트된 코드 조각을 볼 수 있는 url에 대한 패턴도 추가합니다.</p>
+<pre><code class="language-python">url(r'^snippets/(?P&lt;pk&gt;[0-9]+)/highlight/$', views.SnippetHighlight.as_view()),
+</code></pre>
+<h2 id="api">하이퍼링크로 API 연결하기</h2>
+<p>요소들 사이의 관계를 다루는 일은 웹 API 설계에서 또 하나의 도전 과제입니다. 관계를 표현하는 방법은 꽤 다양합니다.</p>
+<ul>
+<li>주 키(primary key)</li>
+<li>하이퍼링크</li>
+<li>관계 요소의 식별 가능한 슬러그(slug) 필드</li>
+<li>관계 요소의 기본 문자열 표현</li>
+<li>포함된 관계 요소에 대한 표현</li>
+<li>이 외에도 사용자화된 표현</li>
+</ul>
+<p>REST 프레임워크에서는 모든 방법을 지원합니다. 관계 혹은 역관계에 적용하거나, 제네릭 외부 키(foreign key)처럼 사용자화된 manager에 적용할 수도 있습니다.</p>
+<p>여기서는 하이퍼링크 방식을 채택하겠습니다. 이러게 하려면 기존에 사용했던 <code>ModelSerializer</code>를 <code>HyperlinkedModelSerializer</code>로 변경해야 합니다.</p>
+<p><code>HyperlinkedModelSerializer</code>는 다음과 같은 점들이 다릅니다.</p>
+<ul>
+<li><code>pk</code> 필드는 기본 요소가 아닙니다.</li>
+<li><code>HyperlinkedIdentityField</code>를 사용하는 <code>url</code> 필드가 포함되어 있습니다.</li>
+<li>관계는 <code>PrimaryKeyRelatedField</code> 대신 <code>HyperlinkedRelatedField</code>를 사용하여 나타냅니다.</li>
+</ul>
+<p>기존 시리얼라이저에 하이퍼링크를 추가하기는 쉽습니다. <code>snippets/serializers.py</code> 파일에 다음 내용을 추가합시다.</p>
+<pre><code class="language-python">class SnippetSerializer(serializers.HyperlinkedModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
+
+    class Meta:
+        model = Snippet
+        fields = ('url', 'highlight', 'owner',
+                  'title', 'code', 'linenos', 'language', 'style')
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    snippets = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-detail', read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'snippets')
+</code></pre>
+<p>이 코드에서는 새롭게 <code>'highlight'</code> 필드가 추가되었습니다. 이 필드는 <code>url</code> 필드와 같은 타입이며, <code>'snippet-detail'</code> url 패턴 대신 <code>'snippet-highlight'</code> url 패턴을 가리킵니다.</p>
+<p>앞에서 URL의 format 접미어로 <code>'.json'</code>을 붙였듯이, <code>highlight</code> 필드에는 format 접미어로 <code>'.html'</code>을 붙였습니다.</p>
+<h2 id="url">URL 패턴에 이름 붙이기</h2>
+<p>하이퍼링크 API를 만들고 싶다면, URL 패턴에 이름을 붙여야 합니다. 어떤 패턴들인지 살펴봅시다.</p>
+<ul>
+<li>API의 최상단은 <code>'user-list'</code>와 <code>'snippet-list'</code>를 가리킵니다.</li>
+<li>코드 조각 시리얼라이저에는 <code>'snippet-highlight'</code>를 가리키는 필드가 존재합니다.</li>
+<li>사용자 시리얼라이저에는 <code>'snippet-detail'</code>을 가리키는 필드가 존재합니다.</li>
+<li>코드 조각 시리얼라이저와 사용자 시리얼라이저에는 <code>'url'</code> 필드가 존재합니다. 이 필드는 기본적으로 <code>'{모델_이름}-detail'</code>을 가리키며 따라서 <code>'snippet-detail'</code>과 <code>'user-detail'</code>을 가리킵니다.</li>
+</ul>
+<p>이 이름들을 URL 설정에 넣었다면 <code>snippets/urls.py</code> 파일은 다음과 같을 겁니다.</p>
+<pre><code class="language-python">from django.conf.urls import url, include
+
+# API endpoints
+urlpatterns = format_suffix_patterns([
+    url(r'^$', views.api_root),
+    url(r'^snippets/$',
+        views.SnippetList.as_view(),
+        name='snippet-list'),
+    url(r'^snippets/(?P&lt;pk&gt;[0-9]+)/$',
+        views.SnippetDetail.as_view(),
+        name='snippet-detail'),
+    url(r'^snippets/(?P&lt;pk&gt;[0-9]+)/highlight/$',
+        views.SnippetHighlight.as_view(),
+        name='snippet-highlight'),
+    url(r'^users/$',
+        views.UserList.as_view(),
+        name='user-list'),
+    url(r'^users/(?P&lt;pk&gt;[0-9]+)/$',
+        views.UserDetail.as_view(),
+        name='user-detail')
+])
+
+# 탐색 가능한 API를 위한 로그인/로그아웃 뷰
+urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+]
+</code></pre>
+<h2 id="">페이징 기능 추가하기</h2>
+<p>사용자나 코드 조각의 목록이 꽤 긴 경우가 있을 겁니다. 따라서 결과물을 여러 페이지로 나누어, API 클라이언트 측에서 각 페이지를 하나씩 차례대로 읽어가도록 만들면 좋겠습니다.</p>
+<p><code>tutorial/settings.py</code> 파일을 열어 페이징 설정의 기본 값을 바꿔 봅시다. 다음을 추가합니다.</p>
+<pre><code class="language-python">REST_FRAMEWORK = {
+    'PAGE_SIZE': 10
+}
+</code></pre>
+<p>REST 프레임워크의 모든 설정은 'REST_FRAMEWORK'라는 딕셔너리에 넣어야 합니다. 이렇게 해야 프로젝트의 다른 설정들과 분리할 수 있습니다.</p>
+<p>필요에 따라 페이징 스타일을 바꿀 수도 있지만 여기서는 기본 스타일을 따르겠습니다.</p>
+<h2 id="api">탐색 가능한 API</h2>
+<p>탐색 가능한 API를 브라우저에서 열어서 링크들을 이리 저리 눌러보면, API의 구석구석을 둘러볼 수 있을 겁니다.</p>
+<p>또한 코드 조각 인스턴스의 '하이라이트 버전'을 살펴볼 수도 있겠습니다. (HTML 형태입니다.)</p>
+<p><a href="drf3-tutorial-6.html">튜토리얼 6부</a>에서는 뷰셋과 라우터를 통해 코드 양을 줄이는 방법을 배우겠습니다.</p>
+<blockquote>
+<p>번역에 도움을 주신 파이님께 감사합니다.</p>
+</blockquote>
+<!--kg-card-end: markdown-->
+    </section>
+
+
+</article>
+
+<section class="footer-cta">
+    <div class="inner">
+        <h2>Sign up for more like this.</h2>
+        <a class="footer-cta-button" href="drf3-tutorial-5.html#/portal">
+            <div>Enter your email</div>
+            <span>Subscribe</span>
+        </a>
+    </div>
+</section>
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post featured ">
+
+    <a class="post-card-image-link" href="docker-usages-for-dev-environment-setup/index.html">
+        <img class="post-card-image"
+            srcset="content/images/size/w300/2017/02/docker-usages-dev-environment-setup.png 300w,
+                   content/images/size/w600/2017/02/docker-usages-dev-environment-setup.pngg 600w,
+                  content/images/size/w1000/2017/02/docker-usages-dev-environment-setup.pngng 1000w,
+                 content/images/size/w2000/2017/02/docker-usages-dev-environment-setup.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="content/images/size/w600/2017/02/docker-usages-dev-environment-setup.png"
+            alt="Docker (Compose) 활용법 - 개발 환경 구성하기"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="docker-usages-for-dev-environment-setup/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Docker (Compose) 활용법 - 개발 환경 구성하기</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>인프런 강의 안내 이 글의 내용을 인프런 강의로 제작하였습니다. 아래 배너를 눌러주세요~  도커 쓸 땐 필수! 도커 컴포즈 - 인프런 | 강의도커를 실제 사용하려다보면 항상 등장하는 도커 컴포즈! 무엇이 좋은지, 어떻게 활용하는지를 실습과 함께 배울 수 있습니다., 도커 컴포즈, 기본부터 핵심까지!도커를 실제 사용하려다보면 항상 도커 컴포즈가 등장합니다.도커만으로도 힘겨웠는데 또</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="author/raccoony/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="author/raccoony/index.html">raccoony</a></span>
+                <span class="post-card-byline-date"><time datetime="2021-03-26">2021년 3월 26일</time> <span class="bull">&bull;</span> 38 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="geeks-who-invented-click-and-internet/index.html">
+        <img class="post-card-image"
+            srcset="content/images/size/w300/2018/03/click.jpg 300w,
+                   content/images/size/w600/2018/03/click.jpgg 600w,
+                  content/images/size/w1000/2018/03/click.jpgpg 1000w,
+                 content/images/size/w2000/2018/03/click.jpgjpg 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="content/images/size/w600/2018/03/click.jpg"
+            alt="[독후감] 클릭을 발명한 괴짜들"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="geeks-who-invented-click-and-internet/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">[독후감] 클릭을 발명한 괴짜들</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>인터넷 기술이라고 하면 보통은 하드웨어와 소프트웨어를 떠올리기 쉬운데, 이 책은 기술 개발 이야기를 넘어 정보를 저장하고 찾는 기술 그리고 정보를 다루는 기계와 인간이 어떤 관계여야 하는지를 고민했던 사람들의 이야기를 다루고 있습니다. 이런 고민들이 자연스레 인터넷이라는 결과를 낳게 되는 과정이 정말 흥미로웠습니다.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="author/raccoony/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="author/raccoony/index.html">raccoony</a></span>
+                <span class="post-card-byline-date"><time datetime="2018-03-28">2018년 3월 28일</time> <span class="bull">&bull;</span> 8 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="diary-of-changing-job/index.html">
+        <img class="post-card-image"
+            srcset="content/images/size/w300/2018/02/man-adjusting-tie.jpg 300w,
+                   content/images/size/w600/2018/02/man-adjusting-tie.jpgg 600w,
+                  content/images/size/w1000/2018/02/man-adjusting-tie.jpgpg 1000w,
+                 content/images/size/w2000/2018/02/man-adjusting-tie.jpgjpg 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="content/images/size/w600/2018/02/man-adjusting-tie.jpg"
+            alt="이직 일기"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="diary-of-changing-job/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">이직 일기</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>2018년 2월 12일부터 온디맨드코리아 한국 사무실로 출근합니다.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="author/raccoony/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="author/raccoony/index.html">raccoony</a></span>
+                <span class="post-card-byline-date"><time datetime="2018-02-11">2018년 2월 11일</time> <span class="bull">&bull;</span> 18 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="index.html">raccoony&#x27;s cave</a> &copy; 2021</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            <div><a href="https://ghost.org/" target="_blank" rel="noopener">Powered by Ghost</a></div>
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="assets/built/casper.js%3Fv=d92811ac5b"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/dockerfile.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/yaml.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/django.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-35614951-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
