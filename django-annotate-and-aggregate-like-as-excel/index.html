@@ -8,18 +8,18 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="../assets/built/screen.css%3Fv=d92811ac5b.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css?v=841d0b82a7" />
 
-    <link rel="icon" href="../favicon.png" type="image/png" />
-    <link rel="canonical" href="index.html" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
     <meta property="og:site_name" content="raccoony&#x27;s cave" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="(엑셀만큼 쉬운) Django Annotation/Aggregation" />
     <meta property="og:description" content="Django ORM을 강력하게 만들어주는 기능 중 하나는 바로 애너테이션(annotate)과 애그리게이션(aggregate)입니다. 이 두 기능이 명쾌하게 와닿지 않아서 사용하지 못하다가, 엑셀에 빗대어 이해해보니 제게는 도움이 되어서 해당 내용을 공유합니다.  시작하기 전에 표기법: 이건 Django 메서드 이름, 이건 필드나 값 을 나타냅니다. 메서드의 링크는 Django 공식 문서로 연결됩니다 모델" />
-    <meta property="og:url" content="http://127.0.0.1:8080/django-annotate-and-aggregate-like-as-excel/" />
-    <meta property="og:image" content="http://127.0.0.1:8080/content/images/2016/05/excel.jpg" />
+    <meta property="og:url" content="https://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/" />
+    <meta property="og:image" content="https://raccoonyy.github.io/content/images/2016/05/excel.jpg" />
     <meta property="article:published_time" content="2016-05-24T23:59:00.000Z" />
     <meta property="article:modified_time" content="2017-08-03T10:24:57.000Z" />
     <meta property="article:tag" content="Django" />
@@ -34,8 +34,8 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="(엑셀만큼 쉬운) Django Annotation/Aggregation" />
     <meta name="twitter:description" content="Django ORM을 강력하게 만들어주는 기능 중 하나는 바로 애너테이션(annotate)과 애그리게이션(aggregate)입니다. 이 두 기능이 명쾌하게 와닿지 않아서 사용하지 못하다가, 엑셀에 빗대어 이해해보니 제게는 도움이 되어서 해당 내용을 공유합니다.  시작하기 전에 표기법: 이건 Django 메서드 이름, 이건 필드나 값 을 나타냅니다. 메서드의 링크는 Django 공식 문서로 연결됩니다 모델" />
-    <meta name="twitter:url" content="http://127.0.0.1:8080/django-annotate-and-aggregate-like-as-excel/" />
-    <meta name="twitter:image" content="http://127.0.0.1:8080/content/images/2016/05/excel.jpg" />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/" />
+    <meta name="twitter:image" content="https://raccoonyy.github.io/content/images/2016/05/excel.jpg" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="raccoony" />
     <meta name="twitter:label2" content="Filed under" />
@@ -51,10 +51,10 @@
     "publisher": {
         "@type": "Organization",
         "name": "raccoony&#x27;s cave",
-        "url": "http://127.0.0.1:8080/",
+        "url": "https://raccoonyy.github.io/",
         "logo": {
             "@type": "ImageObject",
-            "url": "http://127.0.0.1:8080/favicon.png"
+            "url": "https://raccoonyy.github.io/favicon.png"
         }
     },
     "author": {
@@ -66,16 +66,16 @@
             "width": 250,
             "height": 250
         },
-        "url": "http://127.0.0.1:8080/author/raccoony/",
+        "url": "https://raccoonyy.github.io/author/raccoony/",
         "sameAs": []
     },
     "headline": "(엑셀만큼 쉬운) Django Annotation/Aggregation",
-    "url": "http://127.0.0.1:8080/django-annotate-and-aggregate-like-as-excel/",
+    "url": "https://raccoonyy.github.io/django-annotate-and-aggregate-like-as-excel/",
     "datePublished": "2016-05-24T23:59:00.000Z",
     "dateModified": "2017-08-03T10:24:57.000Z",
     "image": {
         "@type": "ImageObject",
-        "url": "http://127.0.0.1:8080/content/images/2016/05/excel.jpg",
+        "url": "https://raccoonyy.github.io/content/images/2016/05/excel.jpg",
         "width": 459,
         "height": 300
     },
@@ -83,14 +83,14 @@
     "description": "Django ORM을 강력하게 만들어주는 기능 중 하나는 바로 애너테이션(annotate)과 애그리게이션(aggregate)입니다. 이 두\n기능이 명쾌하게 와닿지 않아서 사용하지 못하다가, 엑셀에 빗대어 이해해보니 제게는 도움이 되어서 해당 내용을 공유합니다.\n\n시작하기 전에\n * 표기법: 이건 Django 메서드 이름, 이건 필드나 값 을 나타냅니다.\n * 메서드의 링크는 Django 공식 문서로 연결됩니다\n\n모델 구성\n다음과 같은 제품을 판매하는 온라인 쇼핑몰을 만든다고 합시다. (원래는 제품별 id도 있겠지만, 설명을 간단히 하기 위해 생략하겠습니다.)\n\n\n\n이를 Django 모델로 구현해보면 다음과 같을 겁니다.\n\nclass Product(models.Model):\n    name &#x3D; models.CharField(&#x27;이름&#x27;, max_length&#x3D;150, unique&#x3D;True)\n    price &#x3D; models.IntegerField(&#x27;가격&#x27;)\n\n\n이제, 이 제품들이 팔린 내역",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "http://127.0.0.1:8080/"
+        "@id": "https://raccoonyy.github.io/"
     }
 }
     </script>
 
     <meta name="generator" content="Ghost 4.1" />
-    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="../rss/index.html" />
-    <script defer src="https://unpkg.com/@tryghost/portal@~1.0.0/umd/portal.min.js" data-ghost="http://127.0.0.1:8080/"></script><style> .gh-post-upgrade-cta-content,
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    <script defer src="https://unpkg.com/@tryghost/portal@~1.0.0/umd/portal.min.js" data-ghost="https://raccoonyy.github.io/"></script><style> .gh-post-upgrade-cta-content,
 .gh-post-upgrade-cta {
     display: flex;
     flex-direction: column;
@@ -155,7 +155,8 @@
     opacity: 0.92;
 }</style>
     <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
-<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({
     google_ad_client: "ca-pub-2370280605121686",
@@ -173,7 +174,7 @@
         <nav class="gh-head-inner inner gh-container">
 
             <div class="gh-head-brand">
-                <a class="gh-head-logo" href="../index.html">
+                <a class="gh-head-logo" href="https://raccoonyy.github.io">
                         raccoony&#x27;s cave
                 </a>
                 <a class="gh-burger" role="button">
@@ -185,9 +186,9 @@
             <div class="gh-head-menu">
                 <ul class="nav">
     <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
-    <li class="nav-about-me"><a href="../about-me/index.html">About Me</a></li>
-    <li class="nav-django"><a href="../tag/django/index.html">Django</a></li>
-    <li class="nav-python"><a href="../tag/python/index.html">Python</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about-me/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
 </ul>
 
             </div>
@@ -198,7 +199,7 @@
 </a>
                 </div>
 
-                    <a class="gh-head-button" href="index.html#/portal">Subscribe</a>
+                    <a class="gh-head-button" href="#/portal">Subscribe</a>
             </div>
         </nav>
     </header>
@@ -213,7 +214,7 @@
     <header class="article-header gh-canvas">
 
         <section class="article-tag">
-            <a href="../tag/django/index.html">Django</a>
+            <a href="https://raccoonyy.github.io/tag/django/">Django</a>
         </section>
 
         <h1 class="article-title">(엑셀만큼 쉬운) Django Annotation/Aggregation</h1>
@@ -223,13 +224,13 @@
             <section class="article-byline-content">
                 <ul class="author-list">
                     <li class="author-list-item">
-                        <a href="../author/raccoony/index.html" class="author-avatar">
-                            <img class="author-profile-image" src="http://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                        <a href="/author/raccoony/" class="author-avatar">
+                            <img class="author-profile-image" src="//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x" alt="raccoony" />
                         </a>
                     </li>
                 </ul>
                 <div class="article-byline-meta">
-                    <h4 class="author-name"><a href="../author/raccoony/index.html">raccoony</a></h4>
+                    <h4 class="author-name"><a href="/author/raccoony/">raccoony</a></h4>
                     <div class="byline-meta-content">
                         <time class="byline-meta-date" datetime="2016-05-25">2016년 5월 25일</time>
                         <span class="byline-reading-time"><span class="bull">&bull;</span> 16 min read</span>
@@ -240,12 +241,12 @@
 
         <figure class="article-image">
             <img
-                srcset="../content/images/size/w300/2016/05/excel.jpg 300w,
-                       ../content/images/size/w600/2016/05/excel.jpg 600w,
-                      ../content/images/size/w1000/2016/05/excel.jpg 1000w,
-                     ../content/images/size/w2000/2016/05/excel.jpg 2000w"
+                srcset="/content/images/size/w300/2016/05/excel.jpg 300w,
+                        /content/images/size/w600/2016/05/excel.jpg 600w,
+                        /content/images/size/w1000/2016/05/excel.jpg 1000w,
+                        /content/images/size/w2000/2016/05/excel.jpg 2000w"
                 sizes="(min-width: 1400px) 1400px, 92vw"
-                src="../content/images/size/w2000/2016/05/excel.jpg"
+                src="/content/images/size/w2000/2016/05/excel.jpg"
                 alt="(엑셀만큼 쉬운) Django Annotation/Aggregation"
             />
         </figure>
@@ -260,14 +261,14 @@
 </ul>
 <h2 id="">모델 구성</h2>
 <p>다음과 같은 제품을 판매하는 온라인 쇼핑몰을 만든다고 합시다. (원래는 제품별 id도 있겠지만, 설명을 간단히 하기 위해 생략하겠습니다.)</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-19-09-21-34-1.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-19-09-21-34-1.png" alt="" loading="lazy"></p>
 <p>이를 Django 모델로 구현해보면 다음과 같을 겁니다.</p>
 <pre><code class="language-python">class Product(models.Model):
     name = models.CharField('이름', max_length=150, unique=True)
     price = models.IntegerField('가격')
 </code></pre>
 <p>이제, 이 제품들이 팔린 내역이 다음과 같다고 해보죠.</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-21-13-15-45.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-21-13-15-45.png" alt="" loading="lazy"></p>
 <p>이러한 판매 내역을 모델로 구현하면 다음과 같겠고요.</p>
 <pre><code class="language-python">class OrderLog(models.Model):
     product = models.ForeignKey('Product')
@@ -280,7 +281,7 @@
 <h4 id="1values">1. 제품별 가격 참조하기(<a href="https://docs.djangoproject.com/en/1.9/ref/models/querysets/#django.db.models.query.QuerySet.values">values</a>)</h4>
 <h6 id="">엑셀 버전</h6>
 <p>엑셀에서 제품별 가격을 적었다면 다음과 같은 화면이 되겠죠. (실제로는 일일이 찾지 않고 제품 이름으로 참조하여 판매 가격 컬럼을 자동으로 채을 겁니다.)</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-21-13-17-57.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-21-13-17-57.png" alt="" loading="lazy"></p>
 <h6 id="django">Django 버전</h6>
 <p>이를 Django에서 구현하려면 <code>values</code> 메서드를 사용하면 됩니다.</p>
 <pre><code class="language-python">order_qs = OrderLog.objects.values(
@@ -328,7 +329,7 @@ order_qs = OrderLog.objects.annotate(
 <p>그럼 이제 <em>price</em>의 값을 모두 합하여 총 판매액을 구해야겠죠.</p>
 <h6 id="">엑셀 버전</h6>
 <p>엑셀에서는 수식을 사용하여 해당 필드 전체를 더해줍니다.</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-21-15-55-55.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-21-15-55-55.png" alt="" loading="lazy"></p>
 <h6 id="django">Django 버전</h6>
 <p>Django에서 쿼리셋의 특정 필드를 모두 더할 때는 애그리게이션(<code>aggregate</code>) 메서드를 사용합니다.</p>
 <pre><code class="language-python"># 앞의 코드에서 이어집니다.
@@ -343,7 +344,7 @@ order_qs = OrderLog.objects.annotate(
 <h6 id="">엑셀 버전</h6>
 <p>엑셀이라면 피벗 테이블을 만들텐데요. 피벗 테이블에 익숙하지 않은 분을 위해 간단히 설명을 하자면, 기준(pivot)을 정하고 이 기준에 따라 값을 묶는 기능이라고 생각하시면 됩니다. (자세한 사용 방법은 <a href="https://support.office.com/ko-kr/article/%ED%94%BC%EB%B2%97-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4-%EC%9B%8C%ED%81%AC%EC%8B%9C%ED%8A%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-a9a84538-bfe9-40a9-a8e9-f99134456576">엑셀 2013 도움말</a>을 참고하세요.)</p>
 <p>예를 들어, 날짜를 행의 기준으로 정하고 가격을 묶으면(=합계), 다음과 같이 일별 판매액을 알 수 있겠죠.</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-19-10-11-05.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-19-10-11-05.png" alt="" loading="lazy"></p>
 <h6 id="django">Django 버전</h6>
 <p>Django에서 뭔가를 기준으로 값들을 묶고 싶다면 <code>values</code>와 <code>annotate</code>를 사용하면 됩니다. 여기서는 날짜(<em>created</em>)가 기준이 되고, 날짜별로 묶고 싶은 값은 가격(<em>price</em>)입니다. 묶은 값들은 모두 더해서 <em>daily_total</em> 필드에 넣어주었습니다.</p>
 <p><strong><code>values</code> 메서드 이전에 <code>annotate</code>로 추가했던 필드는, <code>values</code> 메서드 이후에 나오는 <code>annotate</code> 메서드에서 참조할 수 없습니다. 아쉽지만 여기서는 <em>product__price</em>를 그대로 적어주어야 합니다.</strong></p>
@@ -365,7 +366,7 @@ order_qs = OrderLog.objects.annotate(
 <p>조금 더 들어가 봅시다. 이제는 날짜별로 각 제품이 몇 개씩 팔렸는지 알고 싶습니다.</p>
 <h6 id="">엑셀 버전</h6>
 <p>엑셀에서는 역시나 피벗 테이블을 사용하겠죠. 아까의 피벗 테이블에서 <strong>1.</strong> 열 기준으로 행을 추가하고, <strong>2.</strong> 값으로는 레코드의 개수를 선택하면 아래와 같이 일별/제품별 판매 개수를 알 수 있습니다.</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-21-13-11-33.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-21-13-11-33.png" alt="" loading="lazy"></p>
 <h6 id="django">Django 버전</h6>
 <p>이를 Django에 옮겨보죠. <code>values</code>에 넣을 기준 필드는 <em>created</em>와 <em>name</em>이 되겠고요. <code>annotate</code>에서는 레코드 개수를 세기 위해 <code>Count</code> 메서드를 사용했습니다. <em>count</em> 필드를 만들어서 일별+제품별 판매 개수를 넣어주었고요.</p>
 <pre><code class="language-python">daily_count = order_qs.values(
@@ -389,7 +390,7 @@ order_qs = OrderLog.objects.annotate(
 <p>전체 제품이 아닌 관심 있는 제품의 날짜별 판매 개수를 알고 싶을 땐 어떻게 할까요?</p>
 <h6 id="">엑셀 버전</h6>
 <p>엑셀에서는 피벗 테이블에 필터를 추가하면 됩니다.</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-23-17-36-52.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-23-17-36-52.png" alt="" loading="lazy"></p>
 <h6 id="django">Django 버전</h6>
 <p>Django에서도 필터(<code>filter</code>)를 추가하면 됩니다. <code>filter</code> 외의 부분은 바로 앞의 코드와 동일합니다.</p>
 <pre><code class="language-python">sound_book_daily_count = order_qs.filter(
@@ -409,7 +410,7 @@ order_qs = OrderLog.objects.annotate(
 <p>이제 진짜 애너테이션과 애그리게이션이 유용한 사례를 살펴봅시다. 쇼핑몰에서는 판매 내역이 취소되기도 하죠. 결제가 취소되었을 때는 취소 로그를 남겨야 합니다. 여기서는 최대한 간단히 설명하기 위해 판매 내역에 <em>결제 취소(is_cancel)</em> 필드를 추가하고, 결제 취소 내역인 경우에는 해당 필드를 <em>True</em>로 설정하겠습니다.</p>
 <h4 id="">엑셀 버전</h4>
 <p>엑셀에서는 다음과 같은 열이 추가됩니다.</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-19-12-58-10.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-19-12-58-10.png" alt="" loading="lazy"></p>
 <h4 id="django">Django 버전</h4>
 <p>OrderLog 모델은 다음과 같이 수정하겠습니다. (원래는 취소된 내역 자체도 참조해야 하지만, 여기서는 설명을 간단히 하고자 생략했습니다.)</p>
 <pre><code class="language-python"># OrderLog 모델 수정
@@ -447,7 +448,7 @@ OrderLog.objects.create(created=may3, product=abc, is_cancel=True)
 <h4 id="1">1. 결제 취소 필드에 따라 판매 금액, 취소 금액 필드 추가하기(<a href="https://docs.djangoproject.com/en/1.9/ref/models/conditional-expressions/">조건적 애너테이션</a>)</h4>
 <h6 id="">엑셀 버전</h6>
 <p>엑셀에서의 모습을 보면 다음과 같습니다.</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-19-13-19-10.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-19-13-19-10.png" alt="" loading="lazy"></p>
 <h6 id="django">Django 버전</h6>
 <p>이를 Django에 구현하기는 조금 까다롭습니다. 결제 취소라는 조건이 생긴 탓인데요. Django 1.8에 추가된 조건적 애너테이션을 사용하면 이 문제를 해결할 수 있습니다. 조건적 애너테이션이란, 말 그대로 특정 조건에 따라 애너테이션을 붙일 수 있는 기능입니다.</p>
 <pre><code class="language-python">order_list_2 = order_qs.annotate(
@@ -483,7 +484,7 @@ OrderLog.objects.create(created=may3, product=abc, is_cancel=True)
 <p>이제 판매 금액의 합에서 취소 금액의 합을 빼 봅시다.</p>
 <h6 id="">엑셀 버전</h6>
 <p>엑셀에서라면 다음과 같이 소계가 추가될 겁니다.</p>
-<p><img src="../content/images/2016/05/Screenshot-2016-05-20-14-01-41.png" alt="" loading="lazy"></p>
+<p><img src="/content/images/2016/05/Screenshot-2016-05-20-14-01-41.png" alt="" loading="lazy"></p>
 <h6 id="django">Django 버전</h6>
 <p>이를 Django로 옮기면 다음과 같습니다.</p>
 <pre><code class="language-python"># 위에서 이어집니다.
@@ -585,7 +586,7 @@ sound_book_daily_count = order_qs.filter(
 <section class="footer-cta">
     <div class="inner">
         <h2>Sign up for more like this.</h2>
-        <a class="footer-cta-button" href="index.html#/portal">
+        <a class="footer-cta-button" href="#/portal">
             <div>Enter your email</div>
             <span>Subscribe</span>
         </a>
@@ -600,14 +601,14 @@ sound_book_daily_count = order_qs.filter(
                     
 <article class="post-card post featured ">
 
-    <a class="post-card-image-link" href="../docker-usages-for-dev-environment-setup/index.html">
+    <a class="post-card-image-link" href="/docker-usages-for-dev-environment-setup/">
         <img class="post-card-image"
-            srcset="../content/images/size/w300/2017/02/docker-usages-dev-environment-setup.png 300w,
-                   ../content/images/size/w600/2017/02/docker-usages-dev-environment-setup.png 600w,
-                  ../content/images/size/w1000/2017/02/docker-usages-dev-environment-setup.png 1000w,
-                 ../content/images/size/w2000/2017/02/docker-usages-dev-environment-setup.png 2000w"
+            srcset="/content/images/size/w300/2017/02/docker-usages-dev-environment-setup.png 300w,
+                    /content/images/size/w600/2017/02/docker-usages-dev-environment-setup.png 600w,
+                    /content/images/size/w1000/2017/02/docker-usages-dev-environment-setup.png 1000w,
+                    /content/images/size/w2000/2017/02/docker-usages-dev-environment-setup.png 2000w"
             sizes="(max-width: 1000px) 400px, 800px"
-            src="../content/images/size/w600/2017/02/docker-usages-dev-environment-setup.png"
+            src="/content/images/size/w600/2017/02/docker-usages-dev-environment-setup.png"
             alt="Docker (Compose) 활용법 - 개발 환경 구성하기"
             loading="lazy"
         />
@@ -615,7 +616,7 @@ sound_book_daily_count = order_qs.filter(
 
     <div class="post-card-content">
 
-        <a class="post-card-content-link" href="../docker-usages-for-dev-environment-setup/index.html">
+        <a class="post-card-content-link" href="/docker-usages-for-dev-environment-setup/">
             <header class="post-card-header">
                 <h2 class="post-card-title">Docker (Compose) 활용법 - 개발 환경 구성하기</h2>
             </header>
@@ -627,13 +628,13 @@ sound_book_daily_count = order_qs.filter(
         <footer class="post-card-meta">
             <ul class="author-list">
                 <li class="author-list-item">
-                    <a href="../author/raccoony/index.html" class="static-avatar">
-                        <img class="author-profile-image" src="http://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                    <a href="/author/raccoony/" class="static-avatar">
+                        <img class="author-profile-image" src="//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x" alt="raccoony" />
                     </a>
                 </li>
             </ul>
             <div class="post-card-byline-content">
-                <span><a href="../author/raccoony/index.html">raccoony</a></span>
+                <span><a href="/author/raccoony/">raccoony</a></span>
                 <span class="post-card-byline-date"><time datetime="2021-03-26">2021년 3월 26일</time> <span class="bull">&bull;</span> 38 min read</span>
             </div>
         </footer>
@@ -644,14 +645,14 @@ sound_book_daily_count = order_qs.filter(
                     
 <article class="post-card post ">
 
-    <a class="post-card-image-link" href="../geeks-who-invented-click-and-internet/index.html">
+    <a class="post-card-image-link" href="/geeks-who-invented-click-and-internet/">
         <img class="post-card-image"
-            srcset="../content/images/size/w300/2018/03/click.jpg 300w,
-                   ../content/images/size/w600/2018/03/click.jpg 600w,
-                  ../content/images/size/w1000/2018/03/click.jpg 1000w,
-                 ../content/images/size/w2000/2018/03/click.jpg 2000w"
+            srcset="/content/images/size/w300/2018/03/click.jpg 300w,
+                    /content/images/size/w600/2018/03/click.jpg 600w,
+                    /content/images/size/w1000/2018/03/click.jpg 1000w,
+                    /content/images/size/w2000/2018/03/click.jpg 2000w"
             sizes="(max-width: 1000px) 400px, 800px"
-            src="../content/images/size/w600/2018/03/click.jpg"
+            src="/content/images/size/w600/2018/03/click.jpg"
             alt="[독후감] 클릭을 발명한 괴짜들"
             loading="lazy"
         />
@@ -659,7 +660,7 @@ sound_book_daily_count = order_qs.filter(
 
     <div class="post-card-content">
 
-        <a class="post-card-content-link" href="../geeks-who-invented-click-and-internet/index.html">
+        <a class="post-card-content-link" href="/geeks-who-invented-click-and-internet/">
             <header class="post-card-header">
                 <h2 class="post-card-title">[독후감] 클릭을 발명한 괴짜들</h2>
             </header>
@@ -671,13 +672,13 @@ sound_book_daily_count = order_qs.filter(
         <footer class="post-card-meta">
             <ul class="author-list">
                 <li class="author-list-item">
-                    <a href="../author/raccoony/index.html" class="static-avatar">
-                        <img class="author-profile-image" src="http://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                    <a href="/author/raccoony/" class="static-avatar">
+                        <img class="author-profile-image" src="//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x" alt="raccoony" />
                     </a>
                 </li>
             </ul>
             <div class="post-card-byline-content">
-                <span><a href="../author/raccoony/index.html">raccoony</a></span>
+                <span><a href="/author/raccoony/">raccoony</a></span>
                 <span class="post-card-byline-date"><time datetime="2018-03-28">2018년 3월 28일</time> <span class="bull">&bull;</span> 8 min read</span>
             </div>
         </footer>
@@ -688,14 +689,14 @@ sound_book_daily_count = order_qs.filter(
                     
 <article class="post-card post ">
 
-    <a class="post-card-image-link" href="../diary-of-changing-job/index.html">
+    <a class="post-card-image-link" href="/diary-of-changing-job/">
         <img class="post-card-image"
-            srcset="../content/images/size/w300/2018/02/man-adjusting-tie.jpg 300w,
-                   ../content/images/size/w600/2018/02/man-adjusting-tie.jpg 600w,
-                  ../content/images/size/w1000/2018/02/man-adjusting-tie.jpg 1000w,
-                 ../content/images/size/w2000/2018/02/man-adjusting-tie.jpg 2000w"
+            srcset="/content/images/size/w300/2018/02/man-adjusting-tie.jpg 300w,
+                    /content/images/size/w600/2018/02/man-adjusting-tie.jpg 600w,
+                    /content/images/size/w1000/2018/02/man-adjusting-tie.jpg 1000w,
+                    /content/images/size/w2000/2018/02/man-adjusting-tie.jpg 2000w"
             sizes="(max-width: 1000px) 400px, 800px"
-            src="../content/images/size/w600/2018/02/man-adjusting-tie.jpg"
+            src="/content/images/size/w600/2018/02/man-adjusting-tie.jpg"
             alt="이직 일기"
             loading="lazy"
         />
@@ -703,7 +704,7 @@ sound_book_daily_count = order_qs.filter(
 
     <div class="post-card-content">
 
-        <a class="post-card-content-link" href="../diary-of-changing-job/index.html">
+        <a class="post-card-content-link" href="/diary-of-changing-job/">
             <header class="post-card-header">
                 <h2 class="post-card-title">이직 일기</h2>
             </header>
@@ -715,13 +716,13 @@ sound_book_daily_count = order_qs.filter(
         <footer class="post-card-meta">
             <ul class="author-list">
                 <li class="author-list-item">
-                    <a href="../author/raccoony/index.html" class="static-avatar">
-                        <img class="author-profile-image" src="http://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                    <a href="/author/raccoony/" class="static-avatar">
+                        <img class="author-profile-image" src="//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x" alt="raccoony" />
                     </a>
                 </li>
             </ul>
             <div class="post-card-byline-content">
-                <span><a href="../author/raccoony/index.html">raccoony</a></span>
+                <span><a href="/author/raccoony/">raccoony</a></span>
                 <span class="post-card-byline-date"><time datetime="2018-02-11">2018년 2월 11일</time> <span class="bull">&bull;</span> 18 min read</span>
             </div>
         </footer>
@@ -738,7 +739,7 @@ sound_book_daily_count = order_qs.filter(
 
     <footer class="site-footer outer">
         <div class="inner">
-            <section class="copyright"><a href="../index.html">raccoony&#x27;s cave</a> &copy; 2021</section>
+            <section class="copyright"><a href="https://raccoonyy.github.io">raccoony&#x27;s cave</a> &copy; 2021</section>
             <nav class="site-footer-nav">
                 
             </nav>
@@ -754,7 +755,7 @@ sound_book_daily_count = order_qs.filter(
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
     crossorigin="anonymous">
 </script>
-<script src="../assets/built/casper.js%3Fv=d92811ac5b"></script>
+<script src="/assets/built/casper.js?v=841d0b82a7"></script>
 <script>
 $(document).ready(function () {
     // Mobile Menu Trigger
@@ -766,10 +767,7 @@ $(document).ready(function () {
 });
 </script>
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/dockerfile.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/yaml.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/django.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

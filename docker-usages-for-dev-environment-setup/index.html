@@ -8,19 +8,19 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="../assets/built/screen.css%3Fv=d92811ac5b.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css?v=841d0b82a7" />
 
     <meta name="description" content="배포 환경에 Docker를 사용하고 있을 때 개발 환경에서도 Docker를 활용하면, 배포 환경과 개발 환경(테스트 환경까지도)이 최대한 일치하는 장점을 누릴 수 있을 것 같아서 시도를 해보았습니다. 슬라이드 버전 - https://goo.gl/MquH4r" />
-    <link rel="icon" href="../favicon.png" type="image/png" />
-    <link rel="canonical" href="index.html" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/docker-usages-for-dev-environment-setup/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
     <meta property="og:site_name" content="raccoony&#x27;s cave" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="DockerCompose로 개발 환경 구성하기" />
     <meta property="og:description" content="배포 환경에 Docker를 사용하고 있을 때 개발 환경에서도 Docker를 활용하면, 배포 환경과 개발 환경(테스트 환경까지도)이 최대한 일치하는 장점을 누릴 수 있을 것 같아서 시도를 해보았습니다. 슬라이드 버전 - https://goo.gl/MquH4r" />
-    <meta property="og:url" content="http://127.0.0.1:8080/docker-usages-for-dev-environment-setup/" />
-    <meta property="og:image" content="http://127.0.0.1:8080/content/images/2017/02/docker-usages-dev-environment-setup.png" />
+    <meta property="og:url" content="https://raccoonyy.github.io/docker-usages-for-dev-environment-setup/" />
+    <meta property="og:image" content="https://raccoonyy.github.io/content/images/2017/02/docker-usages-dev-environment-setup.png" />
     <meta property="article:published_time" content="2021-03-26T11:08:00.000Z" />
     <meta property="article:modified_time" content="2021-03-26T16:04:25.000Z" />
     <meta property="article:tag" content="docker" />
@@ -32,8 +32,8 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="DockerCompose로 개발 환경 구성하기" />
     <meta name="twitter:description" content="배포 환경에 Docker를 사용하고 있을 때 개발 환경에서도 Docker를 활용하면, 배포 환경과 개발 환경(테스트 환경까지도)이 최대한 일치하는 장점을 누릴 수 있을 것 같아서 시도를 해보았습니다. 슬라이드 버전 - https://goo.gl/MquH4r" />
-    <meta name="twitter:url" content="http://127.0.0.1:8080/docker-usages-for-dev-environment-setup/" />
-    <meta name="twitter:image" content="http://127.0.0.1:8080/content/images/2017/02/docker-usages-dev-environment-setup.png" />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/docker-usages-for-dev-environment-setup/" />
+    <meta name="twitter:image" content="https://raccoonyy.github.io/content/images/2017/02/docker-usages-dev-environment-setup.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="raccoony" />
     <meta name="twitter:label2" content="Filed under" />
@@ -49,10 +49,10 @@
     "publisher": {
         "@type": "Organization",
         "name": "raccoony&#x27;s cave",
-        "url": "http://127.0.0.1:8080/",
+        "url": "https://raccoonyy.github.io/",
         "logo": {
             "@type": "ImageObject",
-            "url": "http://127.0.0.1:8080/favicon.png"
+            "url": "https://raccoonyy.github.io/favicon.png"
         }
     },
     "author": {
@@ -64,16 +64,16 @@
             "width": 250,
             "height": 250
         },
-        "url": "http://127.0.0.1:8080/author/raccoony/",
+        "url": "https://raccoonyy.github.io/author/raccoony/",
         "sameAs": []
     },
     "headline": "DockerCompose로 개발 환경 구성하기",
-    "url": "http://127.0.0.1:8080/docker-usages-for-dev-environment-setup/",
+    "url": "https://raccoonyy.github.io/docker-usages-for-dev-environment-setup/",
     "datePublished": "2021-03-26T11:08:00.000Z",
     "dateModified": "2021-03-26T16:04:25.000Z",
     "image": {
         "@type": "ImageObject",
-        "url": "http://127.0.0.1:8080/content/images/2017/02/docker-usages-dev-environment-setup.png",
+        "url": "https://raccoonyy.github.io/content/images/2017/02/docker-usages-dev-environment-setup.png",
         "width": 1024,
         "height": 512
     },
@@ -81,14 +81,14 @@
     "description": "인프런 강의 안내\n이 글의 내용을 인프런 강의\n[https://www.inflearn.com/course/%EB%8F%84%EC%BB%A4-%EC%BB%B4%ED%8F%AC%EC%A6%88?inst&#x3D;9acd6a2e]\n로 제작하였습니다. 아래 배너를 눌러주세요~\n\n도커 쓸 땐 필수! 도커 컴포즈 - 인프런 | 강의도커를 실제 사용하려다보면 항상 등장하는 도커 컴포즈! 무엇이 좋은지, 어떻게 활용하는지를\n실습과 함께 배울 수 있습니다., 도커 컴포즈, 기본부터 핵심까지!도커를 실제 사용하려다보면 항상 도커 컴포즈가 등장합니다.도커만으로도\n힘겨웠는데 또 뭔가를 배우라고 하니 답답할 수도 있는데요.도커 컴포즈와 함께라면,복잡한 도커 명령어 (X)깔끔한 설정 파일과 간단한 명령어\n(O)‘도커 컴포즈’를 검색했을 때 가장 위에 나타나는 블로그 저자의 직강![사진]블로그 글이 개발 환경 구축에 중점을 두었다면, 이\n강의에서는\n도커 컴포즈의 기본…인프런 [https://bit.ly/inflearn",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "http://127.0.0.1:8080/"
+        "@id": "https://raccoonyy.github.io/"
     }
 }
     </script>
 
     <meta name="generator" content="Ghost 4.1" />
-    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="../rss/index.html" />
-    <script defer src="https://unpkg.com/@tryghost/portal@~1.0.0/umd/portal.min.js" data-ghost="http://127.0.0.1:8080/"></script><style> .gh-post-upgrade-cta-content,
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    <script defer src="https://unpkg.com/@tryghost/portal@~1.0.0/umd/portal.min.js" data-ghost="https://raccoonyy.github.io/"></script><style> .gh-post-upgrade-cta-content,
 .gh-post-upgrade-cta {
     display: flex;
     flex-direction: column;
@@ -153,7 +153,8 @@
     opacity: 0.92;
 }</style>
     <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
-<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({
     google_ad_client: "ca-pub-2370280605121686",
@@ -171,7 +172,7 @@
         <nav class="gh-head-inner inner gh-container">
 
             <div class="gh-head-brand">
-                <a class="gh-head-logo" href="../index.html">
+                <a class="gh-head-logo" href="https://raccoonyy.github.io">
                         raccoony&#x27;s cave
                 </a>
                 <a class="gh-burger" role="button">
@@ -183,9 +184,9 @@
             <div class="gh-head-menu">
                 <ul class="nav">
     <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
-    <li class="nav-about-me"><a href="../about-me/index.html">About Me</a></li>
-    <li class="nav-django"><a href="../tag/django/index.html">Django</a></li>
-    <li class="nav-python"><a href="../tag/python/index.html">Python</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about-me/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
 </ul>
 
             </div>
@@ -196,7 +197,7 @@
 </a>
                 </div>
 
-                    <a class="gh-head-button" href="index.html#/portal">Subscribe</a>
+                    <a class="gh-head-button" href="#/portal">Subscribe</a>
             </div>
         </nav>
     </header>
@@ -211,7 +212,7 @@
     <header class="article-header gh-canvas">
 
         <section class="article-tag">
-            <a href="../tag/docker/index.html">docker</a>
+            <a href="https://raccoonyy.github.io/tag/docker/">docker</a>
         </section>
 
         <h1 class="article-title">Docker (Compose) 활용법 - 개발 환경 구성하기</h1>
@@ -221,13 +222,13 @@
             <section class="article-byline-content">
                 <ul class="author-list">
                     <li class="author-list-item">
-                        <a href="../author/raccoony/index.html" class="author-avatar">
-                            <img class="author-profile-image" src="http://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                        <a href="/author/raccoony/" class="author-avatar">
+                            <img class="author-profile-image" src="//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x" alt="raccoony" />
                         </a>
                     </li>
                 </ul>
                 <div class="article-byline-meta">
-                    <h4 class="author-name"><a href="../author/raccoony/index.html">raccoony</a></h4>
+                    <h4 class="author-name"><a href="/author/raccoony/">raccoony</a></h4>
                     <div class="byline-meta-content">
                         <time class="byline-meta-date" datetime="2021-03-26">2021년 3월 26일</time>
                         <span class="byline-reading-time"><span class="bull">&bull;</span> 38 min read</span>
@@ -238,12 +239,12 @@
 
         <figure class="article-image">
             <img
-                srcset="../content/images/size/w300/2017/02/docker-usages-dev-environment-setup.png 300w,
-                       ../content/images/size/w600/2017/02/docker-usages-dev-environment-setup.png 600w,
-                      ../content/images/size/w1000/2017/02/docker-usages-dev-environment-setup.png 1000w,
-                     ../content/images/size/w2000/2017/02/docker-usages-dev-environment-setup.png 2000w"
+                srcset="/content/images/size/w300/2017/02/docker-usages-dev-environment-setup.png 300w,
+                        /content/images/size/w600/2017/02/docker-usages-dev-environment-setup.png 600w,
+                        /content/images/size/w1000/2017/02/docker-usages-dev-environment-setup.png 1000w,
+                        /content/images/size/w2000/2017/02/docker-usages-dev-environment-setup.png 2000w"
                 sizes="(min-width: 1400px) 1400px, 92vw"
-                src="../content/images/size/w2000/2017/02/docker-usages-dev-environment-setup.png"
+                src="/content/images/size/w2000/2017/02/docker-usages-dev-environment-setup.png"
                 alt="Docker (Compose) 활용법 - 개발 환경 구성하기"
             />
         </figure>
@@ -264,12 +265,12 @@
 <iframe src="https://www.slideshare.net/slideshow/embed_code/key/5adOWwGkwzaw2w" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/raccoonyy/docker-compose-usages" title="Docker compose usages" target="_blank">Docker 활용법 - 개발 환경 구성하기</a> </strong> from <strong><a target="_blank" href="https://www.slideshare.net/raccoonyy">raccoony</a></strong> </div>
 <h3 id="20170905">2017-09-05 수정 내역</h3>
 <ul>
-<li>파이썬용 바이너리 파일(pytest, flake8 등)들의 설치 위치를 수정하여, <a href="index.html#1103">컨테이너 재생성시 바이너리 파일이 없어지는 문제 수정</a></li>
-<li><a href="index.html#1104">파이썬 로그가 빠릿하게 출력되지 않는 문제 수정</a></li>
+<li>파이썬용 바이너리 파일(pytest, flake8 등)들의 설치 위치를 수정하여, <a href="./#1103">컨테이너 재생성시 바이너리 파일이 없어지는 문제 수정</a></li>
+<li><a href="./#1104">파이썬 로그가 빠릿하게 출력되지 않는 문제 수정</a></li>
 </ul>
 <h3 id="20170321">2017-03-21 수정 내역</h3>
 <ul>
-<li>의존 패키지를 하나 추가하더라도 패키지 전체를 다시 설치해야 하는 불편을 없애고자, <a href="index.html#1102">패키지 관리용 볼륨 설정 내용을 추가</a>했습니다.</li>
+<li>의존 패키지를 하나 추가하더라도 패키지 전체를 다시 설치해야 하는 불편을 없애고자, <a href="./#1102">패키지 관리용 볼륨 설정 내용을 추가</a>했습니다.</li>
 </ul>
 <hr>
 <h1 id="0">0 (사전 학습) 도커가 뭐야?</h1>
@@ -290,7 +291,7 @@
 <li><code>docker run</code>: 장식 붙은 이미지를 실제로 실행(=<strong>인스턴스 생성</strong>)</li>
 </ul>
 <p>이를 그림으로 나타내면 다음과 같습니다.</p>
-<p><img src="../content/images/2017/03/docker-like-as-class-and-instance.png" alt="클래스와 인스턴스 생성에 비유해 본 도커" loading="lazy"></p>
+<p><img src="https://raccoonyy.github.io/content/images/2017/03/docker-like-as-class-and-instance.png" alt="클래스와 인스턴스 생성에 비유해 본 도커" loading="lazy"></p>
 <p>프로그래밍에서는 User 클래스를 파일에 적고, 이를 애플리케이션에서 불러와서, name과 id를 할당하고, 새 인스턴스를 만들어 사용하다가, 용도가 다 하면 삭제하겠죠.</p>
 <p>마찬가지로, 도커 이미지에 들어갈 내용을 정의하고(<code>Dockerfile</code>), 이미지를 빌드한 다음(<code>docker build</code>), 각종 옵션을 붙여 컨테이너를 실행(<code>docker run</code>)하여 사용하다가, 용도가 다 하면 컨테이너를 삭제한다고 생각하시면 됩니다.</p>
 <p>그럼, 더 이상의 자세한 설명은 생략하고 본론으로 넘어가겠습니다.</p>
@@ -298,10 +299,10 @@
 <p>설명을 따라하기 위한 예제 프로젝트는 다음의 깃헙 저장소에서 다운받을 수 있습니다. (Django용과 Express용을 준비했습니다.)</p>
 <p><strong>파이썬/Django용 예제 프로젝트</strong></p>
 <div class="github-card" data-github="raccoonyy/django-sample-for-docker-compose" data-width="640" data-height="173" data-theme="default"></div>
-<script src="http://cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 <p><strong>노드/Express용 예제 프로젝트</strong></p>
 <div class="github-card" data-github="raccoonyy/express-sample-for-docker-compose" data-width="640" data-height="173" data-theme="default"></div>
-<script src="http://cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 <hr>
 <h1 id="1dockercompose">1 개발 환경에 docker-compose 적용하기</h1>
 <h3 id="11">1.1 개발 환경 구성은 항상 까다롭다</h3>
@@ -312,7 +313,7 @@ $ pyenv virtualenv (파이썬 버전) (가상환경이름)
 ...
 </code></pre>
 <p>이를 그림으로 나타내면 이렇게 될 텐데요.</p>
-<p><img src="../content/images/2017/03/virtualenv3.png" alt="로컬에 개발 환경 구성하기" loading="lazy"></p>
+<p><img src="https://raccoonyy.github.io/content/images/2017/03/virtualenv3.png" alt="로컬에 개발 환경 구성하기" loading="lazy"></p>
 <p>이 구성이 한 번에 되면 좋겠지만,</p>
 <ol>
 <li>실제로는 패키지 설치가 막힐 때도 있고(SSL, LDAP 관련)</li>
@@ -321,7 +322,7 @@ $ pyenv virtualenv (파이썬 버전) (가상환경이름)
 </ol>
 <p>합니다.</p>
 <p>그런데 배포 환경에서는 다음과 같이 이미 도커를 활용 중이었기에, 이 구성을 개발 환경에서도 그대로 사용할 수는 없을까 생각하게 되었습니다.</p>
-<p><img src="../content/images/2017/03/dockerized-production.png" alt="배포 환경에서 사용 중인 도커" loading="lazy"></p>
+<p><img src="https://raccoonyy.github.io/content/images/2017/03/dockerized-production.png" alt="배포 환경에서 사용 중인 도커" loading="lazy"></p>
 <h3 id="12">1.2 시도!</h3>
 <h4 id="121">1.2.1 도커 이미지 빌드</h4>
 <p>먼저, 예제 프로젝트의 루트 디렉터리에서 도커 이미지를 빌드합니다.</p>
@@ -436,9 +437,9 @@ $ pyenv virtualenv (파이썬 버전) (가상환경이름)
     ./manage.py runserver 0:8000
 </code></pre>
 <p>브라우저에서 <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>을 열어보면 드디어 Django의 초기 화면을 만날 수 있습니다!</p>
-<p><img src="../content/images/2017/03/django-it-worked.png" alt="" loading="lazy"></p>
+<p><img src="https://raccoonyy.github.io/content/images/2017/03/django-it-worked.png" alt="" loading="lazy"></p>
 <p>지금까지의 구성을 그림으로 그려보면 배포 환경과 거의 비슷해지겠죠.</p>
-<p><img src="../content/images/2017/03/docker-native-develoment-environment2.png" alt="도커를 활용한 개발 환경 구성 - 첫 시도" loading="lazy"></p>
+<p><img src="https://raccoonyy.github.io/content/images/2017/03/docker-native-develoment-environment2.png" alt="도커를 활용한 개발 환경 구성 - 첫 시도" loading="lazy"></p>
 <h3 id="15">1.5 도커 방식의 불편함</h3>
 <p>도커로 개발 환경을 구성하는 데 성공하긴 했지만, 이번엔 다른 불편이 발생했습니다.</p>
 <h4 id="151">1.5.1 장황한 옵션</h4>
@@ -457,7 +458,7 @@ $ pyenv virtualenv (파이썬 버전) (가상환경이름)
 </ul>
 <p>도커 컴포즈에서는 컨테이너 실행에 사용되는 옵션과 컨테이너 간 의존성을 모두 <code>docker-compose.yml</code>파일에 적어두고, 컴포즈용 명령어를 사용하여 컨테이너들을 실행, 관리합니다.</p>
 <p>클래스와 인스턴스의 예를 들면, 어떤 인스턴스를 자주 생성해야 해서 필요한 변수를 딕셔너리로 저장해두는 것과 비슷하겠습니다. 이를 그림으로 나타내면 다음과 같습니다.</p>
-<p><img src="../content/images/2017/03/docker-compose-yml.png" alt="" loading="lazy"></p>
+<p><img src="https://raccoonyy.github.io/content/images/2017/03/docker-compose-yml.png" alt="" loading="lazy"></p>
 <h3 id="161">1.6.1 선행 조건</h3>
 <p>이후의 예시를 따라하려면 도커 엔진의 버전이 1.12.0 이상이어야 하고, docker-compose의 버전은 1.6.0 이상이어야 합니다. 최근에 도커를 설치했다면 큰 문제가 없을 겁니다.</p>
 <pre><code class="language-bash">$ docker version
@@ -641,7 +642,7 @@ django_1      | Running migrations:
 ... (DB 마이그레이션 진행) ...
 </code></pre>
 <p><a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>에 접속해보면 개발 서버가 잘 작동함을 확인할 수 있습니다. 이를 그림으로 나타내면 다음과 같습니다.</p>
-<p><img src="../content/images/2017/02/docker-compose-dev-env2.png" alt="" loading="lazy"></p>
+<p><img src="https://raccoonyy.github.io/content/images/2017/02/docker-compose-dev-env2.png" alt="" loading="lazy"></p>
 <p>각 컨테이너를 실행하던 길고 복잡한 명령어들이 사라졌고, 간단한 명령어 한 줄로 개발 서버와 데이터베이스를 모두 실행하였습니다. 이렇게 해서 개발 서버 구성이 모두 끝났습니다.</p>
 <p>그런데 앞에서 개발 서버용 Dockerfile이 따로 존재한다고 말했는데요. 이것 하나만 더 짚고 넘어가겠습니다.</p>
 <h3 id="19dockerfilevsdockerfiledev">1.9 Dockerfile vs. Dockerfile-dev</h3>
@@ -975,16 +976,16 @@ django_1     | Quit the server with CONTROL-C.
 <p>하드디스크에 용량이 엄청 많이 남아 있었는데도 말이죠. 부랴부랴 검색을 해보니, Docker for OS X에서 사용하는 가상 파일 시스템의 기본 최대 값이 64기가바이트여서 발생한 문제였습니다.</p>
 <p><mark>주의! 다음 내용을 진행하면 도커 이미지와 컨테이너, 볼륨이 모두 사라집니다.</mark></p>
 <p>이 경우 Docker for OS X의 환경 설정 <code>Reset</code> 버튼을 누르면 해결됩니다.</p>
-<p><img src="../content/images/2017/03/docker-for-os-x-reset2-copy.png" alt="" loading="lazy"></p>
+<p><img src="https://raccoonyy.github.io/content/images/2017/03/docker-for-os-x-reset2-copy.png" alt="" loading="lazy"></p>
 <p><code>Reset</code>하기가 무섭다면, Docker for OS X를 종료한 후 다음 파일을 삭제하고서 Docker for OS X를 실행하면 됩니다.</p>
 <p><code>/Users/(LOGIN_ID)/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/Docker.qcow2</code></p>
 <p>정확한 위치는 Docker for OS X의 환경 설정에서 Advanced 탭에 들어가 보면 알 수 있습니다.</p>
-<p><img src="../content/images/2017/03/docker-for-os-x-location-copy.png" alt="" loading="lazy"></p>
+<p><img src="https://raccoonyy.github.io/content/images/2017/03/docker-for-os-x-location-copy.png" alt="" loading="lazy"></p>
 <h4 id="7pyenv23">7. pyenv 없이 파이썬2와 파이썬3을 오갈 수 있음</h4>
 <p>회사에서 개발한 라이브러리에 파이썬3 호환성을 추가할 때도 이 방식을 사용해보았습니다. 파이썬3을 로컬 컴퓨터에 설치하지 않고 간단한 <code>docker-compose.yml</code>을 작성하여(사용한 이미지는 도커 공식 저장소의 <code>python:3</code>) 서비스를 띄운 후 테스트를 실행해가며, 호환성이 없는 부분을 찾아내고 수정할 수 있었습니다.</p>
 <h4 id="8ghost">8. 로컬에서 Ghost 블로그 운영하기</h4>
 <p>자세한 내용은 다음 블로그 글을 참고하세요. :)</p>
-<p><strong><a href="../docker-for-ghost-blogging/index.html">Docker 활용법 - Ghost 블로그 운영하기 by raccoony</a></strong></p>
+<p><strong><a href="https://raccoonyy.github.io/docker-for-ghost-blogging/">Docker 활용법 - Ghost 블로그 운영하기 by raccoony</a></strong></p>
 <hr>
 <p>이렇게 해서 개발 환경 구성하기를 마쳤습니다. 장황해보이지만, 실제로는 한 번 잘 구성해 두면 다른 프로젝트에는 그저 옮겨 붙이는 정도로 쉽게 적용할 수 있을 겁니다.</p>
 <p>마지막으로, 글을 미리 읽고 검토해주신 <a href="https://twitter.com/@nacyo_t">@nacyo_t</a>님께 감사의 마음을 전합니다.</p>
@@ -1001,7 +1002,7 @@ django_1     | Quit the server with CONTROL-C.
 <section class="footer-cta">
     <div class="inner">
         <h2>Sign up for more like this.</h2>
-        <a class="footer-cta-button" href="index.html#/portal">
+        <a class="footer-cta-button" href="#/portal">
             <div>Enter your email</div>
             <span>Subscribe</span>
         </a>
@@ -1016,14 +1017,14 @@ django_1     | Quit the server with CONTROL-C.
                     
 <article class="post-card post ">
 
-    <a class="post-card-image-link" href="../geeks-who-invented-click-and-internet/index.html">
+    <a class="post-card-image-link" href="/geeks-who-invented-click-and-internet/">
         <img class="post-card-image"
-            srcset="../content/images/size/w300/2018/03/click.jpg 300w,
-                   ../content/images/size/w600/2018/03/click.jpg 600w,
-                  ../content/images/size/w1000/2018/03/click.jpg 1000w,
-                 ../content/images/size/w2000/2018/03/click.jpg 2000w"
+            srcset="/content/images/size/w300/2018/03/click.jpg 300w,
+                    /content/images/size/w600/2018/03/click.jpg 600w,
+                    /content/images/size/w1000/2018/03/click.jpg 1000w,
+                    /content/images/size/w2000/2018/03/click.jpg 2000w"
             sizes="(max-width: 1000px) 400px, 800px"
-            src="../content/images/size/w600/2018/03/click.jpg"
+            src="/content/images/size/w600/2018/03/click.jpg"
             alt="[독후감] 클릭을 발명한 괴짜들"
             loading="lazy"
         />
@@ -1031,7 +1032,7 @@ django_1     | Quit the server with CONTROL-C.
 
     <div class="post-card-content">
 
-        <a class="post-card-content-link" href="../geeks-who-invented-click-and-internet/index.html">
+        <a class="post-card-content-link" href="/geeks-who-invented-click-and-internet/">
             <header class="post-card-header">
                 <h2 class="post-card-title">[독후감] 클릭을 발명한 괴짜들</h2>
             </header>
@@ -1043,13 +1044,13 @@ django_1     | Quit the server with CONTROL-C.
         <footer class="post-card-meta">
             <ul class="author-list">
                 <li class="author-list-item">
-                    <a href="../author/raccoony/index.html" class="static-avatar">
-                        <img class="author-profile-image" src="http://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                    <a href="/author/raccoony/" class="static-avatar">
+                        <img class="author-profile-image" src="//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x" alt="raccoony" />
                     </a>
                 </li>
             </ul>
             <div class="post-card-byline-content">
-                <span><a href="../author/raccoony/index.html">raccoony</a></span>
+                <span><a href="/author/raccoony/">raccoony</a></span>
                 <span class="post-card-byline-date"><time datetime="2018-03-28">2018년 3월 28일</time> <span class="bull">&bull;</span> 8 min read</span>
             </div>
         </footer>
@@ -1060,14 +1061,14 @@ django_1     | Quit the server with CONTROL-C.
                     
 <article class="post-card post ">
 
-    <a class="post-card-image-link" href="../diary-of-changing-job/index.html">
+    <a class="post-card-image-link" href="/diary-of-changing-job/">
         <img class="post-card-image"
-            srcset="../content/images/size/w300/2018/02/man-adjusting-tie.jpg 300w,
-                   ../content/images/size/w600/2018/02/man-adjusting-tie.jpg 600w,
-                  ../content/images/size/w1000/2018/02/man-adjusting-tie.jpg 1000w,
-                 ../content/images/size/w2000/2018/02/man-adjusting-tie.jpg 2000w"
+            srcset="/content/images/size/w300/2018/02/man-adjusting-tie.jpg 300w,
+                    /content/images/size/w600/2018/02/man-adjusting-tie.jpg 600w,
+                    /content/images/size/w1000/2018/02/man-adjusting-tie.jpg 1000w,
+                    /content/images/size/w2000/2018/02/man-adjusting-tie.jpg 2000w"
             sizes="(max-width: 1000px) 400px, 800px"
-            src="../content/images/size/w600/2018/02/man-adjusting-tie.jpg"
+            src="/content/images/size/w600/2018/02/man-adjusting-tie.jpg"
             alt="이직 일기"
             loading="lazy"
         />
@@ -1075,7 +1076,7 @@ django_1     | Quit the server with CONTROL-C.
 
     <div class="post-card-content">
 
-        <a class="post-card-content-link" href="../diary-of-changing-job/index.html">
+        <a class="post-card-content-link" href="/diary-of-changing-job/">
             <header class="post-card-header">
                 <h2 class="post-card-title">이직 일기</h2>
             </header>
@@ -1087,13 +1088,13 @@ django_1     | Quit the server with CONTROL-C.
         <footer class="post-card-meta">
             <ul class="author-list">
                 <li class="author-list-item">
-                    <a href="../author/raccoony/index.html" class="static-avatar">
-                        <img class="author-profile-image" src="http://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                    <a href="/author/raccoony/" class="static-avatar">
+                        <img class="author-profile-image" src="//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x" alt="raccoony" />
                     </a>
                 </li>
             </ul>
             <div class="post-card-byline-content">
-                <span><a href="../author/raccoony/index.html">raccoony</a></span>
+                <span><a href="/author/raccoony/">raccoony</a></span>
                 <span class="post-card-byline-date"><time datetime="2018-02-11">2018년 2월 11일</time> <span class="bull">&bull;</span> 18 min read</span>
             </div>
         </footer>
@@ -1104,14 +1105,14 @@ django_1     | Quit the server with CONTROL-C.
                     
 <article class="post-card post ">
 
-    <a class="post-card-image-link" href="../2017-retrospective/index.html">
+    <a class="post-card-image-link" href="/2017-retrospective/">
         <img class="post-card-image"
-            srcset="../content/images/size/w300/2018/01/lottetower-1.png 300w,
-                   ../content/images/size/w600/2018/01/lottetower-1.png 600w,
-                  ../content/images/size/w1000/2018/01/lottetower-1.png 1000w,
-                 ../content/images/size/w2000/2018/01/lottetower-1.png 2000w"
+            srcset="/content/images/size/w300/2018/01/lottetower-1.png 300w,
+                    /content/images/size/w600/2018/01/lottetower-1.png 600w,
+                    /content/images/size/w1000/2018/01/lottetower-1.png 1000w,
+                    /content/images/size/w2000/2018/01/lottetower-1.png 2000w"
             sizes="(max-width: 1000px) 400px, 800px"
-            src="../content/images/size/w600/2018/01/lottetower-1.png"
+            src="/content/images/size/w600/2018/01/lottetower-1.png"
             alt="2017년 돌아보기"
             loading="lazy"
         />
@@ -1119,7 +1120,7 @@ django_1     | Quit the server with CONTROL-C.
 
     <div class="post-card-content">
 
-        <a class="post-card-content-link" href="../2017-retrospective/index.html">
+        <a class="post-card-content-link" href="/2017-retrospective/">
             <header class="post-card-header">
                 <h2 class="post-card-title">2017년 돌아보기</h2>
             </header>
@@ -1131,13 +1132,13 @@ django_1     | Quit the server with CONTROL-C.
         <footer class="post-card-meta">
             <ul class="author-list">
                 <li class="author-list-item">
-                    <a href="../author/raccoony/index.html" class="static-avatar">
-                        <img class="author-profile-image" src="http://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&amp;d=mm&amp;r=x" alt="raccoony" />
+                    <a href="/author/raccoony/" class="static-avatar">
+                        <img class="author-profile-image" src="//www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x" alt="raccoony" />
                     </a>
                 </li>
             </ul>
             <div class="post-card-byline-content">
-                <span><a href="../author/raccoony/index.html">raccoony</a></span>
+                <span><a href="/author/raccoony/">raccoony</a></span>
                 <span class="post-card-byline-date"><time datetime="2018-01-01">2018년 1월 1일</time> <span class="bull">&bull;</span> 14 min read</span>
             </div>
         </footer>
@@ -1154,7 +1155,7 @@ django_1     | Quit the server with CONTROL-C.
 
     <footer class="site-footer outer">
         <div class="inner">
-            <section class="copyright"><a href="../index.html">raccoony&#x27;s cave</a> &copy; 2021</section>
+            <section class="copyright"><a href="https://raccoonyy.github.io">raccoony&#x27;s cave</a> &copy; 2021</section>
             <nav class="site-footer-nav">
                 
             </nav>
@@ -1170,7 +1171,7 @@ django_1     | Quit the server with CONTROL-C.
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
     crossorigin="anonymous">
 </script>
-<script src="../assets/built/casper.js%3Fv=d92811ac5b"></script>
+<script src="/assets/built/casper.js?v=841d0b82a7"></script>
 <script>
 $(document).ready(function () {
     // Mobile Menu Trigger
@@ -1182,10 +1183,7 @@ $(document).ready(function () {
 });
 </script>
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/dockerfile.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/yaml.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/django.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
