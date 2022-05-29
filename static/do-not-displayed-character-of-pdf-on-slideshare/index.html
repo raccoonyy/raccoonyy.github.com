@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/built/screen.css?v=61d94923b7">
+
+    <meta name="description" content="키노트에서 만든 pdf 파일을 슬라이드셰어에 올리면 글자가 나타나지 않는 현상이 있어서, 해법을 알아보았습니다. 불완전한 해법 + a" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/do-not-displayed-character-of-pdf-on-slideshare/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="raccoony&#x27;s cave" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때" />
+    <meta property="og:description" content="키노트에서 만든 pdf 파일을 슬라이드셰어에 올리면 글자가 나타나지 않는 현상이 있어서, 해법을 알아보았습니다. 불완전한 해법 + a" />
+    <meta property="og:url" content="https://raccoonyy.github.io/do-not-displayed-character-of-pdf-on-slideshare/" />
+    <meta property="og:image" content="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-08-17-45.png" />
+    <meta property="article:published_time" content="2016-08-16T23:16:00.000Z" />
+    <meta property="article:modified_time" content="2017-08-03T10:29:25.000Z" />
+    <meta property="article:tag" content="slideshare" />
+    <meta property="article:tag" content="keynote" />
+    <meta property="article:tag" content="슬라이드셰어" />
+    <meta property="article:tag" content="키노트" />
+    <meta property="article:tag" content="pdf" />
+    <meta property="article:tag" content="글자 안 보임" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때" />
+    <meta name="twitter:description" content="키노트에서 만든 pdf 파일을 슬라이드셰어에 올리면 글자가 나타나지 않는 현상이 있어서, 해법을 알아보았습니다. 불완전한 해법 + a" />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/do-not-displayed-character-of-pdf-on-slideshare/" />
+    <meta name="twitter:image" content="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-08-17-45.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Alan Kim" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="slideshare, keynote, 슬라이드셰어, 키노트, pdf, 글자 안 보임" />
+    <meta name="twitter:site" content="@raccoonyy" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "url": "https://raccoonyy.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://raccoonyy.github.io/favicon.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Alan Kim",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&r=x&d=mp",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://raccoonyy.github.io/author/alan/",
+        "sameAs": []
+    },
+    "headline": "슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때",
+    "url": "https://raccoonyy.github.io/do-not-displayed-character-of-pdf-on-slideshare/",
+    "datePublished": "2016-08-16T23:16:00.000Z",
+    "dateModified": "2017-08-03T10:29:25.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-08-17-45.png"
+    },
+    "keywords": "slideshare, keynote, 슬라이드셰어, 키노트, pdf, 글자 안 보임",
+    "description": "\n\n\n2017년 4월 20일 업데이트!\n\n\n\n\n\n\nitem4님이 해결 방법을 공개하셨고, 이를 활용한 OSX용 프린트 플러그인도 softdevstory님이 공개하셨습니다. 참고하세요~ ^^\n\n\n\n\n문제\n\n\n언젠가부터 키노트의 Export To &gt; PDF 기능으로 만든 pdf 파일을 슬라이드셰어에서 제대로 인식하지 못하는 듯 하다.\n\n\n다음과 같이 만든 pdf는\n\n\n\n\n\n이렇게 글자가 안 보이는 현상이 나타난다.\n\n\n\n\n\n그래서 궁여지책으로 speackerdeck을 사용해왔는데, 얘들은 간혹 한국 ip를 차단하는 건지 파일 업로드 후 처리 과정에서 막히는 경우가 종종 발생했다.\n\n\n\n어떤 해법\n\n\n한글 폰트에 열받은 율무님은 이런 슬라이드를 만들기도 했고...\n\n\n슬라이드쉐어 한글폰트 지원여부 폰트별로 알아보기 from Jay Jin\n\n\n\n검색\n\n\n나도 고통을 받다가 혹시나 해서 검색을 해보니, slideshare에서 비슷한 문제를 겪은 일본 프로그래",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.0" />
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    
+    <script defer src="/public/cards.min.js?v=61d94923b7"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=61d94923b7">
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DT5YDEB55X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DT5YDEB55X');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css">
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+</style><style>:root {--ghost-accent-color: #FF1A75;}</style>
+</head>
+
+<body class="post-template tag-slideshare tag-keynote tag-seulraideusyeeo tag-kinoteu tag-pdf tag-geulja-an-boim is-head-b--a_n">
+    <div class="gh-site">
+        <header id="gh-head" class="gh-head gh-outer">
+            <div class="gh-head-inner gh-inner">
+                    <a class="gh-head-description" href="https://raccoonyy.github.io">Writes about programming, book and etc.</a>
+
+                <div class="gh-head-brand">
+                    <a class="gh-head-logo" href="https://raccoonyy.github.io">
+                            raccoony&#x27;s cave
+                    </a>
+                    <button class="gh-burger"></button>
+                </div>
+
+                <nav class="gh-head-menu">
+                    <ul class="nav">
+    <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
+</ul>
+
+                </nav>
+
+                <div class="gh-head-actions">
+                        <a class="gh-head-btn gh-btn gh-primary-btn" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+            </div>
+        </header>
+
+
+        
+<main class="gh-main">
+        <article class="gh-article post tag-slideshare tag-keynote tag-seulraideusyeeo tag-kinoteu tag-pdf tag-geulja-an-boim">
+            <header class="gh-article-header gh-canvas">
+                    <a class="gh-article-tag" href="https://raccoonyy.github.io/tag/slideshare/">slideshare</a>
+
+                <h1 class="gh-article-title">슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때</h1>
+
+                    <aside class="gh-article-sidebar">
+            <figure class="gh-author-image">
+                    <img src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" alt="Alan Kim">
+            </figure>
+
+            <h4 class="gh-author-name">
+                <a href="/author/alan/">Alan Kim</a>
+            </h4>
+
+        <div class="gh-article-meta">
+            <time class="gh-article-date" datetime="2016-08-17">2016년 8월 17일</time>
+
+                <span class="gh-article-meta-sep"></span>
+                <span class="gh-article-length">4 min</span>
+        </div>
+    </aside>
+
+
+                    <figure class="gh-article-image">
+                        <img
+                            srcset="/content/images/size/w300/2016/08/Screenshot-2016-08-17-08-17-45.png 300w,
+                                    /content/images/size/w720/2016/08/Screenshot-2016-08-17-08-17-45.png 720w,
+                                    /content/images/size/w960/2016/08/Screenshot-2016-08-17-08-17-45.png 960w,
+                                    /content/images/size/w1200/2016/08/Screenshot-2016-08-17-08-17-45.png 1200w,
+                                    /content/images/size/w2000/2016/08/Screenshot-2016-08-17-08-17-45.png 2000w"
+                            sizes="(max-width: 1200px) 100vw, 1200px"
+                            src="/content/images/size/w1200/2016/08/Screenshot-2016-08-17-08-17-45.png"
+                            alt="슬라이드셰어에서 keynote로 만든 pdf의 글자가 나타나지 않을 때"
+                        >
+                    </figure>
+            </header>
+
+            <section class="gh-content gh-canvas">
+                <!--kg-card-begin: markdown--><blockquote>
+<p>2017년 4월 20일 업데이트!</p>
+</blockquote>
+<blockquote>
+<p><a href="https://item4.github.io/2016-10-31/Way-to-Use-Homeland-Fonts-on-SlideShare/">item4님이 해결 방법을 공개</a>하셨고, 이를 활용한 <a href="http://blog.softdevstory.net/%EA%B0%9C%EB%B0%9C/2016/10/31/pdf_for_slideshare/">OSX용 프린트 플러그인</a>도 softdevstory님이 공개하셨습니다. 참고하세요~ ^^</p>
+</blockquote>
+<h2 id="">문제</h2>
+<p>언젠가부터 키노트의 <code>Export To &gt; PDF</code> 기능으로 만든 pdf 파일을 슬라이드셰어에서 제대로 인식하지 못하는 듯 하다.</p>
+<p>다음과 같이 만든 pdf는</p>
+<p><img src="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-16-17-01-47.png" alt="키노트의 Export To &gt; pdf" loading="lazy"></p>
+<p>이렇게 글자가 안 보이는 현상이 나타난다.</p>
+<p><img src="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-16-17-05-56.png" alt="글자가 안 보인다" loading="lazy"></p>
+<p>그래서 궁여지책으로 <a href="http://speakerdeck.com">speackerdeck</a>을 사용해왔는데, 얘들은 간혹 한국 ip를 차단하는 건지 파일 업로드 후 처리 과정에서 막히는 경우가 종종 발생했다.</p>
+<h2 id="">어떤 해법</h2>
+<p>한글 폰트에 열받은 율무님은 이런 슬라이드를 만들기도 했고...</p>
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/hE0dRYXKs0Oi9h" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/jayjin0427/ss-62972276" title="슬라이드쉐어 한글폰트 지원여부 폰트별로 알아보기" target="_blank">슬라이드쉐어 한글폰트 지원여부 폰트별로 알아보기</a> </strong> from <strong><a target="_blank" href="//www.slideshare.net/jayjin0427">Jay Jin</a></strong> </div>
+<h2 id="">검색</h2>
+<p>나도 고통을 받다가 혹시나 해서 검색을 해보니, slideshare에서 <a href="http://qiita.com/yasulab/items/49511c27179be454d568#%E7%94%9F%E6%88%90%E7%B5%90%E6%9E%9C%E3%81%AE%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB">비슷한 문제를 겪은 일본 프로그래머</a>가 있었다.</p>
+<h2 id="">따라하기</h2>
+<p>우회 방법(해법이라고 하지 않은 이유는 나중에 설명)은 바로 <code>Print</code> 기능을 사용하는 것.</p>
+<p><img src="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-26-18.png" alt="" loading="lazy"></p>
+<p>그런데 미리보기 창에 나타나듯 화면 양 옆에 여백이 생긴다. <code>Print</code> 기능은 말 그대로 출력물이기 때문에... 그러니 종이 크기를 4:3 사이즈로 바꾸자.</p>
+<p>오른쪽 중간 쯤의 <code>Keynote</code>가 선택되어 있는 SelectBox를 눌러 <code>Page Attribute</code>를 선택한다.</p>
+<p><img src="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-30-09.png" alt="" loading="lazy"></p>
+<p>그리고 <code>A4</code>가 선택되어 있는 SelectBox를 눌러 제일 아래에 있는 <code>Manage Custom Sizes...</code>를 선택한다.</p>
+<p>팝업 창에서 더하기 버튼(+)을 누르고 다음과 같이 입력하고 <code>OK</code>를 누른다.</p>
+<p><img src="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-31-18.png" alt="" loading="lazy"></p>
+<p>여백이 사라졌다. 짠!</p>
+<p><img src="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-32-40.png" alt="" loading="lazy"></p>
+<p>이제 왼쪽 아래 부분의 <code>PDF</code>가 선택되어 있는 SelectBox를 눌러 <code>Save as Adobe PDF</code>를 선택해주면 된다.</p>
+<p><img src="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-33-37.png" alt="" loading="lazy"></p>
+<p>이렇게 만든 pdf 파일을 슬라이드셰어에 올려보면 글자가 잘 보인다.</p>
+<p><img src="https://raccoonyy.github.io/content/images/2016/08/Screenshot-2016-08-17-06-35-02.png" alt="" loading="lazy"></p>
+<h2 id="">단점</h2>
+<p>앞에서 '우회 방법'이라고 말한 이유를 이제 설명해보자면, 이렇게 만들어 올린 파일에서는 <strong>링크가 눌러지지 않는다.</strong></p>
+<p>그래도 글자가  안 보이는 것보다는 낫지 않나 해서...</p>
+<h2 id="">추가</h2>
+<p><a href="http://qiita.com/yasulab/items/49511c27179be454d568#%E7%94%9F%E6%88%90%E7%B5%90%E6%9E%9C%E3%81%AE%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB">내가 따라한 글</a>의 윗 부분에 이상한 명령어를 적어두었기에 자세히 살펴보니, 궁극의 해법이라는 듯 했다. 명령어의 출처는 <a href="http://d.hatena.ne.jp/a_bicky/20160516/1463337063">하테나 블로그 글</a>.</p>
+<p>이 글에서는 문자 코드와 CMap 같은 어려운 이야기들을 늘어놓으면서, 슬라이드셰어가 어떤 문제를 제대로 처리하지 못한다고 지적한다. 해당 문제를 슬라이드셰어 쪽에 신고했는데, 문제를 알려줘서 고맙지만 언제까지 고칠 수 있을지 장담은 못한다는 답을 받았다고 한다. (보통 이런 경우 '우린 그 문제를 다룰 여력이 없다'는 식으로 해석하면 되던데...)</p>
+<p>그러고나서 어떤 사람이 pdf 파일에 어떤 정보를 집어 넣는 명령어를 제시하고, 이렇게 해서 모든 문제를 해결했다는 듯.</p>
+<pre><code class="language-bash">$ LANG=C LC_ALL=C sed -i '' s'|/Registry (Adobe) /Ordering (Japan1) /Supplement [0-9]|/Registry(Adobe) /Ordering(Identity) /Supplement 0|g' /path/to/pdf
+</code></pre>
+<p>이걸 보고 나도 중간의 <code>Japan1</code>만 <code>Korean1</code>로 바꿔서 시도해봤지만 안 됨... oTL...</p>
+<p>나는 문자 코드나 CMap 등을 잘 몰라서 더이상 어떻게 해야할지 모르겠다.</p>
+<!--kg-card-end: markdown-->
+            </section>
+        </article>
+
+    </main>
+
+        <footer class="gh-foot gh-outer">
+            <div class="gh-foot-inner gh-inner">
+                    <section class="gh-subscribe">
+                            <h4 class="gh-subscribe-title">Subscribe to raccoony&#x27;s cave</h3>
+
+                                <div class="gh-subscribe-description">Don&#x27;t miss out on the latest news. Sign up now to get access to the library of members-only articles.</div>
+
+                            <button class="gh-subscribe-btn gh-btn" data-portal="signup"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33332 3.33334H16.6667C17.5833 3.33334 18.3333 4.08334 18.3333 5.00001V15C18.3333 15.9167 17.5833 16.6667 16.6667 16.6667H3.33332C2.41666 16.6667 1.66666 15.9167 1.66666 15V5.00001C1.66666 4.08334 2.41666 3.33334 3.33332 3.33334Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18.3333 5L9.99999 10.8333L1.66666 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> Subscribe now</button>
+                    </section>
+
+                <nav class="gh-foot-menu">
+                    
+                </nav>
+
+                <div class="gh-copyright">
+                        raccoony&#x27;s cave © 2022. Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/assets/built/main.min.js?v=61d94923b7"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+    var subs = document.getElementsByClassName("gh-subscribe");
+    subs[0].style.display = 'none';
+</script>
+</body>
+
+</html>

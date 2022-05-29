@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>(컴파일 없이) nginx에서 환경 변수 불러오기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/built/screen.css?v=61d94923b7">
+
+    <meta name="description" content="nginx에서 환경 변수를 읽어들이는 방법을 찾아보니 perl 모듈이나 lua 모듈을 사용하라는데, 그러기 싫어서 셸 스크립트를 활용해 보았다." />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/using_env_variables_in_nginx_conf_without_lua_or_perl_module/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="raccoony&#x27;s cave" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="(컴파일 없이) nginx에서 환경 변수 불러오기" />
+    <meta property="og:description" content="nginx에서 환경 변수를 읽어들이는 방법을 찾아보니 perl 모듈이나 lua 모듈을 사용하라는데, 그러기 싫어서 셸 스크립트를 활용해 보았다." />
+    <meta property="og:url" content="https://raccoonyy.github.io/using_env_variables_in_nginx_conf_without_lua_or_perl_module/" />
+    <meta property="og:image" content="https://raccoonyy.github.io/content/images/2016/08/without-any-module.jpg" />
+    <meta property="article:published_time" content="2016-08-04T09:56:51.000Z" />
+    <meta property="article:modified_time" content="2016-09-30T00:49:56.000Z" />
+    <meta property="article:tag" content="nginx" />
+    <meta property="article:tag" content="shell script" />
+    <meta property="article:tag" content="environment variable" />
+    <meta property="article:tag" content="ECS" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="elb" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="(컴파일 없이) nginx에서 환경 변수 불러오기" />
+    <meta name="twitter:description" content="nginx에서 환경 변수를 읽어들이는 방법을 찾아보니 perl 모듈이나 lua 모듈을 사용하라는데, 그러기 싫어서 셸 스크립트를 활용해 보았다." />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/using_env_variables_in_nginx_conf_without_lua_or_perl_module/" />
+    <meta name="twitter:image" content="https://raccoonyy.github.io/content/images/2016/08/without-any-module.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Alan Kim" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="nginx, shell script, environment variable, ECS, docker, elb" />
+    <meta name="twitter:site" content="@raccoonyy" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "url": "https://raccoonyy.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://raccoonyy.github.io/favicon.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Alan Kim",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&r=x&d=mp",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://raccoonyy.github.io/author/alan/",
+        "sameAs": []
+    },
+    "headline": "(컴파일 없이) nginx에서 환경 변수 불러오기",
+    "url": "https://raccoonyy.github.io/using_env_variables_in_nginx_conf_without_lua_or_perl_module/",
+    "datePublished": "2016-08-04T09:56:51.000Z",
+    "dateModified": "2016-09-30T00:49:56.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://raccoonyy.github.io/content/images/2016/08/without-any-module.jpg"
+    },
+    "keywords": "nginx, shell script, environment variable, ECS, docker, elb",
+    "description": "요약\n\n\nlua 모듈 쓰면 겁나 편하지만, 사정상 사용할 수 없다면 셸 스크립트 방식도 고려해보자.\n\n\n\n상황\n\n\n 1. nginx에서 특정 url에 대해 ip를 제한해야 하는데, ip 설정을 동적으로 하고 싶었다. (하지만 db 설정 없이)\n 2. nginx에서 환경 변수를 읽어들이는 방법을 찾아보니 perl 모듈이나 lua 모듈을 사용하라는데, nginx를 직접 컴파일해야 한다는 점이 걸렸다. (컴파일 공포증)\n\n\n아무것도 컴파일하지 않고, 추가로 설치하는 일도 없이 할 수는 없을까?를 고민하다가 최근 재미 들린 셸 스크립트를 활용해보기로 했다.\n\n\n\n\n\n서비스는 docker 이미지로 만들어져, aws의 ECS에 올라가 있다.\n\n\n\n\n1. ip로 url 접근 제한하기\n\n\n/admin/ url에 대해서 특정 ip만 접근하도록 해보자.\n\n\n먼저 nginx.conf의 /admin 부분에 주석문(# admin_ip_whitelist)을 하나 추가했다.\n\n\n# nginx.conf\n...\n",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.0" />
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    
+    <script defer src="/public/cards.min.js?v=61d94923b7"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=61d94923b7">
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DT5YDEB55X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DT5YDEB55X');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css">
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+</style><style>:root {--ghost-accent-color: #FF1A75;}</style>
+</head>
+
+<body class="post-template tag-nginx tag-shell-script tag-environment-variable tag-ecs tag-docker tag-elb is-head-b--a_n">
+    <div class="gh-site">
+        <header id="gh-head" class="gh-head gh-outer">
+            <div class="gh-head-inner gh-inner">
+                    <a class="gh-head-description" href="https://raccoonyy.github.io">Writes about programming, book and etc.</a>
+
+                <div class="gh-head-brand">
+                    <a class="gh-head-logo" href="https://raccoonyy.github.io">
+                            raccoony&#x27;s cave
+                    </a>
+                    <button class="gh-burger"></button>
+                </div>
+
+                <nav class="gh-head-menu">
+                    <ul class="nav">
+    <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
+</ul>
+
+                </nav>
+
+                <div class="gh-head-actions">
+                        <a class="gh-head-btn gh-btn gh-primary-btn" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+            </div>
+        </header>
+
+
+        
+<main class="gh-main">
+        <article class="gh-article post tag-nginx tag-shell-script tag-environment-variable tag-ecs tag-docker tag-elb">
+            <header class="gh-article-header gh-canvas">
+                    <a class="gh-article-tag" href="https://raccoonyy.github.io/tag/nginx/">nginx</a>
+
+                <h1 class="gh-article-title">(컴파일 없이) nginx에서 환경 변수 불러오기</h1>
+
+                    <aside class="gh-article-sidebar">
+            <figure class="gh-author-image">
+                    <img src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" alt="Alan Kim">
+            </figure>
+
+            <h4 class="gh-author-name">
+                <a href="/author/alan/">Alan Kim</a>
+            </h4>
+
+        <div class="gh-article-meta">
+            <time class="gh-article-date" datetime="2016-08-04">2016년 8월 4일</time>
+
+                <span class="gh-article-meta-sep"></span>
+                <span class="gh-article-length">3 min</span>
+        </div>
+    </aside>
+
+
+                    <figure class="gh-article-image">
+                        <img
+                            srcset="/content/images/size/w300/2016/08/without-any-module.jpg 300w,
+                                    /content/images/size/w720/2016/08/without-any-module.jpg 720w,
+                                    /content/images/size/w960/2016/08/without-any-module.jpg 960w,
+                                    /content/images/size/w1200/2016/08/without-any-module.jpg 1200w,
+                                    /content/images/size/w2000/2016/08/without-any-module.jpg 2000w"
+                            sizes="(max-width: 1200px) 100vw, 1200px"
+                            src="/content/images/size/w1200/2016/08/without-any-module.jpg"
+                            alt="(컴파일 없이) nginx에서 환경 변수 불러오기"
+                        >
+                    </figure>
+            </header>
+
+            <section class="gh-content gh-canvas">
+                <!--kg-card-begin: markdown--><h1 id="">요약</h1>
+<p>lua 모듈 쓰면 겁나 편하지만, 사정상 사용할 수 없다면 셸 스크립트 방식도 고려해보자.</p>
+<h1 id="">상황</h1>
+<ol>
+<li>nginx에서 특정 url에 대해 ip를 제한해야 하는데, ip 설정을 동적으로 하고 싶었다. (하지만 <strong>db 설정 없이</strong>)</li>
+<li>nginx에서 환경 변수를 읽어들이는 방법을 찾아보니 perl 모듈이나 lua 모듈을 사용하라는데, nginx를 직접 컴파일해야 한다는 점이 걸렸다. (<strong>컴파일 공포증</strong>)</li>
+</ol>
+<p>아무것도 컴파일하지 않고, 추가로 설치하는 일도 없이 할 수는 없을까?를 고민하다가 최근 재미 들린 셸 스크립트를 활용해보기로 했다.</p>
+<blockquote>
+<p>서비스는 docker 이미지로 만들어져, aws의 ECS에 올라가 있다.</p>
+</blockquote>
+<h3 id="1ipurl">1. ip로 url 접근 제한하기</h3>
+<p><code>/admin/</code> url에 대해서 특정 ip만 접근하도록 해보자.</p>
+<p>먼저 <code>nginx.conf</code>의 /admin 부분에 주석문(<code># admin_ip_whitelist</code>)을 하나 추가했다.</p>
+<pre><code class="language-language-nginx"># nginx.conf
+...
+# 로드 밸런서를 사용하는 경우 이 부분들이 필요하다.
+set_real_ip_from   172.17.0.0/16;  # 로드 밸런서의 ip 대역을 넣어준다.
+real_ip_header     X-Forwarded-For;
+...
+# 로드 밸런서가 없다면 아래 부분만 있어도 된다.
+location /admin {
+    uwsgi_pass unix:///var/run/default-uwsgi.sock;
+    include uwsgi_params;
+    # admin_ip_whitelist
+}
+...
+</code></pre>
+<p>그 다음 docker 이미지의 CMD 부분에 셸 스크립트를 넣는다.</p>
+<pre><code class="language-language-docker"># Dockerfile
+...
+ADD    ./run.sh /
+CMD    /run.sh
+</code></pre>
+<p>이제 <code>run.sh</code> 파일을 작성한다.</p>
+<pre><code class="language-language-bash">#!/bin/bash
+
+if [ -n &quot;$IP_WHITELIST_FOR_ADMIN&quot; ]; then
+    IP_WHITELIST=&quot;allow ${IP_WHITELIST_FOR_ADMIN};\n&quot;
+    IP_WHITELIST+=&quot;deny all;&quot;
+
+    sed -i &quot;s@# admin_ip_whitelist@${IP_WHITELIST}@g&quot; /etc/nginx/nginx.conf
+fi
+
+supervisord -n  # 이건 원래 Dockerfile의 CMD 부분에서 실행하던 명령어
+</code></pre>
+<p>이제 ECS의 Task Definition에서 <code>IP_WHITE_LIST_FOR_ADMIN</code> 환경변수를 추가하면 해당 IP만 <code>/admin</code>에 접근할 수 있다.</p>
+<h3 id="2elbvpcurl">2. ELB의 vpc 대역으로 특정 url 접근 제한하기</h3>
+<p>이번에는 <code>/api/special</code>에 대해 같은 vpc 내부의 요청만 허용해보자. (1번 작업을 해두었다고 가정한다.)</p>
+<p><code>nginx.conf</code>의 /api/special 부분에 주석문(<code># vpc_ip_range</code>)을 추가한다.</p>
+<pre><code class="language-language-nginx">location /api/special {
+    uwsgi_pass unix:///var/run/default-uwsgi.sock;
+    include uwsgi_params;
+    # vpc_ip_range
+}
+</code></pre>
+<p>그리고 <code>run.sh</code>에 다음 내용을 추가한다.</p>
+<pre><code class="language-language-bash"># run.sh
+...
+if [ -n &quot;WRITE_API_ACCESS_ONLY_VPC&quot; ]; then
+    # 서버의 IP 네트워크 내역을 검출하는 방법.
+    # 주의! 네트워크가 여럿인 경우엔 결과 값도 여러 개로 나오므로, 이를 배열에 저장하여 사용해야 함
+    VPC_SUBNET_MASK=`ip -o -f inet addr show | awk '/scope global/ {print $4}'`
+
+    VPC_IP_RANGE=&quot;allow ${VPC_SUBNET_MASK};\n&quot;
+    VPC_IP_RANGE=&quot;deny all;&quot;
+
+    sed -i &quot;s@# vpc_ip_range@${VPC_IP_RANGE}@g&quot; /etc/nginx/nginx.conf
+fi
+...
+</code></pre>
+<p>이제 ECS의 Task Definition에서 <code>WRITE_API_ACCESS_ONLY_VPC</code> 값을 설정하면(어떤 값으로든), <code>/api/special</code>이라는 경로는 VPC 내부에서만 접근할 수 있게 된다.</p>
+<h1 id="">배운 점</h1>
+<ol>
+<li>
+<p>shell script를 좀더 제대로 배워보고 싶어졌다. 알면 알수록 활용성이 올라갈 듯.</p>
+</li>
+<li>
+<p>sed 같은 유닉스 기본 명령도 많이 알아보자.</p>
+</li>
+<li>
+<p>docker와 환경 변수 독립이라는 개념이 유닉스나 시스템 엔지니어링에 익숙하지 않은 사람(=나)에게 큰 도움이 되는 듯.</p>
+</li>
+</ol>
+<!--kg-card-end: markdown-->
+            </section>
+        </article>
+
+                <div class="gh-read-next gh-canvas">
+                <section class="gh-pagehead">
+                    <h4 class="gh-pagehead-title">Read next</h4>
+                </section>
+
+                <div class="gh-topic gh-topic-grid">
+                    <div class="gh-topic-content">
+                            <article class="gh-card post">
+    <a class="gh-card-link" href="/2016-retrospective/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/12/2016-retrospective.png 300w,
+                            /content/images/size/w720/2016/12/2016-retrospective.png 720w,
+                            /content/images/size/w960/2016/12/2016-retrospective.png 960w,
+                            /content/images/size/w1200/2016/12/2016-retrospective.png 1200w,
+                            /content/images/size/w2000/2016/12/2016-retrospective.png 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/12/2016-retrospective.png"
+                    alt="2016년 돌아보기"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">2016년 돌아보기</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">2016년을 돌아보자.
+
+
+
+한 줄 요약 : 아는 만큼 모르게 된다.
+
+
+
+내가 뽑은 올해의 키워드 : 민주주의
+
+
+작년부터 조금씩 민주주의식 회의 제도나 조직 같은 것에 관심이 있었고, 올해는 정의당 서울시당에서 주관한 정치 아카데미를 통해 민주주의 공부를 조금이나마 시작한 상태에서, 4500만명이 경악하는 사건이 터졌다. (500만명은 시각이 다르다.) 사건의 흐름과 이면에서 흐르는 이야기들을 다양한 시각으로</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-12-30">2016년 12월 30일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/docker-for-ghost-blogging/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2017/01/docker-for-ghost-blogging.png 300w,
+                            /content/images/size/w720/2017/01/docker-for-ghost-blogging.png 720w,
+                            /content/images/size/w960/2017/01/docker-for-ghost-blogging.png 960w,
+                            /content/images/size/w1200/2017/01/docker-for-ghost-blogging.png 1200w,
+                            /content/images/size/w2000/2017/01/docker-for-ghost-blogging.png 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2017/01/docker-for-ghost-blogging.png"
+                    alt="Docker 활용법 - Ghost 블로그 Github에서 운영하기"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">Docker 활용법 - Ghost 블로그 Github에서 운영하기</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">Docker를 활용하여 블로깅 도구인 Ghost와 Buster를 활용하여 정적 블로그 생성을 편리하게 구축해 보았습니다.
+
+
+
+
+요약
+
+
+다음 깃헙 저장소를 다운받은 후, .env 파일을 수정하고 나서 docker-compose up -d하면 블로깅 환경 완성! (필요한 건 오직 Docker뿐.)
+
+
+
+
+
+이 글에서 사용하는 도구들
+
+
+Ghost
+
+
+Ghost는 깔끔한 외관과 편리한 관리 기능으로 많은 분들에게 사랑을 받고 있는 Node.</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2017-02-02">2017년 2월 2일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post featured">
+    <a class="gh-card-link" href="/docker-usages-for-dev-environment-setup/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2022/05/docker-usages-dev-environment-setup.png 300w,
+                            /content/images/size/w720/2022/05/docker-usages-dev-environment-setup.png 720w,
+                            /content/images/size/w960/2022/05/docker-usages-dev-environment-setup.png 960w,
+                            /content/images/size/w1200/2022/05/docker-usages-dev-environment-setup.png 1200w,
+                            /content/images/size/w2000/2022/05/docker-usages-dev-environment-setup.png 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2022/05/docker-usages-dev-environment-setup.png"
+                    alt="Docker (Compose) 활용법 - 개발 환경 구성하기"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">Docker (Compose) 활용법 - 개발 환경 구성하기</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">인프런 강의 안내
+
+
+
+
+2021-03-26
+
+
+
+이 글의 내용을 인프런 강의로 제작하였습니다.
+
+
+
+
+
+개정 알림
+
+
+
+
+2019-03-20
+
+
+
+이 글의 개정본을 도커 컴포즈를 활용하여 완벽한 개발 환경 구성하기에서 읽으실 수 있습니다. 개정본에서는 도커 컴포즈의 최신 버전에 맞춰 필요 없는 설명을 일부 삭제했고, 도커 자체에 대한 설명도 왜 굳이 도커를 써야 하나요?로 분리하였습니다.
+
+
+
+
+
+배포 환경에</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2021-03-26">2021년 3월 26일</time>
+            </footer>
+        </div>
+    </a>
+</article>                    </div>
+                </div>
+            </div>
+</main>
+
+        <footer class="gh-foot gh-outer">
+            <div class="gh-foot-inner gh-inner">
+                    <section class="gh-subscribe">
+                            <h4 class="gh-subscribe-title">Subscribe to raccoony&#x27;s cave</h3>
+
+                                <div class="gh-subscribe-description">Don&#x27;t miss out on the latest news. Sign up now to get access to the library of members-only articles.</div>
+
+                            <button class="gh-subscribe-btn gh-btn" data-portal="signup"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33332 3.33334H16.6667C17.5833 3.33334 18.3333 4.08334 18.3333 5.00001V15C18.3333 15.9167 17.5833 16.6667 16.6667 16.6667H3.33332C2.41666 16.6667 1.66666 15.9167 1.66666 15V5.00001C1.66666 4.08334 2.41666 3.33334 3.33332 3.33334Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18.3333 5L9.99999 10.8333L1.66666 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> Subscribe now</button>
+                    </section>
+
+                <nav class="gh-foot-menu">
+                    
+                </nav>
+
+                <div class="gh-copyright">
+                        raccoony&#x27;s cave © 2022. Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/assets/built/main.min.js?v=61d94923b7"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+    var subs = document.getElementsByClassName("gh-subscribe");
+    subs[0].style.display = 'none';
+</script>
+</body>
+
+</html>

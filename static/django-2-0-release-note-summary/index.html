@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Django 2.0 릴리스와 주요 변경 사항</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/built/screen.css?v=61d94923b7">
+
+    <meta name="description" content="새 intro 페이지, 모바일 대응 관리자 화면과 함께 멋지게 등장한 Django 2.0! 어떤 기능이 추가되었을지 기대되지 않으세요? 이 글에서 확인해보세요. :)" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/django-2-0-release-note-summary/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="raccoony&#x27;s cave" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Django 2.0 릴리스와 주요 변경 사항" />
+    <meta property="og:description" content="새 intro 페이지, 모바일 대응 관리자 화면과 함께 멋지게 등장한 Django 2.0! 어떤 기능이 추가되었을지 기대되지 않으세요? 이 글에서 확인해보세요. :)" />
+    <meta property="og:url" content="https://raccoonyy.github.io/django-2-0-release-note-summary/" />
+    <meta property="og:image" content="https://raccoonyy.github.io/content/images/2017/11/django-2.0.png" />
+    <meta property="article:published_time" content="2017-12-02T19:58:04.000Z" />
+    <meta property="article:modified_time" content="2018-01-10T11:14:03.000Z" />
+    <meta property="article:tag" content="Django" />
+    <meta property="article:tag" content="django 2.0" />
+    <meta property="article:tag" content="릴리스 노트" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Django 2.0 릴리스와 주요 변경 사항" />
+    <meta name="twitter:description" content="새 intro 페이지, 모바일 대응 관리자 화면과 함께 멋지게 등장한 Django 2.0! 어떤 기능이 추가되었을지 기대되지 않으세요? 이 글에서 확인해보세요. :)" />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/django-2-0-release-note-summary/" />
+    <meta name="twitter:image" content="https://raccoonyy.github.io/content/images/2017/11/django-2.0.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Alan Kim" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Django, django 2.0, 릴리스 노트" />
+    <meta name="twitter:site" content="@raccoonyy" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "url": "https://raccoonyy.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://raccoonyy.github.io/favicon.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Alan Kim",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&r=x&d=mp",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://raccoonyy.github.io/author/alan/",
+        "sameAs": []
+    },
+    "headline": "Django 2.0 릴리스와 주요 변경 사항",
+    "url": "https://raccoonyy.github.io/django-2-0-release-note-summary/",
+    "datePublished": "2017-12-02T19:58:04.000Z",
+    "dateModified": "2018-01-10T11:14:03.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://raccoonyy.github.io/content/images/2017/11/django-2.0.png"
+    },
+    "keywords": "Django, django 2.0, 릴리스 노트",
+    "description": "새 intro 페이지, 모바일 대응 관리자 화면과 함께 멋지게 등장한 Django 2.0! 어떤 기능이 추가되었을지 기대되지 않으세요? 이 글에서 확인해보세요. :)",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.0" />
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    
+    <script defer src="/public/cards.min.js?v=61d94923b7"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=61d94923b7">
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DT5YDEB55X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DT5YDEB55X');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css">
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+</style><style>:root {--ghost-accent-color: #FF1A75;}</style>
+</head>
+
+<body class="post-template tag-django tag-django-2-0 tag-rilriseu-noteu is-head-b--a_n">
+    <div class="gh-site">
+        <header id="gh-head" class="gh-head gh-outer">
+            <div class="gh-head-inner gh-inner">
+                    <a class="gh-head-description" href="https://raccoonyy.github.io">Writes about programming, book and etc.</a>
+
+                <div class="gh-head-brand">
+                    <a class="gh-head-logo" href="https://raccoonyy.github.io">
+                            raccoony&#x27;s cave
+                    </a>
+                    <button class="gh-burger"></button>
+                </div>
+
+                <nav class="gh-head-menu">
+                    <ul class="nav">
+    <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
+</ul>
+
+                </nav>
+
+                <div class="gh-head-actions">
+                        <a class="gh-head-btn gh-btn gh-primary-btn" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+            </div>
+        </header>
+
+
+        
+<main class="gh-main">
+        <article class="gh-article post tag-django tag-django-2-0 tag-rilriseu-noteu">
+            <header class="gh-article-header gh-canvas">
+                    <a class="gh-article-tag" href="https://raccoonyy.github.io/tag/django/">Django</a>
+
+                <h1 class="gh-article-title">Django 2.0 릴리스와 주요 변경 사항</h1>
+
+                    <aside class="gh-article-sidebar">
+            <figure class="gh-author-image">
+                    <img src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" alt="Alan Kim">
+            </figure>
+
+            <h4 class="gh-author-name">
+                <a href="/author/alan/">Alan Kim</a>
+            </h4>
+
+        <div class="gh-article-meta">
+            <time class="gh-article-date" datetime="2017-12-03">2017년 12월 3일</time>
+
+                <span class="gh-article-meta-sep"></span>
+                <span class="gh-article-length">12 min</span>
+        </div>
+    </aside>
+
+                    <p class="gh-article-excerpt">새 intro 페이지, 모바일 대응 관리자 화면과 함께 멋지게 등장한 Django 2.0! 어떤 기능이 추가되었을지 기대되지 않으세요? 이 글에서 확인해보세요. :)</p>
+
+                    <figure class="gh-article-image">
+                        <img
+                            srcset="/content/images/size/w300/2017/11/django-2.0.png 300w,
+                                    /content/images/size/w720/2017/11/django-2.0.png 720w,
+                                    /content/images/size/w960/2017/11/django-2.0.png 960w,
+                                    /content/images/size/w1200/2017/11/django-2.0.png 1200w,
+                                    /content/images/size/w2000/2017/11/django-2.0.png 2000w"
+                            sizes="(max-width: 1200px) 100vw, 1200px"
+                            src="/content/images/size/w1200/2017/11/django-2.0.png"
+                            alt="Django 2.0 릴리스와 주요 변경 사항"
+                        >
+                    </figure>
+            </header>
+
+            <section class="gh-content gh-canvas">
+                <!--kg-card-begin: markdown--><p>사진 출처: <a href="https://www.flickr.com/photos/28744631@N06/8593971219/">Pinkie Pie by Daniel Chang</a></p>
+<blockquote>
+<p>Django 2.0이 드디어 출시되었습니다. 첫 2.x 버전인데요. 이 글에서는 Django 2.0에 추가된 기능과 바뀐점을 간략하게 알아보려 합니다. <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/">Django 공식 릴리스 노트</a>를 참고하였습니다. <strong>주의! 릴리스 노트를 모두 번역하지는 않았습니다. 대신, 언뜻 이해가 되지 않은 부분엔 제 나름의 설명도 추가하였습니다.</strong><br>
+하위 버전들의 보안 업데이트도 함께 올라왔습니다.</p>
+</blockquote>
+<blockquote>
+<p>2018-01-10 updated.<br>
+url 라우팅 문법에서 예시 코드에 오류가 있었습니다. 2.0에서 추가된 새 문법을 사용하려면, <code>url()</code> 메서드가 아닌 <code>path()</code> 메서드를 사용해야 합니다. 임동현 님 고맙습니다. ^^</p>
+</blockquote>
+<blockquote>
+<p>2017-12-03 updated.<br>
+<code>User.is_authenticated()</code> 메서드와 <code>User.is_anonymous()</code> 메서드에 대해 잘못 번역한 내용을 수정하였습니다. 김남홍 님 고맙습니다. ^^</p>
+</blockquote>
+<h2 id="">파이썬 호환성</h2>
+<p>Django 2.0은 파이썬 3.4, 3.5, 3.6에서 작동합니다. 각 버전별 마지막 릴리스를 사용하기를 추천합니다.<br>
+Django 1.11.x는 파이썬 2.7을 지원하는 마지막 버전입니다.<br>
+Django 2.0은 파이썬 3.4를 지원하는 마지막 버전입니다. Django 2.0의 수명 주기는 2019년 4월이므로, 이후에도 파이썬 3.4를 사용해야 한다면 수명주기가 2020년 4월까지인 Django 1.11 LTS를 사용하세요. (참고로 파이썬 3.4의 수명주기는 2019년 4월까지입니다.)</p>
+<h2 id="django">서드파티 라이브러리의 Django 하위 호환성에 대해</h2>
+<p>Django 2.0에 맞춰 서드파티 라이브러리를 개발하고 있다면, Django 1.11 이전의 모든 버전에 대한 지원을 중단할 것을 제안합니다.</p>
+<h2 id="">새 기능</h2>
+<h4 id="url">URL 라우팅 문법 간소화</h4>
+<p>추가된 <a href="https://docs.djangoproject.com/en/2.0/ref/urls/#django.urls.path"><code>django.urls.path()</code></a> 함수를 사용하면, 이렇게 조금 복잡했던 URL 라우팅 문법을</p>
+<pre><code class="language-python">url(r'^book/(?P&lt;pk&gt;/d+)/$', views.book_detail),
+</code></pre>
+<p>이렇게 읽기 좋게 바꿀 수 있습니다.</p>
+<pre><code class="language-python">path(r'^book/&lt;int:pk&gt;/', views.book_detail),
+</code></pre>
+<p>새 문법에서는 URL 파라미터의 타입을 강제합니다.<br>
+<code>django.conf.urls.url()</code> 함수는 <a href="https://docs.djangoproject.com/en/2.0/ref/urls/#django.urls.re_path"><code>django.urls.re_path()</code> 함수</a>로 바뀌었습니다. <code>django.conf.urls.include()</code>  함수는 <code>django.urls.include()</code>로 옮겨졌습니다.<br>
+새 URL 디스패처에 대해서는 <a href="https://docs.djangoproject.com/en/2.0/topics/http/urls/">URL dispatcher 문서</a>를 참고하세요.</p>
+<h4 id="">모바일 친화적인 관리자 화면</h4>
+<p>관리자 화면이 반응형 레이아웃으로 바뀌며, 대다수 모바일 디바이스를 지원합니다.<br>
+<img src="https://raccoonyy.github.io/content/images/2017/11/django-admin.png" alt="django-admin" loading="lazy"></p>
+<h4 id="window"><a href="https://docs.djangoproject.com/en/2.0/ref/models/expressions/#window-functions"><code>Window</code> 데이터베이스 함수</a></h4>
+<p>쿼리셋에 <code>OVER</code> 절을 추가할 수 있는 <code>Window</code> 표현식이 추가되었습니다.</p>
+<ul>
+<li><code>CumeDist(*expressions, **extra)</code> 클래스는 <a href="https://ko.wikipedia.org/wiki/%EB%88%84%EC%A0%81_%EB%B6%84%ED%8F%AC_%ED%95%A8%EC%88%98">누적 분포</a>를 계산합니다.</li>
+<li><code>FirstValue(*expressions, **extra)</code> 클래스는 해당 윈도우의 첫 행을 반환합니다. (없으면 <code>None</code>)</li>
+<li><code>Lag(expression, offset=1, default=None, **extra</code> 클래스는 <code>offset</code> 만큼 앞에 있는 값을 구합니다. <code>offset</code>에 해당하는 값이 없으면 <code>default</code> 값을 반환합니다.</li>
+</ul>
+<p>예)</p>
+<table>
+<thead>
+<tr>
+<th>년도</th>
+<th>판매액</th>
+<th>Lag(offset=1, default=0)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2015</td>
+<td>13,000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2016</td>
+<td>15,000</td>
+<td>13,000</td>
+</tr>
+<tr>
+<td>2017</td>
+<td>20,000</td>
+<td>15,000</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>LastValue(*expressions, **extra)</code> 클래스는 해당 윈도우의 마지막 행을 반환합니다.</li>
+<li><code>Lead(expression, offset=1, default=None, **extra)</code> 클래스는 <code>offset</code>만큼 뒤에 있는 값을 구합니다. <code>offset</code>에 해당하는 값이 없으면 <code>default</code> 값을 반환합니다.</li>
+</ul>
+<p>예)</p>
+<table>
+<thead>
+<tr>
+<th>년도</th>
+<th>판매액</th>
+<th>Laed(offset=1, default=0)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2015</td>
+<td>13,000</td>
+<td>15,000</td>
+</tr>
+<tr>
+<td>2016</td>
+<td>15,000</td>
+<td>20,000</td>
+</tr>
+<tr>
+<td>2017</td>
+<td>20,000</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>NthValue(expression, nth=1, **extra)</code> 클래스는 해당 윈도우의 <code>nth</code>번째(항상 자연수) 행을 반환합니다. (값이 존재하지 않을 경우, 데이터베이스에 따라 다르게 작동합니다.)</li>
+<li><code>Ntile(num_buckets=1, **extra)</code> 클래스는 해당 윈도우를 <code>num_buckets</code>만큼 분할한 결과를 반환합니다.</li>
+<li><code>RowNumber(*expressions, **extra)</code> 클래스는 해당 윈도우의 정렬 방식에 따라 행 번호를 계산합니다.</li>
+<li>이후에 등장하는 Rank 관련 클래스의 결과는 다음 표와 같습니다.</li>
+</ul>
+<p>예)</p>
+<table>
+<thead>
+<tr>
+<th>행</th>
+<th>값</th>
+<th>Rank</th>
+<th>계산 결과</th>
+<th>PercentRank</th>
+<th>DenseRank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>15</td>
+<td>1</td>
+<td>(1 - 1) / (7 - 1)</td>
+<td>0.0000</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>20</td>
+<td>2</td>
+<td>(2 - 1) / (7 - 1)</td>
+<td>0.1666</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>20</td>
+<td>2</td>
+<td>(2 - 1) / (7 - 1)</td>
+<td>0.1666</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td>2</td>
+<td>(2 - 1) / (7 - 1)</td>
+<td>0.1666</td>
+<td>2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>30</td>
+<td>5</td>
+<td>(5 - 1) / (7 - 1)</td>
+<td>0.6666</td>
+<td>3</td>
+</tr>
+<tr>
+<td>6</td>
+<td>30</td>
+<td>5</td>
+<td>(5 - 1) / (7 - 1)</td>
+<td>0.6666</td>
+<td>3</td>
+</tr>
+<tr>
+<td>7</td>
+<td>40</td>
+<td>7</td>
+<td>(7 - 1) / (7 - 1)</td>
+<td>1.0000</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>Rank(*expressions, **extra)</code> 클래스는 해당 윈도우에서 순위를 계산합니다. (공동 순위인 경우 다음 순위가 밀립니다.)</li>
+<li><code>PercentRank(*expressions, **extra)</code> 클래스는 해당 윈도우에서 백분위(<code>(rank - 1) / (total rows - 1)</code>)를 계산합니다.</li>
+<li><code>DenseRank(*expressions, **extra)</code> 클래스는 <code>Rank</code> 함수와 같지만 공동 순위를 하나로 취급합니다.</li>
+<li>자세한 내용은 <a href="https://docs.djangoproject.com/en/2.0/ref/models/database-functions/#window-functions">window 함수 문서</a>와 <a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#aggregation-functions">aggregation 함수 문서</a>를 참고하세요.</li>
+</ul>
+<h2 id="">사소한 변경</h2>
+<h4 id="djangocontribadmin"><a href="https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#module-django.contrib.admin"><code>django.contrib.admin</code></a></h4>
+<p><a href="https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.autocomplete_fields"><code>ModelAdmin.autocomplete_fields</code></a> 속성과 <a href="https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.get_autocomplete_fields"><code>ModelAdmin.get_autocomplete_fields()</code></a> 메서드를 사용하면 ForeignKey나 ManyToManyField에 대해 <a href="https://select2.org/">Select2</a> 위짓을 적용할 수 있습니다.</p>
+<h4 id="djangocontribauth"><a href="https://docs.djangoproject.com/en/2.0/topics/auth/#module-django.contrib.auth"><code>django.contrib.auth</code></a></h4>
+<p>PBKDF2 비밀번호 해셔의 기본 이터레이션 횟수가 3만 6천 회에서 10만 회로 늘었습니다.</p>
+<h4 id="djangocontribgis"><a href="https://docs.djangoproject.com/en/2.0/ref/contrib/gis/#module-django.contrib.gis"><code>django.contrib.gis</code></a></h4>
+<ul>
+<li>MySQL을 위해 <code>AsGeoJSON</code> 함수와 <code>GeoHash</code> 함수, <code>IsValid</code> 함수, <code>isvalid</code> 룩업, <code>distance</code> 룩업을 추가하였습니다.</li>
+<li>PostGIS와 SpatialLite를 위해 <code>Azimuth</code> 함수와 <code>LineLocatePoint</code> 함수가 추가되었습니다.</li>
+<li>이 외의 변경 사항은 <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#django-contrib-gis">Django 2.0 릴리스 노트의 django.contrib.gis 항목</a>을 참고하세요.</li>
+</ul>
+<h4 id="djangocontribpostgres"><a href="https://docs.djangoproject.com/en/2.0/ref/contrib/postgres/#module-django.contrib.postgres"><code>django.contrib.postgres</code></a></h4>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/2.0/ref/contrib/postgres/aggregates/#django.contrib.postgres.aggregates.ArrayAgg"><code>ArrayAgg</code></a> 함수에 <code>distinct</code> 인자를 사용하여, 중복 값을 없앨 수 있습니다.</li>
+<li>UUID 버전 4를 리턴하는 <a href="https://docs.djangoproject.com/en/2.0/ref/contrib/postgres/functions/#django.contrib.postgres.functions.RandomUUID"><code>RondomUUID</code></a> 함수가 추가되었습니다.</li>
+<li>이 외의 변경 사항은 <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#django-contrib-postgres">Django 2.0 릴리스 노트의 django.contrib.postgres 항목</a>을 참고하세요.</li>
+</ul>
+<h4 id="">캐시</h4>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/2.0/topics/cache/#basic-usage"><code>cache.set_many()</code></a> 함수가 캐시에 추가하다가 실패한 키의 목록을 리턴합니다.</li>
+</ul>
+<h4 id="">폼</h4>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/2.0/ref/forms/widgets/#django.forms.SplitDateTimeWidget"><code>SplitDateTimeWidget</code></a>과 <a href="https://docs.djangoproject.com/en/2.0/ref/forms/widgets/#django.forms.SplitHiddenDateTimeWidget"><code>SplitHiddenDateTimeWidget</code></a>에 <code>date_attrs</code>와  <code>time_attrs</code> 인자가 추가되었습니다. 이 인자들을 사용하면, <code>DateInput</code> 위짓과 <code>TimeInput</code> 위짓의 속성을 나누어 가져올 수 있습니다.</li>
+<li>폼 에러를 JSON 형태로 반환하는 <a href="https://docs.djangoproject.com/en/2.0/ref/forms/api/#django.forms.Form.errors.get_json_data"><code>Form.errors.get_json_data()</code></a> 메서드가 추가되었습니다.</li>
+</ul>
+<h4 id="">관리용 커맨드</h4>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-loaddata"><code>loaddata</code></a> 명령에서 표준 입력을 받습니다.</li>
+<li>이 외의 변경사항은 <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#management-commands">Django 2.0 릴리스 노트의 관리용 커맨드 항목</a>을 참고하세요.</li>
+</ul>
+<h4 id="">마이그레이션</h4>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/2.0/ref/django-admin/#squashmigrations"><code>squashmigrations</code></a> 명령에, 합쳐진 마이그레이션 파일의 이름을 지정할 수 있는 <a href="https://docs.djangoproject.com/en/2.0/ref/django-admin/#cmdoption-squashmigrations-squashed-name"><code>--squashed-name</code></a> 옵션이 추가되었습니다.</li>
+</ul>
+<h4 id="">모델</h4>
+<ul>
+<li>문자열 안에서 특정 문자열의 위치를 알아낼 수 있는, <a href="https://docs.djangoproject.com/en/2.0/ref/models/database-functions/#django.db.models.functions.StrIndex">StrIndex</a> 데이터베이스 함수가 추가되었습니다.</li>
+</ul>
+<pre><code>from django.db.models import Value as V
+from django.db.models functions import StrIndex
+Book.objects.create(title=&quot;The Hitchhiker's Guide to Python&quot;)
+Book.objects.annotate(
+    python_index=StrIndex('title', V('Python'))
+).get().python_index  # 26
+</code></pre>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.earliest"><code>QuerySet.earliest()</code></a> 메서드와 <a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.latest"><code>QuerySet.latest()</code></a> 메서드, <a href="https://docs.djangoproject.com/en/2.0/ref/models/options/#django.db.models.Options.get_latest_by"><code>Meta.get_latest_by</code></a> 옵션에서 여러 필드 정렬을 지원합니다.</li>
+<li><code>DateField</code>나 <code>DateTimeField</code>에서 분기 정보를 알아내는 <a href="https://docs.djangoproject.com/en/2.0/ref/models/database-functions/#django.db.models.functions.ExtractQuarter"><code>ExtractQuarter</code></a> 함수와 <a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#std:fieldlookup-quarter"><code>quearter</code></a> 룩업이 추가되었습니다.</li>
+<li><code>DateField</code>나 <code>DateTimeField</code>에서 분기의 첫 날까지만 잘라내는 <a href="https://docs.djangoproject.com/en/2.0/ref/models/database-functions/#django.db.models.functions.TruncQuarter"><code>TrauncQuarter</code></a> 함수가 추가되었습니다.</li>
+<li>PostgresSQL과 Oracle 환경이라면, <a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.select_for_update"><code>QuerySet.select_for_update()</code></a> 메서드를 사용할 때 <code>select_related()</code>로 연결된 모든 테이블을 잠그는 대신, 새로 추가된 <code>of</code> 인자를 사용하여 특정 테이블의 해당 행만 잠글 수 있습니다.</li>
+<li>새로 추가된 <code>filter</code> 인자를 사용하면 여러 Aggregation에서 한 필드에 대한 조건을 추가할 수 있습니다.</li>
+<li><a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.values_list"><code>QuerySet.values_list</code></a> 메서드에 새로 추가된 <code>named</code> 인자를 사용하여, 결과 값을 네임드 튜플로 변환할 수 있습니다.</li>
+<li>쿼리셋에 <code>ON</code> 절을 추가할 수 있는 <a href="https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.FilteredRelation"><code>FilteredRelation</code></a> 클래스가 추가되었습니다.</li>
+<li>이 외의 변경사항은 <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#models">Django 2.0 릴리스 노트의 Models 항목</a>을 참고하세요.</li>
+</ul>
+<h4 id="">페이지네이션</h4>
+<ul>
+<li>새로 추가된 <a href="https://docs.djangoproject.com/en/2.0/topics/pagination/#django.core.paginator.Paginator.get_page"><code>Paginator.get_path</code></a> 메서드는 잘못된 페이지 번호를 적절히 제어합니다. (숫자가 아닌 경우엔 첫 페이지를 리턴하고, 음수나 마지막 페이지보다 큰 숫자인 경우엔 마지막 페이지를 리턴합니다.)</li>
+</ul>
+<h4 id="">요청과 응답</h4>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-runserver"><code>runserver</code></a>로 실행되는 웹 서버가 HTTP 1.1을 지원합니다.</li>
+</ul>
+<h2 id="">하위 호환이 중단된 기능</h2>
+<h4 id="">바이트스트링 지원 삭제</h4>
+<p>파이썬 2를 지원하지 않음에 따라 바이트스트링은 오직 입출력에서만 사용합니다.</p>
+<h4 id="api">데이터베이스 백엔드 API</h4>
+<ul>
+<li>자세한 변경 사항은 <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#database-backend-api">Django 2.0 릴리스 노트의 데이터베이스 백엔드 API 항목</a>을 참고하세요.</li>
+</ul>
+<h4 id="oracle112">Oracle 11.2 지원 중단</h4>
+<p>Oracle 11.2의 공식 지원이 2020년 12월에 끝나며, Django 1.11의 공식 지원이 2020년 4월에 끝나니 시점이 비슷합니다. 따라서 Django 2.0은 Oracle 12.1 이상만 지원합니다.</p>
+<h4 id="mysqlisolationlevelreadcommitted">MySQL 격리 수준(isolation level)의 기본값이 <code>read committed</code>로 변경</h4>
+<p>MySQL의 기본 값인 <code>repeatable read</code>가 Django에서 데이터 손실을 발생시키는 문제가 있었나 봅니다. 다른 값을 사용하고 싶다면 <a href="https://docs.djangoproject.com/en/2.0/ref/databases/#mysql-isolation-level">Django 공식 문서의 Databases 페이지에서 Isolation level 항목</a>을 참고하세요.</p>
+<h4 id="abstractuserlast_namemax_length150"><a href="https://docs.djangoproject.com/en/2.0/ref/contrib/auth/#django.contrib.auth.models.User.last_name"><code>AbstractUser.last_name</code></a>의 <code>max_length</code>가 150으로 감소</h4>
+<p>자세한 내용은 lqez님이 작성하신 <a href="https://lqez.github.io/blog/the-length-of-django-username.html">The length of Django username 블로그 글(우리말)</a>을 참고하세요.</p>
+<h4 id="slicingquerysetreverselast">슬라이싱(slicing) 이후 <code>QuerySet.reverse()</code> 메서드와 <code>last()</code> 메서드 금지</h4>
+<p>쿼리셋에 슬라이싱을 적용한 이후에는 <code>reverse()</code> 메서드와 <code>last()</code> 메서드를 사용할 수 없습니다.</p>
+<h4 id="sqliteforeignkey">SQLite에서 참조키(Foreign Key) 강제를 지원</h4>
+<p>SQLite에 쌓인 기존 데이터를 사용하려면 <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#foreign-key-constraints-are-now-enabled-on-sqlite">Django 2.0 릴리스 노트의 SQLite 참조키 관련 항목</a>을 참고하세요.</p>
+<h4 id="django20">이 외의 변경사항은 <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#backwards-incompatible-changes-in-2-0">Django 2.0 릴리스 노트의 하위 호환이 중단된 기능 항목</a>을 참고하세요.</h4>
+<h2 id="">중단 예정인 기능</h2>
+<ul>
+<li><code>Field.from_db_value()</code>와 <code>Expression.conver_value()</code>의 <code>context</code> 인자가 (Django 3.0 이후) 사라질 예정입니다.</li>
+</ul>
+<h2 id="">사소한 수정</h2>
+<ul>
+<li><code>django.db.backends.postgresql_psycopg2</code> 대신 Django 1.9에서 추가된 <code>django.db.backends.postgresql</code>을 사용하세요.</li>
+<li><code>django.shortcuts.render_to_response()</code> 대신 <a href="https://docs.djangoproject.com/en/2.0/topics/http/shortcuts/#django.shortcuts.render"><code>django.shortcuts.render()</code></a>를 사용하세요.</li>
+<li><code>QuerySet.earliest()</code> 메서드와 <code>QuerySet.latest()</code> 메서드에서 사용하던 <code>field_name</code> 인자가 중단될 예정입니다. <code>.earliest(field_name='title')</code> 대신 <code>.earliest('title')</code>처럼 사용하세요.</li>
+<li>이 외의 변경사항은 <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#id1">Django 2.0 릴리스 노트의 사소한 수정 항목</a>을 참고하세요.</li>
+</ul>
+<h2 id="">삭제된 기능</h2>
+<ul>
+<li><code>django.dispatch.signals.Signal.disconnect()</code>에서 사용하던  <code>weak</code> 인자가 삭제되었습니다.</li>
+<li><code>django.db.backends.base.BaseDatabaseOperations.check_aggregate_support()</code>가 삭제되었습니다.</li>
+<li><code>django.forms.extras</code> 패키지가 삭제되었습니다.</li>
+<li><code>assignment_tag</code> 헬퍼가 삭제되었습니다.</li>
+<li><code>ForeignKey</code> 필드와 <code>OneToOneField</code> 필드의 <code>on_delete</code> 인자에 대해서도 마이그레이션이 필요합니다.</li>
+<li><code>django.db.models.fields.add_lazy_relation()</code>이 삭제되었습니다.</li>
+<li><code>include()</code> 메서드에 사용하던 <code>app_name</code> 인자가 삭제되었습니다.</li>
+<li><code>makemigrations</code> 명령에서 사용하던 <code>--exit</code> 옵션이 삭제되었습니다.</li>
+<li><code>shell</code> 명령에서 사용하던 <code>--play</code> 옵션이 삭제되었습니다.</li>
+<li><code>CommaSeparatedIntegerField</code> 필드가 삭제되었습니다.</li>
+<li><code>django.core.urlresolvers</code>  모듈은 <code>django.urls</code> 모듈로 옮겨갑니다.</li>
+<li><code>Context.has_key()</code> 메서드가 삭제되었습니다.</li>
+<li>MySQL의 <code>__search</code> 룩업이 삭제되었습니다.</li>
+<li><code>User.is_authenticated()</code> 메서드와 <code>User.is_anonymous()</code> 메서드가 사라집니다. 해당 속성을 사용하세요.</li>
+<li><code>FileField</code> 필드의 <code>get_directory_name()</code> 메서드와 <code>get_filename()</code> 메서드가 삭제되었습니다.</li>
+<li>옛날 방식의 미들웨어 설정인 <code>settings.MIDDLEWARE_CLASSES</code>가 삭제되었습니다.</li>
+<li>이 외의 삭제된 기능들은 <a href="https://docs.djangoproject.com/en/2.0/releases/2.0/#features-removed-in-2-0">Django 2.0 릴리스 노트의 삭제된 기능 항목</a>을 참고하세요.</li>
+</ul>
+<h2 id="onemorething">One More Thing!</h2>
+<p>Django 2.0 릴리스 노트에 언급되지는 않았지만, Django를 처음 실행했을 때 보여주는 화면이 예뻐졌습니다. :)<br>
+<img src="https://raccoonyy.github.io/content/images/2017/12/django-intro.png" alt="django-intro" loading="lazy"></p>
+<p>재미 없는 <code>It Works!</code> 문구 대신 예쁜 로켓을 보여주네요. 그럼, Django 2.0과 함께 즐거운 프로그래밍이 되시길 바랍니다.</p>
+<!--kg-card-end: markdown-->
+            </section>
+        </article>
+
+                <div class="gh-read-next gh-canvas">
+                <section class="gh-pagehead">
+                    <h4 class="gh-pagehead-title">Read next</h4>
+                </section>
+
+                <div class="gh-topic gh-topic-grid">
+                    <div class="gh-topic-content">
+                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-week-april/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(4월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(4월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+행사
+
+
+
+PyCon 2016
+
+
+2016년에도 파이콘이 열립니다. 이번에는 특별히 아시아태평양 지역 전체를 포괄한다고 하네요. 얼리버드 등록은 눈 깜짝할 새에 지나갔으니, 정규 등록을 기다리셔야 할 듯 합니다.
+
+
+
+오프라인 강좌
+
+
+
+장고 차근차근 시작하기
+
+
+6월 7일 개강 | 4주 간 36시간 과정(화, 목, 일) | 수강료 60만원
+
+
+
+파이썬 차근차근</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-04-25">2016년 4월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-4th-week-jan/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(1월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(1월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+블로그
+
+
+
+django, bower, grunt로 사이트 구조잡기
+
+
+JayJin님이 django와 bower, grunt로 사이트 구조 잡는 방법을 설명해 줍니다.
+
+
+ * 요약 : django에는 백엔드만 맡기기
+
+
+
+예제로 따라해보는 Jupyter, pandas 데이터 분석
+
+
+인실리코젠의 김형용 님이 Jupyter와 pandas를 사용하여 데이터 분석 기법을 보여줍니다. 블로그 글은 짧은 편이고, 숨겨진 Jupyter 문서가 진짜배기입니다.</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-01-25">2016년 1월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/whats-new-in-python-3-6-korean/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/12/python-3.6-release.png 300w,
+                            /content/images/size/w720/2016/12/python-3.6-release.png 720w,
+                            /content/images/size/w960/2016/12/python-3.6-release.png 960w,
+                            /content/images/size/w1200/2016/12/python-3.6-release.png 1200w,
+                            /content/images/size/w2000/2016/12/python-3.6-release.png 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/12/python-3.6-release.png"
+                    alt="파이썬 3.6에서 바뀐 점"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">파이썬 3.6에서 바뀐 점</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">파이썬 3.6이 방금 전(12월 23일) 정식 출시되었습니다. 이 글에서는 파이썬 3.6에 추가된 문법과 바뀐점을 간략하게 알아보려 합니다. 파이썬 공식 문서의 What’s New In Python 3.6을 참고하였습니다.
+
+
+
+
+새 문법
+
+
+
+1. f 문자열 포매팅(PEP 498)
+
+
+.format() 메서드나 %를 사용할 때 변수를 죽 늘어놓아야 했던 불편함을 덜</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-12-23">2016년 12월 23일</time>
+            </footer>
+        </div>
+    </a>
+</article>                    </div>
+                </div>
+            </div>
+</main>
+
+        <footer class="gh-foot gh-outer">
+            <div class="gh-foot-inner gh-inner">
+                    <section class="gh-subscribe">
+                            <h4 class="gh-subscribe-title">Subscribe to raccoony&#x27;s cave</h3>
+
+                                <div class="gh-subscribe-description">Don&#x27;t miss out on the latest news. Sign up now to get access to the library of members-only articles.</div>
+
+                            <button class="gh-subscribe-btn gh-btn" data-portal="signup"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33332 3.33334H16.6667C17.5833 3.33334 18.3333 4.08334 18.3333 5.00001V15C18.3333 15.9167 17.5833 16.6667 16.6667 16.6667H3.33332C2.41666 16.6667 1.66666 15.9167 1.66666 15V5.00001C1.66666 4.08334 2.41666 3.33334 3.33332 3.33334Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18.3333 5L9.99999 10.8333L1.66666 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> Subscribe now</button>
+                    </section>
+
+                <nav class="gh-foot-menu">
+                    
+                </nav>
+
+                <div class="gh-copyright">
+                        raccoony&#x27;s cave © 2022. Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/assets/built/main.min.js?v=61d94923b7"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+    var subs = document.getElementsByClassName("gh-subscribe");
+    subs[0].style.display = 'none';
+</script>
+</body>
+
+</html>

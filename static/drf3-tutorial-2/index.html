@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DRF3 튜토리얼 2 - 요청과 응답</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/built/screen.css?v=61d94923b7">
+
+    <meta name="description" content="(django-rest-framework 공식 문서를 번역함) 이번 튜토리얼부터 REST 프레임워크의 진정한 핵심부를 다루고자 합니다. 바로 요청(Request) 객체와 응답(Response) 객체입니다." />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/drf3-tutorial-2/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="raccoony&#x27;s cave" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="DRF3 튜토리얼 2 - 요청과 응답" />
+    <meta property="og:description" content="(django-rest-framework 공식 문서를 번역함) 이번 튜토리얼부터 REST 프레임워크의 진정한 핵심부를 다루고자 합니다. 바로 요청(Request) 객체와 응답(Response) 객체입니다." />
+    <meta property="og:url" content="https://raccoonyy.github.io/drf3-tutorial-2/" />
+    <meta property="og:image" content="https://raccoonyy.github.io/content/images/2015/12/drf-logo.png" />
+    <meta property="article:published_time" content="2015-03-06T02:04:50.000Z" />
+    <meta property="article:modified_time" content="2017-08-03T10:21:07.000Z" />
+    <meta property="article:tag" content="django rest framework 3" />
+    <meta property="article:tag" content="DRF3" />
+    <meta property="article:tag" content="requests" />
+    <meta property="article:tag" content="response" />
+    <meta property="article:tag" content="Django" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DRF3 튜토리얼 2 - 요청과 응답" />
+    <meta name="twitter:description" content="(django-rest-framework 공식 문서를 번역함) 이번 튜토리얼부터 REST 프레임워크의 진정한 핵심부를 다루고자 합니다. 바로 요청(Request) 객체와 응답(Response) 객체입니다." />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/drf3-tutorial-2/" />
+    <meta name="twitter:image" content="https://raccoonyy.github.io/content/images/2015/12/drf-logo.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Alan Kim" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="django rest framework 3, DRF3, requests, response, Django" />
+    <meta name="twitter:site" content="@raccoonyy" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "url": "https://raccoonyy.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://raccoonyy.github.io/favicon.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Alan Kim",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&r=x&d=mp",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://raccoonyy.github.io/author/alan/",
+        "sameAs": []
+    },
+    "headline": "DRF3 튜토리얼 2 - 요청과 응답",
+    "url": "https://raccoonyy.github.io/drf3-tutorial-2/",
+    "datePublished": "2015-03-06T02:04:50.000Z",
+    "dateModified": "2017-08-03T10:21:07.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://raccoonyy.github.io/content/images/2015/12/drf-logo.png"
+    },
+    "keywords": "django rest framework 3, DRF3, requests, response, Django",
+    "description": "원문 - Requests and Responses\n\n\n번역을 허락해 준 Tom Christie에게 고마움을 전합니다.\n\n\n\n\n튜토리얼 2: 요청과 응답\n\n\n이번 튜토리얼부터 REST 프레임워크의 진정한 핵심부를 다루고자 합니다. 먼저, 두 가지 핵심 요소를 소개하죠.\n\n\n\n요청(Request) 객체\n\n\nREST 프레임워크의 Request 객체는 평범한 HttpRequest 객체를 확장하여 좀더 유연하게 요청을 파싱합니다. Request 객체의 핵심부는 request.data 속성입니다. 이 속성은 request.POST와 비슷하지만 웹 API에 좀더 적합합니다.\n\n\nrequest.POST  # 폼 데이터만 다루며, &#x27;POST&#x27; 메서드에서만 사용 가능\nrequest.data  # 아무 데이터나 다룰 수 있고, &#x27;POST&#x27;뿐만 아니라 &#x27;PUT&#x27;과 &#x27;PATCH&#x27; 메서드에서도 사용 가능\n\n\n\n\n응답(Response) 객체\n\n\nREST 프레임워크에는 Response 객체도 존재합니다. 이 객",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.0" />
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    
+    <script defer src="/public/cards.min.js?v=61d94923b7"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=61d94923b7">
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DT5YDEB55X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DT5YDEB55X');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css">
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+</style><style>:root {--ghost-accent-color: #FF1A75;}</style>
+</head>
+
+<body class="post-template tag-django-rest-framework-3 tag-drf3 tag-requests tag-response tag-django is-head-b--a_n">
+    <div class="gh-site">
+        <header id="gh-head" class="gh-head gh-outer">
+            <div class="gh-head-inner gh-inner">
+                    <a class="gh-head-description" href="https://raccoonyy.github.io">Writes about programming, book and etc.</a>
+
+                <div class="gh-head-brand">
+                    <a class="gh-head-logo" href="https://raccoonyy.github.io">
+                            raccoony&#x27;s cave
+                    </a>
+                    <button class="gh-burger"></button>
+                </div>
+
+                <nav class="gh-head-menu">
+                    <ul class="nav">
+    <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
+</ul>
+
+                </nav>
+
+                <div class="gh-head-actions">
+                        <a class="gh-head-btn gh-btn gh-primary-btn" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+            </div>
+        </header>
+
+
+        
+<main class="gh-main">
+        <article class="gh-article post tag-django-rest-framework-3 tag-drf3 tag-requests tag-response tag-django">
+            <header class="gh-article-header gh-canvas">
+                    <a class="gh-article-tag" href="https://raccoonyy.github.io/tag/django-rest-framework-3/">django rest framework 3</a>
+
+                <h1 class="gh-article-title">DRF3 튜토리얼 2 - 요청과 응답</h1>
+
+                    <aside class="gh-article-sidebar">
+            <figure class="gh-author-image">
+                    <img src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" alt="Alan Kim">
+            </figure>
+
+            <h4 class="gh-author-name">
+                <a href="/author/alan/">Alan Kim</a>
+            </h4>
+
+        <div class="gh-article-meta">
+            <time class="gh-article-date" datetime="2015-03-06">2015년 3월 6일</time>
+
+                <span class="gh-article-meta-sep"></span>
+                <span class="gh-article-length">8 min</span>
+        </div>
+    </aside>
+
+
+                    <figure class="gh-article-image">
+                        <img
+                            srcset="/content/images/size/w300/2015/12/drf-logo.png 300w,
+                                    /content/images/size/w720/2015/12/drf-logo.png 720w,
+                                    /content/images/size/w960/2015/12/drf-logo.png 960w,
+                                    /content/images/size/w1200/2015/12/drf-logo.png 1200w,
+                                    /content/images/size/w2000/2015/12/drf-logo.png 2000w"
+                            sizes="(max-width: 1200px) 100vw, 1200px"
+                            src="/content/images/size/w1200/2015/12/drf-logo.png"
+                            alt="DRF3 튜토리얼 2 - 요청과 응답"
+                        >
+                    </figure>
+            </header>
+
+            <section class="gh-content gh-canvas">
+                <!--kg-card-begin: markdown--><p>원문 - <a href="http://www.django-rest-framework.org/tutorial/2-requests-and-responses/">Requests and Responses</a></p>
+<p>번역을 허락해 준 <a href="https://twitter.com/_tomchristie">Tom Christie</a>에게 고마움을 전합니다.</p>
+<hr>
+<h1 id="2">튜토리얼 2: 요청과 응답</h1>
+<p>이번 튜토리얼부터 REST 프레임워크의 진정한 핵심부를 다루고자 합니다. 먼저, 두 가지 핵심 요소를 소개하죠.</p>
+<h2 id="request">요청(Request) 객체</h2>
+<p>REST 프레임워크의 <code>Request</code> 객체는 평범한 <code>HttpRequest</code> 객체를 확장하여 좀더 유연하게 요청을 파싱합니다. <code>Request</code> 객체의 핵심부는 <code>request.data</code> 속성입니다. 이 속성은 <code>request.POST</code>와 비슷하지만 웹 API에 좀더 적합합니다.</p>
+<pre><code class="language-python">request.POST  # 폼 데이터만 다루며, 'POST' 메서드에서만 사용 가능
+request.data  # 아무 데이터나 다룰 수 있고, 'POST'뿐만 아니라 'PUT'과 'PATCH' 메서드에서도 사용 가능
+</code></pre>
+<h2 id="response">응답(Response) 객체</h2>
+<p>REST 프레임워크에는 <code>Response</code> 객체도 존재합니다. 이 객체는 <code>TemplateResponse</code> 타입이며, 렌더링되지 않은 콘텐츠를 불러와 클라이언트에게 리턴할 콘텐츠 형태로 변환합니다.</p>
+<pre><code class="language-python">return Response(data)  # 클라이언트가 요청한 형태로 콘텐트를 렌더링함
+</code></pre>
+<h2 id="">상태 코드</h2>
+<p>여러분이 만든 뷰에서 숫자 형태의 HTTP 상태 코드를 사용하는 경우, 읽기에도 어려울 뿐더러 코드에 오류가 있더라도 발견하기가 어렵습니다. REST 프레임워크에서는 각 상태 코드에 대해 좀더 명확한 식별자를 제공합니다. 예를 들어 <code>status</code> 모듈의 <code>HTTP_400_BAD_REQUEST</code> 같은 식별자 같이요. 숫자로 된 식별자를 사용하기보다는 문자 형태의 식별자를 사용하세요.</p>
+<h2 id="api">API 뷰 감싸기</h2>
+<p>REST 프레임워크는 API 뷰를 작성하는 데 사용할 수 있는 두 가지 래퍼를 제공합니다.</p>
+<ol>
+<li><code>@api_view</code> 데코레이터를 함수 기반 뷰에서 사용할 수 있습니다.</li>
+<li><code>APIView</code> 클래스는 클래스 기반 뷰에서 사용할 수 있습니다.</li>
+</ol>
+<p>이 래퍼들은 뷰에서 받은 <code>Request</code>에 몇몇 기능을 더하거나, 콘텐츠가 잘 변환되도록 <code>Response</code>에 특정 context를 추가합니다.</p>
+<p>또한 때에 따라 <code>405 Method Not Allowed</code>를 반환하거나, <code>request.data</code>가 깨진 경우 <code>ParseError</code> 예외를 던지는 등의 일도 수행합니다.</p>
+<h2 id="">이 모든 것을 한 군데 모으기</h2>
+<p>그럼 이제 이 두 요소를 사용하여 뷰를 작성해봅시다.</p>
+<p><code>views.py</code>에 <code>JSONResponse</code> 클래스는 더이상 필요하지 않으니 지웁시다. 그리고 뷰 코드를 조금 리팩터링합니다.</p>
+<pre><code class="language-python">from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from snippets.models import Snippet
+from snippets.serializers import SnippetSerializer
+
+
+@api_view(['GET', 'POST'])
+def snippet_list(request):
+    &quot;&quot;&quot;
+    코드 조각을 모두 보여주거나 새 코드 조각을 만듭니다.
+    &quot;&quot;&quot;
+    if request.method == 'GET':
+        snippets = Snippet.objects.all()
+        serializer = SnippetSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = SnippetSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+</code></pre>
+<p>예제에 비해 목록 뷰가 조금 개선되었습니다. 조금 간단해지면서 폼 API와 유사하다는 느낌을 줍니다. 또한 이름 형태의 상태 코드를 사용하여 의미를 명확히 했습니다.</p>
+<p>이제 <code>views.py</code>를 열어, 코드 조각 하나를 담당하는 뷰를 수정합시다.</p>
+<pre><code class="language-python">@api_view(['GET', 'PUT', 'DELETE'])
+def snippet_detail(request, pk):
+    &quot;&quot;&quot;
+    코드 조각 조회, 업데이트, 삭제
+    &quot;&quot;&quot;
+    try:
+        snippet = Snippet.objects.get(pk=pk)
+    except Snippet.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SnippetSerializer(snippet)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = SnippetSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+</code></pre>
+<p>이 또한 어디선가 본 듯 합니다. 일반적인 Django 뷰와 크게 다르지 않죠?</p>
+<p>여기서 특정 콘텐츠 형태에 대한 요청이나 응답을 명시적으로 연결하지 않았음을 주목하세요. <code>request.data</code>는 <code>json</code> 요청 뿐만 아니라 <code>yaml</code>과 같은 다른 포맷도 다룰 수 있습니다. 응답 객체에 데이터를 담아 리턴하는 것과 비슷하면서도, REST 프레임워크에서는 우리가 원하는 형태로 응답 객체를 렌더링해 줍니다.</p>
+<h2 id="url">URL의 접미어를 통해 다른 포맷 제공하기</h2>
+<p>앞에서 보았듯이 하나의 콘텐츠 형태에 묶여 있지 않다는 응답 객체의 장점을 활용하기 위해, 우리 API에서도 여러 형태의 포맷을 제공해 봅시다. 포맷의 접미어를 URL 형태로 전달받으려면, 다음과 같은 URL을 다룰 수 있어야 합니다.</p>
+<p><a href="http://example.com/api/items/4.json">http://example.com/api/items/4.json</a></p>
+<p>일단 <code>format</code> 키워드를 두 가지 뷰에 추가해 봅시다.</p>
+<pre><code class="language-python">def snippet_list(request, format=None):
+</code></pre>
+<pre><code class="language-python">def snippet_detail(request, pk, format=None):
+</code></pre>
+<p>그리고 이제 <code>urls.py</code>를 조금 수정하겠습니다. 기존의 URL에 <code>format_suffix_patterns</code>라는 패턴을 추가합니다.</p>
+<pre><code class="language-python">from django.conf.urls import patterns, url
+from rest_framework.urlpatterns import format_suffix_patterns
+from snippets import views
+
+urlpatterns = [
+    url(r'^snippets/$', views.snippet_list),
+    url(r'^snippets/(?P&lt;pk&gt;[0-9]+)/$', views.snippet_detail),
+]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
+</code></pre>
+<p>이 외에 더 수정한 부분은 없는데도, 코드는 간명해졌고, 사용자는 자신이 원하는 형태의 포맷을 전달 받을 수 있습니다.</p>
+<h2 id="">어떻게 되었을까?</h2>
+<p>이제 <a href="https://raccoonyy.github.io/drf3-tutorial-1">튜토리얼 1</a>에서 했던 것처럼 명령행에서 API를 테스트해봅시다. 앞에서 했던 것과 비슷하게 작동하는 것처럼 보이지만, 이번에는 잘못된 요청에도 잘 대응합니다.</p>
+<p>전체 코드 조각 목록은 다음과 같이 받아올 수 있습니다.</p>
+<pre><code class="language-bash">http http://127.0.0.1:8000/snippets/
+
+HTTP/1.1 200 OK
+...
+[
+  {
+    &quot;id&quot;: 1,
+    &quot;title&quot;: &quot;&quot;,
+    &quot;code&quot;: &quot;foo = \&quot;bar\&quot;\n&quot;,
+    &quot;linenos&quot;: false,
+    &quot;language&quot;: &quot;python&quot;,
+    &quot;style&quot;: &quot;friendly&quot;
+  },
+  {
+    &quot;id&quot;: 2,
+    &quot;title&quot;: &quot;&quot;,
+    &quot;code&quot;: &quot;print \&quot;hello, world\&quot;\n&quot;,
+    &quot;linenos&quot;: false,
+    &quot;language&quot;: &quot;python&quot;,
+    &quot;style&quot;: &quot;friendly&quot;
+  }
+]
+</code></pre>
+<p>그리고 이제는 <code>Accept</code> 헤더를 사용하여 응답 받을 데이터의 포맷도 지정할 수 있습니다.</p>
+<pre><code class="language-bash">http http://127.0.0.1:8000/snippets/ Accept:application/json  # Request JSON
+http http://127.0.0.1:8000/snippets/ Accept:text/html         # Request HTML
+</code></pre>
+<p>아니면 포맷 접미어를 붙여도 되고요.</p>
+<pre><code class="language-bash">http http://127.0.0.1:8000/snippets.json  # JSON suffix
+http http://127.0.0.1:8000/snippets.api   # Browsable API suffix
+</code></pre>
+<p>비슷하게, <code>Content-Type</code> 헤더를 사용해도 응답 받을 데이터의 포맷을 지정할 수 있습니다.</p>
+<pre><code class="language-bash"># 데이터를 넘기면서 POST 요청
+http --form POST http://127.0.0.1:8000/snippets/ code=&quot;print 123&quot;
+
+{
+  &quot;id&quot;: 3,
+  &quot;title&quot;: &quot;&quot;,
+  &quot;code&quot;: &quot;print 123&quot;,
+  &quot;linenos&quot;: false,
+  &quot;language&quot;: &quot;python&quot;,
+  &quot;style&quot;: &quot;friendly&quot;
+}
+
+# JSON으로 POST 요청
+http --json POST http://127.0.0.1:8000/snippets/ code=&quot;print 456&quot;
+
+{
+    &quot;id&quot;: 4,
+    &quot;title&quot;: &quot;&quot;,
+    &quot;code&quot;: &quot;print 456&quot;,
+    &quot;linenos&quot;: false,
+    &quot;language&quot;: &quot;python&quot;,
+    &quot;style&quot;: &quot;friendly&quot;
+}
+</code></pre>
+<p>자, 이제 브라우저에서도 확인해보세요. <a href="http://127.0.0.1:8000/snippets/">http://127.0.0.1:8000/snippets/</a></p>
+<h3 id="api">탐색 가능한 API</h3>
+<p>API는 클라이언트의 요청에 따라 데이터의 포맷을 결정하여 응답합니다. 따라서 웹 브라우저의 요청에 대해서는 기본적으로 HTML 형태로 응답해주게 됩니다. 이 덕분에 API를 웹 브라우저에서 탐색할 수 있습니다.</p>
+<p>브라우저에서 탐색 가능함은 사용성 면에서 굉장히 유용하여, API를 더 쉽게 개발하고 사용하도록 도와줍니다. 또한 다른 개발자들이 API를 파악하고 사용할 때의 진입장벽을 획기적으로 낮춰 줍니다.</p>
+<p><a href="http://www.django-rest-framework.org/topics/browsable-api">브라우저에서 탐색 가능한 API</a>에서 브라우저 탐색 기능에 대해 더 자세히 알아볼 수 있습니다.</p>
+<h2 id="whatsnext">What's next?</h2>
+<p><a href="https://raccoonyy.github.io/drf3-tutorial-3">튜토리얼 3부</a>에서는 클래스 기반 뷰를 사용하면서, 일반적인 뷰에 비해 코드량이 얼마나 줄어드는지 확인하겠습니다.</p>
+<!--kg-card-end: markdown-->
+            </section>
+        </article>
+
+                <div class="gh-read-next gh-canvas">
+                <section class="gh-pagehead">
+                    <h4 class="gh-pagehead-title">Read next</h4>
+                </section>
+
+                <div class="gh-topic gh-topic-grid">
+                    <div class="gh-topic-content">
+                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-week-april/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(4월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(4월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+행사
+
+
+
+PyCon 2016
+
+
+2016년에도 파이콘이 열립니다. 이번에는 특별히 아시아태평양 지역 전체를 포괄한다고 하네요. 얼리버드 등록은 눈 깜짝할 새에 지나갔으니, 정규 등록을 기다리셔야 할 듯 합니다.
+
+
+
+오프라인 강좌
+
+
+
+장고 차근차근 시작하기
+
+
+6월 7일 개강 | 4주 간 36시간 과정(화, 목, 일) | 수강료 60만원
+
+
+
+파이썬 차근차근</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-04-25">2016년 4월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-4th-week-jan/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(1월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(1월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+블로그
+
+
+
+django, bower, grunt로 사이트 구조잡기
+
+
+JayJin님이 django와 bower, grunt로 사이트 구조 잡는 방법을 설명해 줍니다.
+
+
+ * 요약 : django에는 백엔드만 맡기기
+
+
+
+예제로 따라해보는 Jupyter, pandas 데이터 분석
+
+
+인실리코젠의 김형용 님이 Jupyter와 pandas를 사용하여 데이터 분석 기법을 보여줍니다. 블로그 글은 짧은 편이고, 숨겨진 Jupyter 문서가 진짜배기입니다.</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-01-25">2016년 1월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-1st-week-jan/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식 (1월 첫 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식 (1월 첫 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+블로그
+
+
+
+(번역) RESTful API를 문서화하는 여섯 가지 팁
+
+
+파이썬과 Django를 쓴다고 알려진 스마트스터디에서 기술 블로그를 열었습니다. (이 소식이 단독특종인 이유는...)
+
+
+http://engineering.smartstudy.co.kr
+
+
+
+(번역) Requests 퀵스타트
+
+
+약방의 감초와도 같은 Requests 모듈의 퀵스타트 문서를 김용현 님이 번역해주셨습니다.
+
+
+
+Python으로 JSON 빨리 처리하기
+
+
+json으로 작성된</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-01-04">2016년 1월 4일</time>
+            </footer>
+        </div>
+    </a>
+</article>                    </div>
+                </div>
+            </div>
+</main>
+
+        <footer class="gh-foot gh-outer">
+            <div class="gh-foot-inner gh-inner">
+                    <section class="gh-subscribe">
+                            <h4 class="gh-subscribe-title">Subscribe to raccoony&#x27;s cave</h3>
+
+                                <div class="gh-subscribe-description">Don&#x27;t miss out on the latest news. Sign up now to get access to the library of members-only articles.</div>
+
+                            <button class="gh-subscribe-btn gh-btn" data-portal="signup"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33332 3.33334H16.6667C17.5833 3.33334 18.3333 4.08334 18.3333 5.00001V15C18.3333 15.9167 17.5833 16.6667 16.6667 16.6667H3.33332C2.41666 16.6667 1.66666 15.9167 1.66666 15V5.00001C1.66666 4.08334 2.41666 3.33334 3.33332 3.33334Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18.3333 5L9.99999 10.8333L1.66666 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> Subscribe now</button>
+                    </section>
+
+                <nav class="gh-foot-menu">
+                    
+                </nav>
+
+                <div class="gh-copyright">
+                        raccoony&#x27;s cave © 2022. Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/assets/built/main.min.js?v=61d94923b7"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+    var subs = document.getElementsByClassName("gh-subscribe");
+    subs[0].style.display = 'none';
+</script>
+</body>
+
+</html>

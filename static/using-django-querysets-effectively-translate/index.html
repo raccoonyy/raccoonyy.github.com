@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Django에서 쿼리셋 효과적으로 사용하기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/built/screen.css?v=61d94923b7">
+
+    <meta name="description" content="Django ORM을 효율적으로 작성하는 방법을 알아봅니다. Django의 쿼리 지연, 쿼리셋 캐시의 특징을 이해한다면, 성능을 개선할 수 있습니다. 그리고 쿼리셋이 엄청나게 큰 경우엔 iterator()를 꼭 사용하고요." />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/using-django-querysets-effectively-translate/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="raccoony&#x27;s cave" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Django에서 쿼리셋 효과적으로 사용하기" />
+    <meta property="og:description" content="Django ORM을 효율적으로 작성하는 방법을 알아봅니다. Django의 쿼리 지연, 쿼리셋 캐시의 특징을 이해한다면, 성능을 개선할 수 있습니다. 그리고 쿼리셋이 엄청나게 큰 경우엔 iterator()를 꼭 사용하고요." />
+    <meta property="og:url" content="https://raccoonyy.github.io/using-django-querysets-effectively-translate/" />
+    <meta property="og:image" content="https://raccoonyy.github.io/content/images/2016/01/IMG_0006.jpg" />
+    <meta property="article:published_time" content="2015-03-10T05:04:00.000Z" />
+    <meta property="article:modified_time" content="2016-12-15T09:36:21.000Z" />
+    <meta property="article:tag" content="Django" />
+    <meta property="article:tag" content="translate" />
+    <meta property="article:tag" content="QuerySet" />
+    <meta property="article:tag" content="Effectively" />
+    <meta property="article:tag" content="formatter" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Django에서 쿼리셋 효과적으로 사용하기" />
+    <meta name="twitter:description" content="Django ORM을 효율적으로 작성하는 방법을 알아봅니다. Django의 쿼리 지연, 쿼리셋 캐시의 특징을 이해한다면, 성능을 개선할 수 있습니다. 그리고 쿼리셋이 엄청나게 큰 경우엔 iterator()를 꼭 사용하고요." />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/using-django-querysets-effectively-translate/" />
+    <meta name="twitter:image" content="https://raccoonyy.github.io/content/images/2016/01/IMG_0006.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Alan Kim" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Django, translate, QuerySet, Effectively, formatter" />
+    <meta name="twitter:site" content="@raccoonyy" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "url": "https://raccoonyy.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://raccoonyy.github.io/favicon.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Alan Kim",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&r=x&d=mp",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://raccoonyy.github.io/author/alan/",
+        "sameAs": []
+    },
+    "headline": "Django에서 쿼리셋 효과적으로 사용하기",
+    "url": "https://raccoonyy.github.io/using-django-querysets-effectively-translate/",
+    "datePublished": "2015-03-10T05:04:00.000Z",
+    "dateModified": "2016-12-15T09:36:21.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://raccoonyy.github.io/content/images/2016/01/IMG_0006.jpg"
+    },
+    "keywords": "Django, translate, QuerySet, Effectively, formatter",
+    "description": "Django의 모델 쿼리를 좀 잘 활용하고 싶어서 아래 글을 읽다가 번역까지 해보았습니다.\n\n\n원문 - Using Django QuerySets Effectively\n\n\n번역을 허락해 준 Dave Hall 님께 고마움을 전합니다.\n\n\n\nORM 시스템을 사용하면 SQL 데이터베이스를 손쉽게 다룰 수 있다. 하지만 직접 작성한 SQL에 비해, 느리고 비효율적이라는 단점도 존재한다.\n\n\nORM을 효과적으로 사용한다는 말은, ORM이 쿼리를 어떻게 작성하는지 이해한다는 뜻이다. 이 글에서는 중대형 데이터베이스에서 Django의 ORM 시스템을 효과적으로 사용하는 방법에 집중하려 한다.\n\n\n\nDjango의 쿼리는 마지막까지 지연(lazy)된다\n\n\nDjango의 쿼리셋(queryset)은 데이터베이스의 여러 레코드(row)를 나타낸다. 필터링도 가능하다. 예를 들어 다음 코드는 DB에 저장된 사람 중 이름이 Dave인 모든 사람을 나타낸다.\n\n\nperson_set &#x3D; Person.objects",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.0" />
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    
+    <script defer src="/public/cards.min.js?v=61d94923b7"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=61d94923b7">
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DT5YDEB55X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DT5YDEB55X');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css">
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+</style><style>:root {--ghost-accent-color: #FF1A75;}</style>
+</head>
+
+<body class="post-template tag-django tag-translate tag-queryset tag-effectively tag-formatter is-head-b--a_n">
+    <div class="gh-site">
+        <header id="gh-head" class="gh-head gh-outer">
+            <div class="gh-head-inner gh-inner">
+                    <a class="gh-head-description" href="https://raccoonyy.github.io">Writes about programming, book and etc.</a>
+
+                <div class="gh-head-brand">
+                    <a class="gh-head-logo" href="https://raccoonyy.github.io">
+                            raccoony&#x27;s cave
+                    </a>
+                    <button class="gh-burger"></button>
+                </div>
+
+                <nav class="gh-head-menu">
+                    <ul class="nav">
+    <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
+</ul>
+
+                </nav>
+
+                <div class="gh-head-actions">
+                        <a class="gh-head-btn gh-btn gh-primary-btn" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+            </div>
+        </header>
+
+
+        
+<main class="gh-main">
+        <article class="gh-article post tag-django tag-translate tag-queryset tag-effectively tag-formatter">
+            <header class="gh-article-header gh-canvas">
+                    <a class="gh-article-tag" href="https://raccoonyy.github.io/tag/django/">Django</a>
+
+                <h1 class="gh-article-title">Django에서 쿼리셋 효과적으로 사용하기</h1>
+
+                    <aside class="gh-article-sidebar">
+            <figure class="gh-author-image">
+                    <img src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" alt="Alan Kim">
+            </figure>
+
+            <h4 class="gh-author-name">
+                <a href="/author/alan/">Alan Kim</a>
+            </h4>
+
+        <div class="gh-article-meta">
+            <time class="gh-article-date" datetime="2015-03-10">2015년 3월 10일</time>
+
+                <span class="gh-article-meta-sep"></span>
+                <span class="gh-article-length">7 min</span>
+        </div>
+    </aside>
+
+
+                    <figure class="gh-article-image">
+                        <img
+                            srcset="/content/images/size/w300/2016/01/IMG_0006.jpg 300w,
+                                    /content/images/size/w720/2016/01/IMG_0006.jpg 720w,
+                                    /content/images/size/w960/2016/01/IMG_0006.jpg 960w,
+                                    /content/images/size/w1200/2016/01/IMG_0006.jpg 1200w,
+                                    /content/images/size/w2000/2016/01/IMG_0006.jpg 2000w"
+                            sizes="(max-width: 1200px) 100vw, 1200px"
+                            src="/content/images/size/w1200/2016/01/IMG_0006.jpg"
+                            alt="Django에서 쿼리셋 효과적으로 사용하기"
+                        >
+                    </figure>
+            </header>
+
+            <section class="gh-content gh-canvas">
+                <!--kg-card-begin: markdown--><p>Django의 모델 쿼리를 좀 잘 활용하고 싶어서 아래 글을 읽다가 번역까지 해보았습니다.</p>
+<p>원문 - <a href="http://blog.etianen.com/blog/2013/06/08/django-querysets/">Using Django QuerySets Effectively</a></p>
+<p>번역을 허락해 준 Dave Hall 님께 고마움을 전합니다.</p>
+<hr>
+<p>ORM 시스템을 사용하면 SQL 데이터베이스를 손쉽게 다룰 수 있다. 하지만 직접 작성한 SQL에 비해, 느리고 비효율적이라는 단점도 존재한다.</p>
+<p>ORM을 효과적으로 사용한다는 말은, ORM이 쿼리를 어떻게 작성하는지 이해한다는 뜻이다. 이 글에서는 중대형 데이터베이스에서 Django의 ORM 시스템을 효과적으로 사용하는 방법에 집중하려 한다.</p>
+<h2 id="djangolazy">Django의 쿼리는 마지막까지 지연(lazy)된다</h2>
+<p>Django의 쿼리셋(queryset)은 데이터베이스의 여러 레코드(row)를 나타낸다. 필터링도 가능하다. 예를 들어 다음 코드는 DB에 저장된 사람 중 이름이 Dave인 모든 사람을 나타낸다.</p>
+<pre><code class="language-language-python">person_set = Person.objects.filter(first_name=&quot;Dave&quot;)
+</code></pre>
+<p>이 코드는 DB에 어떤 쿼리도 전달하지 않는다. 여러분이 <code>person_set</code>에 필터를 추가하거나 <code>person_set</code>을 함수에 전달한다 해도, 이는 DB에 아무런 메시지도 전달하지 않는다. 이는 장점인데, 왜냐하면 DB에 쿼리를 전달하는 일이 웹 애플리케이션을 느려지게 하는 주범 중 하나이기 때문이다.</p>
+<p>DB의 레코드를 진짜로 가져오려면(fetch) 다음과 같이 쿼리셋을 순회(iterate)해야 한다.</p>
+<pre><code class="language-language-python">for person in person_set:
+    print(person.last_name)
+</code></pre>
+<h2 id="django">Django의 쿼리셋은 캐시된다</h2>
+<p>쿼리셋을 순회하는 시점에, 쿼리셋에 해당하는 DB의 레코드들을 실제로 가져오며(fetch), 이는 모두 Django 모델로 변환된다. 이를 가리켜 평가(evaluation)라고 한다. 평가된 모델들은 쿼리셋의 내장 캐시에 저장되며, 덕분에 여러분이 쿼리셋을 다시 순회하더라도 똑같은 쿼리를 DB에 다시 전달하지는 않는다.</p>
+<p>예를 들어, 다음 코드에서 DB 쿼리는 단 한 번만 발생한다.</p>
+<pre><code class="language-language-python">pet_set = Pet.objects.filter(species=&quot;Dog&quot;)
+
+# 쿼리가 '평가'되고, 결과가 캐시된다.
+for pet in pet_set:
+    print(pet.first_name)
+    
+# 똑같은 순회를 반복할 경우 이미 캐시된 쿼리셋이 사용된다.
+for pet in pet_set:
+    print(pet.last_name)
+</code></pre>
+<h2 id="if">if 문에서는 쿼리셋 평가가 발생난다</h2>
+<p>쿼리셋의 캐시 기능은 특히, 일단 쿼리셋에 레코드가 존재하는지를 검사한 후 하나라도 발견되었을 때만 이를 순회하려 할 때 유용하다.</p>
+<pre><code class="language-language-python">restaurant_set = Restaurant.objects.filter(cuisine=&quot;Indian&quot;)
+
+#  if 문은 쿼리셋을 '평가'한다
+if restaurant_set:
+    # 순회할 때는 캐시된 쿼리셋이 사용된다
+    for restaurant in restaurant_set:
+        print(restaurant.name)
+</code></pre>
+<h2 id="">결과 전체가 필요하지 않은 경우 쿼리셋 캐시가 문제가 된다</h2>
+<p>결과 전체를 순회하지 않고 단지 레코드가 최소한 하나는 존재하는지 알아보고 싶을 수도 있다. 이 경우, 쿼리 셋에 if 문을 사용하면 if 문 때문에 쿼리셋이 ‘평가’되고, 이에 따라 쿼리셋 캐시에도 전체 레코드가 저장된다.</p>
+<pre><code class="language-language-python">city_set = City.objects.filter(name=&quot;Cambridge&quot;)
+
+# if 문은 쿼리셋을 평가한다
+if city_set:
+    # 쿼리셋의 전체 결과가 필요하지는 않은 상황임에도
+    # ORM은 전체 결과를 가져온다(fetch)
+    print(&quot;At least one city called Cambridge still stands!&quot;)
+</code></pre>
+<p>이를 피하려면 exists() 메서드를 사용하자. 이 메서드는 최소한 하나의 레코드가 존재하는지 여부를 확인하여 알려준다.</p>
+<pre><code class="language-language-python">tree_set = Tree.objects.filter(type=&quot;deciduous&quot;)
+
+# exists()는 쿼리셋 캐시를 만들지 않으면서 레코드가 존재하는지 검사한다
+if tree_set.exists():
+    # DB에서 가져온 레코드가 하나도 없다면
+    # 트래픽과 메모리를 절약할 수 있다
+    print(&quot;There are still hardwood trees in the world!&quot;)
+</code></pre>
+<h2 id="">쿼리셋이 엄청 큰 경우 쿼리셋 캐시가 문제가 된다</h2>
+<p>몇 천 개 단위의 레코드를 다뤄야 할 경우, 이 데이터를 한 번에 가져와 메모리에 올리는 행위는 매우 비효율적이다. 더 나쁜 점은, 거대한 쿼리가 서버의 프로세스를 잠궈(lock) 버려서 웹 애플리케이션이 죽을 수도 있다는 사실이다.</p>
+<p>쿼리셋 캐시를 방지하면서도 전체 레코드를 순회해야 한다면, iterator()를 사용하자. 이는 데이터를 작은 덩어리로 쪼개어 가져오고, 이미 사용한 레코드는 메모리에서 지운다.</p>
+<pre><code class="language-language-python">star_set = Star.objects.all()
+
+# iterator() 메서드는 전체 레코드의 일부씩만 DB에서 가져오므로
+# 메모리를 절약할 수 있다.
+for star in star_set.iterator():
+    print(star.name)
+</code></pre>
+<p>쿼리셋 캐시를 방지하고자 iterator() 메서드를 사용한 경우 당연하게도, 똑같은 쿼리셋을 한 번 더 순회할 때 쿼리를 다시 평가한다. 따라서 iterator() 메서드를 사용하기 전, 여러분의 코드에서 똑같은 거대 쿼리셋을 재사용하려고 하지는 않는지 주의해야 한다.</p>
+<h2 id="if">쿼리셋이 엄청 큰 경우 if 문도 문제가 된다</h2>
+<p>앞서 보았듯이, 쿼리셋 캐시와 if/for 문을 조합하면 상황에 따라 쿼리셋을 순회하거나 하지 않을 수 있다. 하지만 쿼리셋이 엄청 큰 경우, 쿼리셋 캐시는 고려 사항이 될 수 없다.</p>
+<p>간단한 해결책으로 exists()와 iterator()를 함께 사용하면, DB에 두 개의 쿼리를 실행하고 그 결과를 쿼리셋 캐시로 생성하는 일을 방지할 수 있다.</p>
+<pre><code class="language-language-python">molecule_set = Molecule.objects.all()
+
+# 첫 번째 쿼리로, 쿼리셋에 레코드가 존재하는지 확인한다
+if molecule_set.exists():
+    # 또다른 쿼리로 레코드를 조금씩 가져온다
+    for molecule in molecule_set.iterator():
+        print(molecule.velocity)
+</code></pre>
+<p>좀더 복잡한 해결책은 파이썬의 고급 순회 메서드(advanced iteration methods)를 사용하는 것이다. 이를 통해 순회를 진행할지 결정하기 전에 iterator() 메서드의 첫 번째 레코드를 감지(peek)할 수 있다.</p>
+<pre><code class="language-language-python">atom_set = Atom.objects.all()
+
+# 첫 번째 쿼리로 레코드를 가져오기 시작한다
+atom_iterator = atom_set.iterator()
+
+# 첫 번째 레코드를 감지(peek)한다
+try:
+    first_atom = next(atom_iterator)
+except StopIteration:
+    # 레코드가 없다면 아무 일도 하지 않는다
+    pass
+else:
+    # 레코드가 하나라도 존재한다면
+    # 모든 레코드를 순회한다(첫 번째 레코드를 포함해서)
+    from itertools import chain
+    for atom in chain([first_atom], atom_set):
+        print(atom.mass)
+</code></pre>
+<h2 id="">안일한 최적화에 주의하라</h2>
+<p>쿼리셋 캐시는 애플리케이션이 만들어 내는 DB 쿼리의 개수를 줄이며, 일반적으로는 정말로 필요한 쿼리만을 DB에 전달하기 위해 존재한다.</p>
+<p>exists()와 iterator() 메서드를 사용하면 메모리 사용을 최적화할 수 있다. 그렇지만 쿼리셋 캐시는 생성되지 않기 때문에, DB 쿼리가 중복될 수 있다.</p>
+<p>코드를 주의 깊게 작성하고, 뭔가 느려진다 싶을 때 병목 지점을 조사한다면, 약간의 쿼리셋 최적화가 도움이 될 수도 있다.</p>
+<!--kg-card-end: markdown-->
+            </section>
+        </article>
+
+                <div class="gh-read-next gh-canvas">
+                <section class="gh-pagehead">
+                    <h4 class="gh-pagehead-title">Read next</h4>
+                </section>
+
+                <div class="gh-topic gh-topic-grid">
+                    <div class="gh-topic-content">
+                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-week-april/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(4월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(4월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+행사
+
+
+
+PyCon 2016
+
+
+2016년에도 파이콘이 열립니다. 이번에는 특별히 아시아태평양 지역 전체를 포괄한다고 하네요. 얼리버드 등록은 눈 깜짝할 새에 지나갔으니, 정규 등록을 기다리셔야 할 듯 합니다.
+
+
+
+오프라인 강좌
+
+
+
+장고 차근차근 시작하기
+
+
+6월 7일 개강 | 4주 간 36시간 과정(화, 목, 일) | 수강료 60만원
+
+
+
+파이썬 차근차근</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-04-25">2016년 4월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-4th-week-jan/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(1월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(1월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+블로그
+
+
+
+django, bower, grunt로 사이트 구조잡기
+
+
+JayJin님이 django와 bower, grunt로 사이트 구조 잡는 방법을 설명해 줍니다.
+
+
+ * 요약 : django에는 백엔드만 맡기기
+
+
+
+예제로 따라해보는 Jupyter, pandas 데이터 분석
+
+
+인실리코젠의 김형용 님이 Jupyter와 pandas를 사용하여 데이터 분석 기법을 보여줍니다. 블로그 글은 짧은 편이고, 숨겨진 Jupyter 문서가 진짜배기입니다.</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-01-25">2016년 1월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/useful-resources-for-python-and-django/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0004.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0004.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0004.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0004.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0004.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0004.jpg"
+                    alt="유용한 파이썬, Django 리소스"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">유용한 파이썬, Django 리소스</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">파이썬과 Django로 개발할 때는 구글과 스택오버플로를 항상 끼고 살게 마련인데요. 이 외에도 개인적으로 유용했던 리소스들을 소개해 봅니다.
+
+
+
+웹사이트
+
+
+ * 
+   
+   
+   구글 - https://www.google.com/
+   
+   
+   파이썬 패키지를 소개한 pypi 사이트가 존재하긴 하지만 검색하기엔 오히려 구글이 좋습니다. 원하는 기능에 python만 덧붙여 검색하면 못 찾을 게 없을 정도지요. (ex. 트위터 모듈이 필요하다면 python</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2015-04-03">2015년 4월 3일</time>
+            </footer>
+        </div>
+    </a>
+</article>                    </div>
+                </div>
+            </div>
+</main>
+
+        <footer class="gh-foot gh-outer">
+            <div class="gh-foot-inner gh-inner">
+                    <section class="gh-subscribe">
+                            <h4 class="gh-subscribe-title">Subscribe to raccoony&#x27;s cave</h3>
+
+                                <div class="gh-subscribe-description">Don&#x27;t miss out on the latest news. Sign up now to get access to the library of members-only articles.</div>
+
+                            <button class="gh-subscribe-btn gh-btn" data-portal="signup"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33332 3.33334H16.6667C17.5833 3.33334 18.3333 4.08334 18.3333 5.00001V15C18.3333 15.9167 17.5833 16.6667 16.6667 16.6667H3.33332C2.41666 16.6667 1.66666 15.9167 1.66666 15V5.00001C1.66666 4.08334 2.41666 3.33334 3.33332 3.33334Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18.3333 5L9.99999 10.8333L1.66666 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> Subscribe now</button>
+                    </section>
+
+                <nav class="gh-foot-menu">
+                    
+                </nav>
+
+                <div class="gh-copyright">
+                        raccoony&#x27;s cave © 2022. Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/assets/built/main.min.js?v=61d94923b7"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+    var subs = document.getElementsByClassName("gh-subscribe");
+    subs[0].style.display = 'none';
+</script>
+</body>
+
+</html>

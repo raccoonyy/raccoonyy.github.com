@@ -1,4 +1,2 @@
 User-agent: *
-Sitemap: https://raccoonyy.github.io/sitemap.xml
-Disallow: /ghost/
-Disallow: /p/
+Disallow: /

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Celery 4.0의 주요 변경사항 정리</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/built/screen.css?v=61d94923b7">
+
+    <meta name="description" content="지난 11월 11일에 celery 4.0이 나왔습니다. 주요 변경사항을 정리해보았습니다. Python/Django 버전 지원, 사라진 기능들, 바뀐 설정 등" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/whats-new-celery-4-0/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="raccoony&#x27;s cave" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Celery 4.0의 주요 변경사항 정리" />
+    <meta property="og:description" content="지난 11월 11일에 celery 4.0이 나왔습니다. 주요 변경사항을 정리해보았습니다. Python/Django 버전 지원, 사라진 기능들, 바뀐 설정 등" />
+    <meta property="og:url" content="https://raccoonyy.github.io/whats-new-celery-4-0/" />
+    <meta property="og:image" content="https://raccoonyy.github.io/content/images/2016/11/Screenshot-2016-11-16-16.51.45.png" />
+    <meta property="article:published_time" content="2016-11-16T21:32:48.000Z" />
+    <meta property="article:modified_time" content="2017-08-03T10:22:29.000Z" />
+    <meta property="article:tag" content="python" />
+    <meta property="article:tag" content="celery 4" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Celery 4.0의 주요 변경사항 정리" />
+    <meta name="twitter:description" content="지난 11월 11일에 celery 4.0이 나왔습니다. 주요 변경사항을 정리해보았습니다. Python/Django 버전 지원, 사라진 기능들, 바뀐 설정 등" />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/whats-new-celery-4-0/" />
+    <meta name="twitter:image" content="https://raccoonyy.github.io/content/images/2016/11/Screenshot-2016-11-16-16.51.45.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Alan Kim" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="python, celery 4" />
+    <meta name="twitter:site" content="@raccoonyy" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "url": "https://raccoonyy.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://raccoonyy.github.io/favicon.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Alan Kim",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&r=x&d=mp",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://raccoonyy.github.io/author/alan/",
+        "sameAs": []
+    },
+    "headline": "Celery 4.0의 주요 변경사항 정리",
+    "url": "https://raccoonyy.github.io/whats-new-celery-4-0/",
+    "datePublished": "2016-11-16T21:32:48.000Z",
+    "dateModified": "2017-08-03T10:22:29.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://raccoonyy.github.io/content/images/2016/11/Screenshot-2016-11-16-16.51.45.png"
+    },
+    "keywords": "python, celery 4",
+    "description": "지난 11월 11일에 celery 4.0이 나왔습니다. (빼빼로 데이 기념!)\n\n\n\n\n\n주요 변경사항을 요약해보면 다음과 같습니다.\n\n\n\nPython 2.6 이하 지원 중단\n\n\nCelery 4.x는 파이썬 2를 지원하는 마지막 메이저 버전입니다. Celery 5.0 부터는 Python 3.5 이상만 지원할 예정이라고 하네요.\n\n\n(Celery 4.x는 Python 2.7, 3.4, 3.5를 지원하며, Celery 3.x는 Python 2.6도 지원합니다.)\n\n\n\nDjango 1.8 이상 필요, 1.9 이상 권장\n\n\nDjango에서 Celery 4.x를 사용하려면 Django 1.8 이상이 필요합니다.\n\n\n또한, 새로 추가된 transaction.on_commit 기능을 사용하려면 Django 1.9 이상을 사용해야한다고 하네요.\n\n\n\n지원 중단 플랫폼\n\n\n * MS Windows\n * Jython\n\n\n\n삭제된 기능\n\n\n * celery.task.http\n * Task에서 에러 발생시",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.0" />
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    
+    <script defer src="/public/cards.min.js?v=61d94923b7"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=61d94923b7">
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DT5YDEB55X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DT5YDEB55X');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css">
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+</style><style>:root {--ghost-accent-color: #FF1A75;}</style>
+</head>
+
+<body class="post-template tag-python tag-celery-4 is-head-b--a_n">
+    <div class="gh-site">
+        <header id="gh-head" class="gh-head gh-outer">
+            <div class="gh-head-inner gh-inner">
+                    <a class="gh-head-description" href="https://raccoonyy.github.io">Writes about programming, book and etc.</a>
+
+                <div class="gh-head-brand">
+                    <a class="gh-head-logo" href="https://raccoonyy.github.io">
+                            raccoony&#x27;s cave
+                    </a>
+                    <button class="gh-burger"></button>
+                </div>
+
+                <nav class="gh-head-menu">
+                    <ul class="nav">
+    <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
+</ul>
+
+                </nav>
+
+                <div class="gh-head-actions">
+                        <a class="gh-head-btn gh-btn gh-primary-btn" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+            </div>
+        </header>
+
+
+        
+<main class="gh-main">
+        <article class="gh-article post tag-python tag-celery-4">
+            <header class="gh-article-header gh-canvas">
+                    <a class="gh-article-tag" href="https://raccoonyy.github.io/tag/python/">python</a>
+
+                <h1 class="gh-article-title">Celery 4.0의 주요 변경사항 정리</h1>
+
+                    <aside class="gh-article-sidebar">
+            <figure class="gh-author-image">
+                    <img src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" alt="Alan Kim">
+            </figure>
+
+            <h4 class="gh-author-name">
+                <a href="/author/alan/">Alan Kim</a>
+            </h4>
+
+        <div class="gh-article-meta">
+            <time class="gh-article-date" datetime="2016-11-17">2016년 11월 17일</time>
+
+                <span class="gh-article-meta-sep"></span>
+                <span class="gh-article-length">2 min</span>
+        </div>
+    </aside>
+
+
+                    <figure class="gh-article-image">
+                        <img
+                            srcset="/content/images/size/w300/2016/11/Screenshot-2016-11-16-16.51.45.png 300w,
+                                    /content/images/size/w720/2016/11/Screenshot-2016-11-16-16.51.45.png 720w,
+                                    /content/images/size/w960/2016/11/Screenshot-2016-11-16-16.51.45.png 960w,
+                                    /content/images/size/w1200/2016/11/Screenshot-2016-11-16-16.51.45.png 1200w,
+                                    /content/images/size/w2000/2016/11/Screenshot-2016-11-16-16.51.45.png 2000w"
+                            sizes="(max-width: 1200px) 100vw, 1200px"
+                            src="/content/images/size/w1200/2016/11/Screenshot-2016-11-16-16.51.45.png"
+                            alt="Celery 4.0의 주요 변경사항 정리"
+                        >
+                    </figure>
+            </header>
+
+            <section class="gh-content gh-canvas">
+                <!--kg-card-begin: markdown--><p>지난 11월 11일에 celery 4.0이 나왔습니다. (<s>빼빼로 데이 기념!</s>)</p>
+<p><img src="https://raccoonyy.github.io/content/images/2016/11/Screenshot-2016-11-16-16.51.45.png" alt="" loading="lazy"></p>
+<p>주요 변경사항을 요약해보면 다음과 같습니다.</p>
+<h2 id="python26">Python 2.6 이하 지원 중단</h2>
+<p>Celery 4.x는 파이썬 2를 지원하는 마지막 메이저 버전입니다. Celery 5.0 부터는 Python 3.5 이상만 지원할 예정이라고 하네요.</p>
+<p>(Celery 4.x는 Python 2.7, 3.4, 3.5를 지원하며, Celery 3.x는 Python 2.6도 지원합니다.)</p>
+<h2 id="django1819">Django 1.8 이상 필요, 1.9 이상 권장</h2>
+<p>Django에서 Celery 4.x를 사용하려면 Django 1.8 이상이 필요합니다.</p>
+<p>또한, 새로 추가된 <code>transaction.on_commit</code> 기능을 사용하려면 Django 1.9 이상을 사용해야한다고 하네요.</p>
+<h2 id="">지원 중단 플랫폼</h2>
+<ul>
+<li>MS Windows</li>
+<li>Jython</li>
+</ul>
+<h2 id="">삭제된 기능</h2>
+<ul>
+<li><code>celery.task.http</code></li>
+<li>Task에서 에러 발생시 이메일 발송하던 기능</li>
+<li><code>celery.contrib.batches</code></li>
+</ul>
+<h2 id="broker">broker 지원 중단</h2>
+<p><code>*</code> 표시: result backend로는 사용할 수 있습니다.</p>
+<ul>
+<li>Django ORM<code>*</code></li>
+<li>SQLAlchemy<code>*</code></li>
+<li>CouchDB<code>*</code></li>
+<li>IronMQ</li>
+<li>Beanstalk</li>
+</ul>
+<h2 id="">설정 이름들이 소문자로 변경</h2>
+<p>예를 들어 <code>CELERY_MAX_CACHED_RESULTS</code> 같은 설정 이름이 <code>result_cache_max</code>로 바뀌었습니다. (<a href="http://docs.celeryproject.org/en/latest/whatsnew-4.0.html#lowercase-setting-names">더 보기</a>)</p>
+<h2 id="json">기본 시리얼라이저가 Json으로 변경</h2>
+<p>pickle에서 Json으로 바뀌었습니다.</p>
+<h2 id="task"><code>Task</code>를 상속한 클래스가 자동으로 등록되지 않음</h2>
+<p>이전에는 <code>Task</code>를 상속한 클래스가 태스크로 자동 등록되었지만, 앞으로는 다음과 같이 직접 등록해야 합니다.</p>
+<pre><code class="language-python">app.tasks.register(CustomTask())
+</code></pre>
+<h2 id="">태스크 전달인자 개수 확인</h2>
+<p>태스크에 전달한 인자 개수가 다른 경우 <code>TypeError</code> 예외가 발생합니다.</p>
+<h2 id="">몇몇 콘솔용 바이너리가 사라집니다.</h2>
+<ul>
+<li>celeryd (대신 celery worker 사용)</li>
+<li>celerybeat (대신 celery beat 사용)</li>
+<li>celeryd-multi (대신 celery multi 사용)</li>
+</ul>
+<p>이 외에도 다양한 새 기능이 추가되었으니 <a href="http://docs.celeryproject.org/en/latest/whatsnew-4.0.html#news">변경사항 문서</a>를 확인해보세요. :)</p>
+<!--kg-card-end: markdown-->
+            </section>
+        </article>
+
+                <div class="gh-read-next gh-canvas">
+                <section class="gh-pagehead">
+                    <h4 class="gh-pagehead-title">Read next</h4>
+                </section>
+
+                <div class="gh-topic gh-topic-grid">
+                    <div class="gh-topic-content">
+                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-week-april/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(4월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(4월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+행사
+
+
+
+PyCon 2016
+
+
+2016년에도 파이콘이 열립니다. 이번에는 특별히 아시아태평양 지역 전체를 포괄한다고 하네요. 얼리버드 등록은 눈 깜짝할 새에 지나갔으니, 정규 등록을 기다리셔야 할 듯 합니다.
+
+
+
+오프라인 강좌
+
+
+
+장고 차근차근 시작하기
+
+
+6월 7일 개강 | 4주 간 36시간 과정(화, 목, 일) | 수강료 60만원
+
+
+
+파이썬 차근차근</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-04-25">2016년 4월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-1th-week-feb/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식 (2월 첫째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식 (2월 첫째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+2월은 구인 소식이 많네요. :)
+
+
+
+블로그
+
+
+
+Python에서 Tajo 사용하기 by Wonjun Hong
+
+
+라인 웍스에 계시는 Wonjun Hong 님이 Tajo가 만든 결과물을 파이썬에서 불러들이는 방법 대신, Tajo에 직접 쿼리를 보낼 수 있는 방법을 알려줍니다.
+
+
+요약 : pip install JayDeBeApi
+
+
+
+파이썬 패키징 by rein
+
+
+파이썬 라이브러리를 .deb 패키지로</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-02-01">2016년 2월 1일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-4th-week-jan/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(1월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(1월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+블로그
+
+
+
+django, bower, grunt로 사이트 구조잡기
+
+
+JayJin님이 django와 bower, grunt로 사이트 구조 잡는 방법을 설명해 줍니다.
+
+
+ * 요약 : django에는 백엔드만 맡기기
+
+
+
+예제로 따라해보는 Jupyter, pandas 데이터 분석
+
+
+인실리코젠의 김형용 님이 Jupyter와 pandas를 사용하여 데이터 분석 기법을 보여줍니다. 블로그 글은 짧은 편이고, 숨겨진 Jupyter 문서가 진짜배기입니다.</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-01-25">2016년 1월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                    </div>
+                </div>
+            </div>
+</main>
+
+        <footer class="gh-foot gh-outer">
+            <div class="gh-foot-inner gh-inner">
+                    <section class="gh-subscribe">
+                            <h4 class="gh-subscribe-title">Subscribe to raccoony&#x27;s cave</h3>
+
+                                <div class="gh-subscribe-description">Don&#x27;t miss out on the latest news. Sign up now to get access to the library of members-only articles.</div>
+
+                            <button class="gh-subscribe-btn gh-btn" data-portal="signup"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33332 3.33334H16.6667C17.5833 3.33334 18.3333 4.08334 18.3333 5.00001V15C18.3333 15.9167 17.5833 16.6667 16.6667 16.6667H3.33332C2.41666 16.6667 1.66666 15.9167 1.66666 15V5.00001C1.66666 4.08334 2.41666 3.33334 3.33332 3.33334Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18.3333 5L9.99999 10.8333L1.66666 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> Subscribe now</button>
+                    </section>
+
+                <nav class="gh-foot-menu">
+                    
+                </nav>
+
+                <div class="gh-copyright">
+                        raccoony&#x27;s cave © 2022. Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/assets/built/main.min.js?v=61d94923b7"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+    var subs = document.getElementsByClassName("gh-subscribe");
+    subs[0].style.display = 'none';
+</script>
+</body>
+
+</html>

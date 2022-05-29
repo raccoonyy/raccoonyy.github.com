@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2014년에 Django로 개발하면서 실수한 부분</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/built/screen.css?v=61d94923b7">
+
+    <meta name="description" content="Joseph Misiti님이 2014년에 Django 개발에서 실수했던 교훈들을 모아서 설명합니다. 1. Postgres를 사용하라. 2. 유닛 테스트를 작성하라. 3. Restful 인터페이스를 지원하라. 4. 모델 필드에 help_text를 넣어라. 6. URL 모듈을..." />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/django-development-mistakes-in-2014-translatate/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="raccoony&#x27;s cave" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="2014년에 Django로 개발하면서 실수한 부분" />
+    <meta property="og:description" content="Joseph Misiti님이 2014년에 Django 개발에서 실수했던 교훈들을 모아서 설명합니다. 1. Postgres를 사용하라. 2. 유닛 테스트를 작성하라. 3. Restful 인터페이스를 지원하라. 4. 모델 필드에 help_text를 넣어라. 6. URL 모듈을..." />
+    <meta property="og:url" content="https://raccoonyy.github.io/django-development-mistakes-in-2014-translatate/" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1597945161640-9366e6d4253b?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDN8fCUyMGNvbXBhc3MlMjB8ZW58MHx8fHwxNjUzNTUyNDE5&amp;ixlib&#x3D;rb-1.2.1&amp;q&#x3D;80&amp;w&#x3D;2000" />
+    <meta property="article:published_time" content="2015-03-06T02:52:00.000Z" />
+    <meta property="article:modified_time" content="2016-01-29T20:47:53.000Z" />
+    <meta property="article:tag" content="Django" />
+    <meta property="article:tag" content="translate" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="2014년에 Django로 개발하면서 실수한 부분" />
+    <meta name="twitter:description" content="Joseph Misiti님이 2014년에 Django 개발에서 실수했던 교훈들을 모아서 설명합니다. 1. Postgres를 사용하라. 2. 유닛 테스트를 작성하라. 3. Restful 인터페이스를 지원하라. 4. 모델 필드에 help_text를 넣어라. 6. URL 모듈을..." />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/django-development-mistakes-in-2014-translatate/" />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1597945161640-9366e6d4253b?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDN8fCUyMGNvbXBhc3MlMjB8ZW58MHx8fHwxNjUzNTUyNDE5&amp;ixlib&#x3D;rb-1.2.1&amp;q&#x3D;80&amp;w&#x3D;2000" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Alan Kim" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Django, translate" />
+    <meta name="twitter:site" content="@raccoonyy" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="1500" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "url": "https://raccoonyy.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://raccoonyy.github.io/favicon.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Alan Kim",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&r=x&d=mp",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://raccoonyy.github.io/author/alan/",
+        "sameAs": []
+    },
+    "headline": "2014년에 Django로 개발하면서 실수한 부분",
+    "url": "https://raccoonyy.github.io/django-development-mistakes-in-2014-translatate/",
+    "datePublished": "2015-03-06T02:52:00.000Z",
+    "dateModified": "2016-01-29T20:47:53.000Z",
+    "keywords": "Django, translate",
+    "description": "저 같은 뉴비에게는 꽤나 도움이 되는 가이드여서, 더 잘 이해하고자 번역을 해보았습니다. (이미 looah에 올렸던 글을 제 블로그로 옮겨와서 포매팅했어요.) 번역을 허락해 준 Joseph Misiti 님께 고마움을 전합니다.\n\n\n원문 - Django Development Mistakes in 2014\n\n\n\n2015년이 얼마 남지 않은 시점에, 저는 2014년 동안 개발에 대한 접근법이 어떻게 달라졌는지를 생각해보았습니다. 이전 글(회사를 시작하기 전 Django에 대해 알았으면 좋았을 11가지 사실)에서 시작한 목록을 추가할 시점이 된 것이죠.\n\n\n\n1. Postgres를 주 DB로 선택하세요\n\n\n네. 제가 이전 글에서 주 DB로 MongoDB를 추천했던 사실을 잘 알고 있습니다. 그런데 1년 반 정도 사용하다 보니 추천하지 않을 이유들이 좀 생겼습니다.\n\n\n * Django 1.7에서도 Django ORM은 여전히 MongoDB를 지원하지 않습니다. Mongoengine나 PyM",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.0" />
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    
+    <script defer src="/public/cards.min.js?v=61d94923b7"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=61d94923b7">
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DT5YDEB55X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DT5YDEB55X');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css">
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+</style><style>:root {--ghost-accent-color: #FF1A75;}</style>
+</head>
+
+<body class="post-template tag-django tag-translate is-head-b--a_n">
+    <div class="gh-site">
+        <header id="gh-head" class="gh-head gh-outer">
+            <div class="gh-head-inner gh-inner">
+                    <a class="gh-head-description" href="https://raccoonyy.github.io">Writes about programming, book and etc.</a>
+
+                <div class="gh-head-brand">
+                    <a class="gh-head-logo" href="https://raccoonyy.github.io">
+                            raccoony&#x27;s cave
+                    </a>
+                    <button class="gh-burger"></button>
+                </div>
+
+                <nav class="gh-head-menu">
+                    <ul class="nav">
+    <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
+</ul>
+
+                </nav>
+
+                <div class="gh-head-actions">
+                        <a class="gh-head-btn gh-btn gh-primary-btn" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+            </div>
+        </header>
+
+
+        
+<main class="gh-main">
+        <article class="gh-article post tag-django tag-translate no-image">
+            <header class="gh-article-header gh-canvas">
+                    <a class="gh-article-tag" href="https://raccoonyy.github.io/tag/django/">Django</a>
+
+                <h1 class="gh-article-title">2014년에 Django로 개발하면서 실수한 부분</h1>
+
+                    <aside class="gh-article-sidebar">
+            <figure class="gh-author-image">
+                    <img src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" alt="Alan Kim">
+            </figure>
+
+            <h4 class="gh-author-name">
+                <a href="/author/alan/">Alan Kim</a>
+            </h4>
+
+        <div class="gh-article-meta">
+            <time class="gh-article-date" datetime="2015-03-06">2015년 3월 6일</time>
+
+                <span class="gh-article-meta-sep"></span>
+                <span class="gh-article-length">9 min</span>
+        </div>
+    </aside>
+
+
+            </header>
+
+            <section class="gh-content gh-canvas">
+                <!--kg-card-begin: markdown--><p>저 같은 뉴비에게는 꽤나 도움이 되는 가이드여서, 더 잘 이해하고자 번역을 해보았습니다. (이미 <a href="http://www.looah.com/article/view/2025">looah</a>에 올렸던 글을 제 블로그로 옮겨와서 포매팅했어요.) 번역을 허락해 준 Joseph Misiti 님께 고마움을 전합니다.</p>
+<p>원문 - <a href="http://medium.com/cs-math/2014-django-development-mistakes-in-2014-f48623f58b21">Django Development Mistakes in 2014</a></p>
+<hr>
+<p>2015년이 얼마 남지 않은 시점에, 저는 2014년 동안 개발에 대한 접근법이 어떻게 달라졌는지를 생각해보았습니다. 이전 글(<a href="https://medium.com/cs-math/11-things-i-wish-i-knew-about-django-development-before-i-started-my-company-f29f6080c131">회사를 시작하기 전 Django에 대해 알았으면 좋았을 11가지 사실</a>)에서 시작한 목록을 추가할 시점이 된 것이죠.</p>
+<h2 id="1postgresdb">1. Postgres를 주 DB로 선택하세요</h2>
+<p>네. 제가 이전 글에서 주 DB로 MongoDB를 추천했던 사실을 잘 알고 있습니다. 그런데 1년 반 정도 사용하다 보니 추천하지 않을 이유들이 좀 생겼습니다.</p>
+<ul>
+<li>Django 1.7에서도 Django ORM은 여전히 MongoDB를 지원하지 않습니다. Mongoengine나 PyMongo를 사용해야 하죠. 이 두 라이브러리는 훌륭하지만, Django admin 같은 도구를 사용할 수는 없습니다. 이건 정말 끔찍하며, 제가 MongoDB를 주 DB로 사용하지 않게 된 이유이기도 합니다.</li>
+<li>2014년 12월 18일부터 Postgres는 JSONB 데이터 타입을 지원합니다. 이를 통해 Postgres에 &quot;문서&quot;를 저장할 수 있으며, MongoDB에서처럼 비슷하게 쿼리를 실행할 수도 있습니다. 성능 문제를 겪지 않고서도 말이죠.</li>
+<li>(MongoDB를 선택하는 순간) Django ORM을 사용한다고 가정하는 대다수 서드파티 라이브러리가 쓸모 없게 됩니다. 이는 Django의 생태계 대다수를 사용할 수 없다는 의미입니다. Django 생태계는 매우 훌륭하며, 매일 발전하고 있습니다. 이걸 사용할 수 없다니!</li>
+</ul>
+<p>OSX에서 개발하고 있다면 Postgres 코드를 다운받아 빌드하지 마시고, Postgres 앱(<a href="http://postgresapp.com/">http://postgresapp.com/</a>)을 사용하세요. 시간을 많이 절약해줄 겁니다.</p>
+<h2 id="2">2. 유닛 테스트를 작성하기 쉽게, 유닛 테스트 인프라를 구성하세요.</h2>
+<p>Django와 테스트 주도 개발(TDD) 방식에 대해 수많은 찬반 논쟁이 벌어지고 있습니다. 저는 어느 한 쪽 편을 들 생각은 없지만, 모든 프로젝트에서 유닛 테스트를 작성하기 쉽게(또한 재미있게) 해주는 프레임워크도 구성을 해두려고 노력합니다. 프로젝트에는 먼저, 모든 테스트 케이스에 대해 믹스인처럼 작동하는 클래스를 하나 만듭니다. 이 믹스인을 상속받는 각 유닛 테스트(와 클래스)에는, 테스트용 데이터를 생성할 인스턴스 메서드도 만듭니다. 이러한 가짜 데이터를 만드는 데는 django_faker 프로젝트가 안성맞춤입니다. 데이터는 setUp() 메서드에서 생성된 후, tearDown() 메서드에서 삭제됩니다. 여기에 좀더 관심이 있다면 제 블로그에서 <a href="http://josephmisiti.github.io/unit-testing-best-practices-in-django/">Django에서의 유닛 테스트</a>라는 글을 읽어 보세요.</p>
+<blockquote>
+<p>django_faker 말고 model_mommy나 factory_boy 등도 좋습니다.</p>
+</blockquote>
+<h2 id="3djangotastypierestful">3. Django Tastypie를 사용해서 Restful 인터페이스를 만드세요.</h2>
+<p>Ember.js, Backbone.js, Angular.js 등 클라이언트 MVC 프레임워크의 수가 급증하는 시기이므로, 여러분의 웹 애플리케이션에서도 RESTful을 지원하면 좋습니다. Django에서 REST API를 구현한 두 개의 훌륭한 프레임워크가 있는데요, django-rest-framework와 django-tastypie입니다. django-rest-framework가 더 많이 사용되고 있는 것 같지만, 저는 아직 django-tastypie를 사용합니다. 이유는 django-tastypie가 좀더 간명해 보이며, 제가 경험도 많이 해봤기 때문입니다. 하지만 여러분이 공개 API를 만들고 있다면 두말 할 필요 없이 django-rest-framework를 사용하세요. 문서화 기능도 제공됩니다. 혹시나 django-tastypie를 시작해야 한다면 제가 쓴 <a href="http://josephmisiti.github.io/using-django-tastypie-to-create-RESTful-APIs/">튜토리얼</a>을 참고하세요.</p>
+<h2 id="4djangohelp_text">4. 문서화 작업이라고 생각하고, Django 모델 필드의 속성인 help_text를 사용하세요.</h2>
+<p>Django 모델 필드에는 help_text 속성이 존재합니다. 이 속성은 Django의 폼 화면이나 admin 화면에 나타나죠. 설령 폼 화면이나 admin 화면에 사용하지 않는다하더라도 이 속성을 꼭 사용하길 권합니다. 왜냐하면 여러분이 만든 모델의 문서화에도 안성맞춤이거든요. 앞으로 새 개발자를 채용할 예정이라면, help_text 속성이 인수인계에 드는 수많은 시간을 단축시켜 줄 겁니다.</p>
+<h2 id="5urldjangourl">5. 사용자에게 드러나는 URL에는 쿼리 문자열을 사용하지 말고 Django의 URL 모듈을 적용하세요.</h2>
+<p>웹 개발자들에겐 너무 당연한 사실이겠지만, 어쨌든 저는 url에 더이상 쿼리 문자열을 사용하지 않습니다. 대신 url 파라미터로 전달하죠. Django의 url 디스패처를 사용하여 이렇게 할 수 있습니다.</p>
+<p>예를 들어 다음의 URL은</p>
+<p><a href="https://www.example.com/user?id=20">https://www.example.com/user?id=20</a></p>
+<p>다음과 같이 바꿀 수 있습니다.</p>
+<p><a href="https://www.example.com/user/20/">https://www.example.com/user/20/</a></p>
+<p>이렇게 하면 컨트롤러에서 타입 검사 같은 코드를 덜 작성해도 됩니다. id 자리에 정수가 없다면 Django의 URL 모듈이 404 HTTP 오류를 던질 테니까요. 간혹 이 규칙을 따르지 못할 사정이 있을 수도 있겠지만, 저는 할 수 있는 한 이 규칙을 따릅니다.</p>
+<h2 id="6djangoormdb">6. Django ORM으로 DB의 제약 조건을 지정하세요.</h2>
+<p>네, 네, 이제와서 또 언급하기엔 바보 같은 말이죠. 여러분이 DB의 제약 조건을 정확히 지정해 둔다면, 수많은 문제들을 해결할 수 있습니다.</p>
+<ul>
+<li>null 값을 가질 수 없는 필드에는 null=True를 설정하지 마세요.</li>
+<li>고유한 값을 저장하는 필드들은 unique_together로 지정해주세요.</li>
+<li>unique 파라미터도 적절히 사용해 주세요.</li>
+<li>max_length도 알맞게 지정하세요.<br>
+데이터베이스의 스키마를 설계하는 데 공을 들이고, Django ORM을 최대한 사용하세요. 그러면 잘못된 데이터가 저장되는 일은 없을 겁니다.</li>
+</ul>
+<h2 id="7django_model_utlisdjagno_extensions">7. 모든 프로젝트에 django_model_utlis와 djagno_extensions를 사용하세요.</h2>
+<p>django-extensions는 settings 출력, shell_plus, 덤프용 스크립트, 암호화 등 굉장한 기능들이 담긴 라이브러리입니다. 저는 이 기능들을 날이 갈수록 더 많이 사용하고 있습니다.</p>
+<p>django-model-utils는 Django ORM에서 지원하지 않거나 구현 방식이 조금 다른 유용한 기능들을 제공합니다. TimeStampField, MonitorField, Choices 등이 있습니다.</p>
+<p>바퀴를 새로 발명하기 전에 이 프로젝트들을 꼭 살펴보세요.</p>
+<h2 id="8sentry">8. Sentry는 프론트엔드와 백엔드의 오류를 검출하는 데 사용하세요.</h2>
+<p>Sentry는 Django로 만들어진 모니터링용 오픈소스 소프트웨어입니다. getsentry.com에서 비용을 지불하고 사용하는 가입형과 직접 운영하는 설치형으로 나뉩니다. Sentry는 프론트엔트와 백엔드의 오류를 진단하는 데 없어서는 안 될 도구입니다. Sentry로 다음과 같은 유용한 정보들을 추적할 수 있습니다.</p>
+<ul>
+<li>이 오류가 몇 번이나 발생했었나</li>
+<li>브라우저 정보</li>
+<li>시간/지역에 따른 발생 빈도</li>
+<li>500 오류 등의 스택 트레이스(stack traces)</li>
+<li>404/403 오류</li>
+<li>프론트엔드 자바스크립트의 undefines 오류</li>
+</ul>
+<p>가입형은 한 달에 $24부터 시작하며, 이 돈을 낼 만한 가치가 충분합니다.</p>
+<h2 id="9djangodebugtoolbar">9. 최적화와 디버깅에는 django-debug-toolbar를 사용하세요.</h2>
+<p>django-debug-toolbar는 놀라운 디버깅 도구입니다. 성능에 문제가 있는 SQL 쿼리와 요청, 템플릿, 캐시 등을 모두 추적할 수 있습니다. 저는 미리부터 최적화를 시도하는 편이 아니지만, 뭔가 느려졌다 싶을 땐 django-debug-toolbar가 문제점을 찾도록 도와줄 겁니다. 이 프로젝트에 대해 더 알고 싶다면 <a href="http://josephmisiti.github.io/unit-testing-best-practices-in-django/">Unit Testing Best Practices in Django</a>를 읽어 보세요.</p>
+<h2 id="10djangouser">10. Django의 커스텀 User 모델을 첫 번째 커밋부터 도입하세요.</h2>
+<p>Django의 기본 User 모델을 사용하기보다는 Django 1.6에서 도입된 <a href="https://docs.djangoproject.com/en/1.7/topics/auth/customizing/">커스텀 User 모델</a>을 사용하길 적극 권합니다. User 모델에 필드를 추가할 때도 기존의 방법(기본 User 모델과 OneToOne으로 엮인 새 모델을 만드는 방법)보다 직관적입니다. Django를 이미 사용하고 있다면 기본 User 모델의 email과 username 필드가 30 글자로 제한되어서 답답했을 겁니다. 커스텀 User 모델을 도입하면 이런 문제들이 모두 해결됩니다. 기본 User 모델을 커스텀 User 모델로 마이그레이션할 수도 있겠지만 재미는 없을 겁니다. 제 말을 명심하세요.</p>
+<h2 id="11djangoadmin">11. Django admin에 대체품을 도입해보세요.</h2>
+<p>Django의 admin은 훌륭하지만, 겉모습은 철 지난 디자인입니다. 외주 일을 맡아서 진행했다면 admin 화면을 좀더 전문가 답게 바꿔줄 도구들이 있습니다. 저는 django-grapelli와 django-suit를 애용합니다. 더 많은 목록은 다음 <a href="https://github.com/rosarior/awesome-django#admin-interface">링크</a>를 참고하세요.</p>
+<p>저는 Django와 머신 러닝에 대해 블로깅합니다. 이 주제에 관심이 있다면 제 트위터 계정 @josephmisiti를 follow해주세요.</p>
+<p>Django나 머신 러닝 관련 업무를 도와드립니다. 컨설팅도 가능합니다. Math &amp; Pencil 홈페이지를 참고하세요.</p>
+<!--kg-card-end: markdown-->
+            </section>
+        </article>
+
+                <div class="gh-read-next gh-canvas">
+                <section class="gh-pagehead">
+                    <h4 class="gh-pagehead-title">Read next</h4>
+                </section>
+
+                <div class="gh-topic gh-topic-grid">
+                    <div class="gh-topic-content">
+                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-week-april/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(4월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(4월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+행사
+
+
+
+PyCon 2016
+
+
+2016년에도 파이콘이 열립니다. 이번에는 특별히 아시아태평양 지역 전체를 포괄한다고 하네요. 얼리버드 등록은 눈 깜짝할 새에 지나갔으니, 정규 등록을 기다리셔야 할 듯 합니다.
+
+
+
+오프라인 강좌
+
+
+
+장고 차근차근 시작하기
+
+
+6월 7일 개강 | 4주 간 36시간 과정(화, 목, 일) | 수강료 60만원
+
+
+
+파이썬 차근차근</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-04-25">2016년 4월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/python-news-for-korean-4th-week-jan/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0005.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0005.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0005.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0005.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0005.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0005.jpg"
+                    alt="한국의 파이썬 소식(1월 넷째 주)"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">한국의 파이썬 소식(1월 넷째 주)</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">한국에서 일어나는 파이썬 관련 소식을 전합니다.
+
+
+
+
+블로그
+
+
+
+django, bower, grunt로 사이트 구조잡기
+
+
+JayJin님이 django와 bower, grunt로 사이트 구조 잡는 방법을 설명해 줍니다.
+
+
+ * 요약 : django에는 백엔드만 맡기기
+
+
+
+예제로 따라해보는 Jupyter, pandas 데이터 분석
+
+
+인실리코젠의 김형용 님이 Jupyter와 pandas를 사용하여 데이터 분석 기법을 보여줍니다. 블로그 글은 짧은 편이고, 숨겨진 Jupyter 문서가 진짜배기입니다.</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-01-25">2016년 1월 25일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/useful-resources-for-python-and-django/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/01/IMG_0004.jpg 300w,
+                            /content/images/size/w720/2016/01/IMG_0004.jpg 720w,
+                            /content/images/size/w960/2016/01/IMG_0004.jpg 960w,
+                            /content/images/size/w1200/2016/01/IMG_0004.jpg 1200w,
+                            /content/images/size/w2000/2016/01/IMG_0004.jpg 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/01/IMG_0004.jpg"
+                    alt="유용한 파이썬, Django 리소스"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">유용한 파이썬, Django 리소스</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">파이썬과 Django로 개발할 때는 구글과 스택오버플로를 항상 끼고 살게 마련인데요. 이 외에도 개인적으로 유용했던 리소스들을 소개해 봅니다.
+
+
+
+웹사이트
+
+
+ * 
+   
+   
+   구글 - https://www.google.com/
+   
+   
+   파이썬 패키지를 소개한 pypi 사이트가 존재하긴 하지만 검색하기엔 오히려 구글이 좋습니다. 원하는 기능에 python만 덧붙여 검색하면 못 찾을 게 없을 정도지요. (ex. 트위터 모듈이 필요하다면 python</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2015-04-03">2015년 4월 3일</time>
+            </footer>
+        </div>
+    </a>
+</article>                    </div>
+                </div>
+            </div>
+</main>
+
+        <footer class="gh-foot gh-outer">
+            <div class="gh-foot-inner gh-inner">
+                    <section class="gh-subscribe">
+                            <h4 class="gh-subscribe-title">Subscribe to raccoony&#x27;s cave</h3>
+
+                                <div class="gh-subscribe-description">Don&#x27;t miss out on the latest news. Sign up now to get access to the library of members-only articles.</div>
+
+                            <button class="gh-subscribe-btn gh-btn" data-portal="signup"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33332 3.33334H16.6667C17.5833 3.33334 18.3333 4.08334 18.3333 5.00001V15C18.3333 15.9167 17.5833 16.6667 16.6667 16.6667H3.33332C2.41666 16.6667 1.66666 15.9167 1.66666 15V5.00001C1.66666 4.08334 2.41666 3.33334 3.33332 3.33334Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18.3333 5L9.99999 10.8333L1.66666 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> Subscribe now</button>
+                    </section>
+
+                <nav class="gh-foot-menu">
+                    
+                </nav>
+
+                <div class="gh-copyright">
+                        raccoony&#x27;s cave © 2022. Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/assets/built/main.min.js?v=61d94923b7"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+    var subs = document.getElementsByClassName("gh-subscribe");
+    subs[0].style.display = 'none';
+</script>
+</body>
+
+</html>

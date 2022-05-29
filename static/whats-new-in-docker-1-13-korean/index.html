@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Docker 1.13 릴리스 요약</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/built/screen.css?v=61d94923b7">
+
+    <meta name="description" content="1월 19일에 출시된 Docker 1.13에서 바뀐 점을 요약하였습니다. #1 swarm 실행시 compose 파일 사용 #2 데몬과 클라이언트 호환성 향상 #3 청소용 명령어 #4 명령어 구조 변경 #5 swarm 모니터링 개선 #6 빌드 개선 #7 AWS, Azure 지원(베타)" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://raccoonyy.github.io/whats-new-in-docker-1-13-korean/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="raccoony&#x27;s cave" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Docker 1.13 릴리스 요약" />
+    <meta property="og:description" content="1월 19일에 출시된 Docker 1.13에서 바뀐 점을 요약하였습니다. #1 swarm 실행시 compose 파일 사용 #2 데몬과 클라이언트 호환성 향상 #3 청소용 명령어 #4 명령어 구조 변경 #5 swarm 모니터링 개선 #6 빌드 개선 #7 AWS, Azure 지원(베타)" />
+    <meta property="og:url" content="https://raccoonyy.github.io/whats-new-in-docker-1-13-korean/" />
+    <meta property="og:image" content="https://raccoonyy.github.io/content/images/2017/01/docker1-13.png" />
+    <meta property="article:published_time" content="2017-01-20T02:15:00.000Z" />
+    <meta property="article:modified_time" content="2017-04-04T12:34:42.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="1.13" />
+    <meta property="article:tag" content="릴리스 노트" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/raccoonyy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Docker 1.13 릴리스 요약" />
+    <meta name="twitter:description" content="1월 19일에 출시된 Docker 1.13에서 바뀐 점을 요약하였습니다. #1 swarm 실행시 compose 파일 사용 #2 데몬과 클라이언트 호환성 향상 #3 청소용 명령어 #4 명령어 구조 변경 #5 swarm 모니터링 개선 #6 빌드 개선 #7 AWS, Azure 지원(베타)" />
+    <meta name="twitter:url" content="https://raccoonyy.github.io/whats-new-in-docker-1-13-korean/" />
+    <meta name="twitter:image" content="https://raccoonyy.github.io/content/images/2017/01/docker1-13.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Alan Kim" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, 1.13, 릴리스 노트" />
+    <meta name="twitter:site" content="@raccoonyy" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "raccoony&#x27;s cave",
+        "url": "https://raccoonyy.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://raccoonyy.github.io/favicon.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Alan Kim",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s=250&r=x&d=mp",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://raccoonyy.github.io/author/alan/",
+        "sameAs": []
+    },
+    "headline": "Docker 1.13 릴리스 요약",
+    "url": "https://raccoonyy.github.io/whats-new-in-docker-1-13-korean/",
+    "datePublished": "2017-01-20T02:15:00.000Z",
+    "dateModified": "2017-04-04T12:34:42.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://raccoonyy.github.io/content/images/2017/01/docker1-13.png"
+    },
+    "keywords": "docker, 1.13, 릴리스 노트",
+    "description": "\n\n\n1월 19일에 출시된 Docker 1.13에서 바뀐 점을 요약하였습니다. Introducing Docker 1.13을 참고하였습니다.\n\n\n\n\n1. swarm으로 클러스터를 띄울 때 compose 파일을 사용할 수 있습니다.\n\n\nswarm으로 서비스를 관리할 때 옵션 지정하기가 번잡했던 부분을 해소할 수 있겠습니다.\n\n\n\n2. 예전 버전과의 호환성 유지\n\n\nDocker 데몬보다 클라이언트가 최신 버전인 경우 Error response from daemon: client is newer than server 에러를 만나곤 했는데요. 1.13 버전부터는 호환성이 유지된다고 합니다.\n\n\n\n3. 청소용 명령어 추가\n\n\n많은 사람들이 원했던 두 명령어가 추가되었습니다.\n\n\n * docker system df: 도커가 디스크 용량을 얼마나 차지하는지 알려줍니다.\n\n\n$ docker system df\nTYPE                TOTAL               ACTIVE     ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://raccoonyy.github.io/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.0" />
+    <link rel="alternate" type="application/rss+xml" title="raccoony&#x27;s cave" href="https://raccoonyy.github.io/rss/" />
+    
+    <script defer src="/public/cards.min.js?v=61d94923b7"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=61d94923b7">
+    <meta name="google-site-verification" content="HbTOu4bsFHuaiGTyAv017aq7Z_-DyKGG4Zdf6GAf3Eg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DT5YDEB55X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DT5YDEB55X');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css">
+<script>var disqus = 'raccoonyscave'</script>
+<style type="text/css">
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+        line-height: 1.8em;
+        letter-spacing: -1px;
+        text-align: left;
+    }
+</style><style>:root {--ghost-accent-color: #FF1A75;}</style>
+</head>
+
+<body class="post-template tag-docker tag-1-13 tag-rilriseu-noteu is-head-b--a_n">
+    <div class="gh-site">
+        <header id="gh-head" class="gh-head gh-outer">
+            <div class="gh-head-inner gh-inner">
+                    <a class="gh-head-description" href="https://raccoonyy.github.io">Writes about programming, book and etc.</a>
+
+                <div class="gh-head-brand">
+                    <a class="gh-head-logo" href="https://raccoonyy.github.io">
+                            raccoony&#x27;s cave
+                    </a>
+                    <button class="gh-burger"></button>
+                </div>
+
+                <nav class="gh-head-menu">
+                    <ul class="nav">
+    <li class="nav-home"><a href="http://raccoonyy.github.io/">Home</a></li>
+    <li class="nav-about-me"><a href="https://raccoonyy.github.io/about/">About Me</a></li>
+    <li class="nav-django"><a href="https://raccoonyy.github.io/tag/django/">Django</a></li>
+    <li class="nav-python"><a href="https://raccoonyy.github.io/tag/python/">Python</a></li>
+</ul>
+
+                </nav>
+
+                <div class="gh-head-actions">
+                        <a class="gh-head-btn gh-btn gh-primary-btn" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+            </div>
+        </header>
+
+
+        
+<main class="gh-main">
+        <article class="gh-article post tag-docker tag-1-13 tag-rilriseu-noteu">
+            <header class="gh-article-header gh-canvas">
+                    <a class="gh-article-tag" href="https://raccoonyy.github.io/tag/docker/">docker</a>
+
+                <h1 class="gh-article-title">Docker 1.13 릴리스 요약</h1>
+
+                    <aside class="gh-article-sidebar">
+            <figure class="gh-author-image">
+                    <img src="https://www.gravatar.com/avatar/357fbea2b22fc72b351478c2c3a1ab23?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" alt="Alan Kim">
+            </figure>
+
+            <h4 class="gh-author-name">
+                <a href="/author/alan/">Alan Kim</a>
+            </h4>
+
+        <div class="gh-article-meta">
+            <time class="gh-article-date" datetime="2017-01-20">2017년 1월 20일</time>
+
+                <span class="gh-article-meta-sep"></span>
+                <span class="gh-article-length">4 min</span>
+        </div>
+    </aside>
+
+
+                    <figure class="gh-article-image">
+                        <img
+                            srcset="/content/images/size/w300/2017/01/docker1-13.png 300w,
+                                    /content/images/size/w720/2017/01/docker1-13.png 720w,
+                                    /content/images/size/w960/2017/01/docker1-13.png 960w,
+                                    /content/images/size/w1200/2017/01/docker1-13.png 1200w,
+                                    /content/images/size/w2000/2017/01/docker1-13.png 2000w"
+                            sizes="(max-width: 1200px) 100vw, 1200px"
+                            src="/content/images/size/w1200/2017/01/docker1-13.png"
+                            alt="Docker 1.13 릴리스 요약"
+                        >
+                    </figure>
+            </header>
+
+            <section class="gh-content gh-canvas">
+                <!--kg-card-begin: markdown--><blockquote>
+<p>1월 19일에 출시된 Docker 1.13에서 바뀐 점을 요약하였습니다. <a href="https://blog.docker.com/2017/01/whats-new-in-docker-1-13/">Introducing Docker 1.13</a>을 참고하였습니다.</p>
+</blockquote>
+<h3 id="1swarmcompose">1. swarm으로 클러스터를 띄울 때 compose 파일을 사용할 수 있습니다.</h3>
+<p>swarm으로 서비스를 관리할 때 옵션 지정하기가 번잡했던 부분을 해소할 수 있겠습니다.</p>
+<h3 id="2">2. 예전 버전과의 호환성 유지</h3>
+<p>Docker 데몬보다 클라이언트가 최신 버전인 경우 <code>Error response from daemon: client is newer than server</code> 에러를 만나곤 했는데요. 1.13 버전부터는 호환성이 유지된다고 합니다.</p>
+<h3 id="3">3. 청소용 명령어 추가</h3>
+<p>많은 사람들이 원했던 두 명령어가 추가되었습니다.</p>
+<ul>
+<li><code>docker system df</code>: 도커가 디스크 용량을 얼마나 차지하는지 알려줍니다.</li>
+</ul>
+<pre><code class="language-language-sh">$ docker system df
+TYPE                TOTAL               ACTIVE              SIZE                RECLAIMABLE
+Images              85                  7                   8.59 GB             4.618 GB (53%)
+Containers          9                   3                   407 MB              323.5 MB (79%)
+Local Volumes       65                  6                   6.675 GB            5.968 GB (89%)
+</code></pre>
+<ul>
+<li><code>docker system prune</code>: 정지한 컨테이너, 연결이 끊긴 볼륨, 연결이 끊긴 네트워크, 외톨이(dangling) 이미지가 삭제됩니다.</li>
+</ul>
+<pre><code class="language-language-sh">$ docker system prune
+WARNING! This will remove:
+	- all stopped containers
+	- all volumes not used by at least one container
+	- all networks not used by at least one container
+	- all dangling images
+Are you sure you want to continue? [y/N]
+</code></pre>
+<h3 id="4">4. 명령어 구조 변경</h3>
+<p><code>docker container</code>와 <code>docker image</code> 등의 명령어 모음을 추가하면서 구조를 변경하고 있습니다. 예를 들어 <code>docker images</code> 같은 명령어는 뜻이 더 분명해 보이는 <code>docker image list</code>로도 실행할 수 있습니다.</p>
+<ul>
+<li><code>docker container</code>: 컨테이너와 관련된 명령어가 들어 있습니다.</li>
+</ul>
+<pre><code>$ docker container
+Commands:
+  attach      Attach to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+</code></pre>
+<p>이 중에 <code>docker container list</code>만 실행을 해보면...</p>
+<pre><code>$ docker container list
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+b769009a1693        raccoony/buster     &quot;./run.sh&quot;               3 hours ago         Up 2 hours          0.0.0.0:9000-&gt;9000/tcp   blog_buster_1
+5aeaf1187adc        ghost               &quot;/entrypoint.sh np...&quot;   3 hours ago         Up 2 hours          0.0.0.0:2368-&gt;2368/tcp   blog_ghost_1
+</code></pre>
+<ul>
+<li><code>docker image</code>: 이미지와 관련된 명령어가 들어 있습니다.</li>
+</ul>
+<pre><code>$ docker image
+Commands:
+  build       Build an image from a Dockerfile
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Display detailed information on one or more images
+  load        Load an image from a tar archive or STDIN
+  ls          List images
+  prune       Remove unused images
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rm          Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+</code></pre>
+<p>이 중에 <code>docker image prune</code>을 실행해보았습니다. 1.5GB를 아꼈네요. :)</p>
+<pre><code>$ docker image prune
+WARNING! This will remove all dangling images.
+Are you sure you want to continue? [y/N] y
+Deleted Images:
+deleted: sha256:9e36c6055df2ada
+...
+Total reclaimed space: 1.579 GB
+</code></pre>
+<h3 id="5swarm">5. swarm 모니터링 개선</h3>
+<p>swarm으로 실행한 클러스터들의 로그를 모아서 보여주는 <code>docker service logs</code> 명령이 추가되었습니다.</p>
+<h3 id="6">6. 빌드 개선</h3>
+<p><code>docker build</code>를 실행할 때 <code>--squash</code> 옵션을 추가하면, 겹겹이 쌓인 파일시스템 레이어를 하나로 합쳐줍니다. <code>--squash</code>를 사용하면, 이미지 레이어를 최소화해서 얻는 장점도 있는 반면, 여러 이미지들이 공유하던 중간 레이어들을 공유할 수 없다는 단점도 생깁니다.</p>
+<p>또, <code>--compress</code> 옵션도 추가되었습니다. 원격에 있는 데몬과 통신하면서 이미지를 빌드할 때, 오가는 데이터를 압축하여 빌드 속도를 높인다고 합니다.</p>
+<h3 id="7awsazure">7. AWS, Azure 지원(베타)</h3>
+<p>AWS와 Azure에서 퍼블릭 베타 형태로 Docker를 지원합니다.</p>
+<!--kg-card-end: markdown-->
+            </section>
+        </article>
+
+                <div class="gh-read-next gh-canvas">
+                <section class="gh-pagehead">
+                    <h4 class="gh-pagehead-title">Read next</h4>
+                </section>
+
+                <div class="gh-topic gh-topic-grid">
+                    <div class="gh-topic-content">
+                            <article class="gh-card post">
+    <a class="gh-card-link" href="/2016-retrospective/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/12/2016-retrospective.png 300w,
+                            /content/images/size/w720/2016/12/2016-retrospective.png 720w,
+                            /content/images/size/w960/2016/12/2016-retrospective.png 960w,
+                            /content/images/size/w1200/2016/12/2016-retrospective.png 1200w,
+                            /content/images/size/w2000/2016/12/2016-retrospective.png 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/12/2016-retrospective.png"
+                    alt="2016년 돌아보기"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">2016년 돌아보기</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">2016년을 돌아보자.
+
+
+
+한 줄 요약 : 아는 만큼 모르게 된다.
+
+
+
+내가 뽑은 올해의 키워드 : 민주주의
+
+
+작년부터 조금씩 민주주의식 회의 제도나 조직 같은 것에 관심이 있었고, 올해는 정의당 서울시당에서 주관한 정치 아카데미를 통해 민주주의 공부를 조금이나마 시작한 상태에서, 4500만명이 경악하는 사건이 터졌다. (500만명은 시각이 다르다.) 사건의 흐름과 이면에서 흐르는 이야기들을 다양한 시각으로</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-12-30">2016년 12월 30일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/whats-new-in-python-3-6-korean/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2016/12/python-3.6-release.png 300w,
+                            /content/images/size/w720/2016/12/python-3.6-release.png 720w,
+                            /content/images/size/w960/2016/12/python-3.6-release.png 960w,
+                            /content/images/size/w1200/2016/12/python-3.6-release.png 1200w,
+                            /content/images/size/w2000/2016/12/python-3.6-release.png 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2016/12/python-3.6-release.png"
+                    alt="파이썬 3.6에서 바뀐 점"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">파이썬 3.6에서 바뀐 점</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">파이썬 3.6이 방금 전(12월 23일) 정식 출시되었습니다. 이 글에서는 파이썬 3.6에 추가된 문법과 바뀐점을 간략하게 알아보려 합니다. 파이썬 공식 문서의 What’s New In Python 3.6을 참고하였습니다.
+
+
+
+
+새 문법
+
+
+
+1. f 문자열 포매팅(PEP 498)
+
+
+.format() 메서드나 %를 사용할 때 변수를 죽 늘어놓아야 했던 불편함을 덜</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2016-12-23">2016년 12월 23일</time>
+            </footer>
+        </div>
+    </a>
+</article>                            <article class="gh-card post">
+    <a class="gh-card-link" href="/docker-for-ghost-blogging/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w300/2017/01/docker-for-ghost-blogging.png 300w,
+                            /content/images/size/w720/2017/01/docker-for-ghost-blogging.png 720w,
+                            /content/images/size/w960/2017/01/docker-for-ghost-blogging.png 960w,
+                            /content/images/size/w1200/2017/01/docker-for-ghost-blogging.png 1200w,
+                            /content/images/size/w2000/2017/01/docker-for-ghost-blogging.png 2000w"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    src="/content/images/size/w720/2017/01/docker-for-ghost-blogging.png"
+                    alt="Docker 활용법 - Ghost 블로그 Github에서 운영하기"
+                >
+            </figure>
+
+        <div class="gh-card-wrapper">
+            <header class="gh-card-header">
+                <h3 class="gh-card-title">Docker 활용법 - Ghost 블로그 Github에서 운영하기</h3>
+            </header>
+
+                    <div class="gh-card-excerpt">Docker를 활용하여 블로깅 도구인 Ghost와 Buster를 활용하여 정적 블로그 생성을 편리하게 구축해 보았습니다.
+
+
+
+
+요약
+
+
+다음 깃헙 저장소를 다운받은 후, .env 파일을 수정하고 나서 docker-compose up -d하면 블로깅 환경 완성! (필요한 건 오직 Docker뿐.)
+
+
+
+
+
+이 글에서 사용하는 도구들
+
+
+Ghost
+
+
+Ghost는 깔끔한 외관과 편리한 관리 기능으로 많은 분들에게 사랑을 받고 있는 Node.</div>
+
+            <footer class="gh-card-footer">
+                <span class="gh-card-author">By Alan Kim</span>
+                <span class="gh-card-footer-sep"></span>
+                <time class="gh-card-date" datetime="2017-02-02">2017년 2월 2일</time>
+            </footer>
+        </div>
+    </a>
+</article>                    </div>
+                </div>
+            </div>
+</main>
+
+        <footer class="gh-foot gh-outer">
+            <div class="gh-foot-inner gh-inner">
+                    <section class="gh-subscribe">
+                            <h4 class="gh-subscribe-title">Subscribe to raccoony&#x27;s cave</h3>
+
+                                <div class="gh-subscribe-description">Don&#x27;t miss out on the latest news. Sign up now to get access to the library of members-only articles.</div>
+
+                            <button class="gh-subscribe-btn gh-btn" data-portal="signup"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33332 3.33334H16.6667C17.5833 3.33334 18.3333 4.08334 18.3333 5.00001V15C18.3333 15.9167 17.5833 16.6667 16.6667 16.6667H3.33332C2.41666 16.6667 1.66666 15.9167 1.66666 15V5.00001C1.66666 4.08334 2.41666 3.33334 3.33332 3.33334Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18.3333 5L9.99999 10.8333L1.66666 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> Subscribe now</button>
+                    </section>
+
+                <nav class="gh-foot-menu">
+                    
+                </nav>
+
+                <div class="gh-copyright">
+                        raccoony&#x27;s cave © 2022. Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/assets/built/main.min.js?v=61d94923b7"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+    var subs = document.getElementsByClassName("gh-subscribe");
+    subs[0].style.display = 'none';
+</script>
+</body>
+
+</html>
